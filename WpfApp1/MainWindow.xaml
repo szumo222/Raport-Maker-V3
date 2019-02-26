@@ -1,4 +1,5 @@
 ﻿<Window x:Class="WpfApp1.MainWindow"
+        x:Name="window"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
@@ -8,32 +9,45 @@
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         TextElement.Foreground="{DynamicResource MaterialDesignBody}"
         TextElement.FontWeight="Regular"
-        TextElement.FontSize="13"
+        TextElement.FontSize="24"
         TextOptions.TextFormattingMode="Ideal"
         TextOptions.TextRenderingMode="Auto"
         Background="{DynamicResource MaterialDesignPaper}"
         FontFamily="{DynamicResource MaterialDesignFont}"
-        Title="MainWindow" Height="450" Width="800" ScrollViewer.VerticalScrollBarVisibility="Disabled" WindowStyle="None" HorizontalAlignment="Left" VerticalAlignment="Top">
-    <Grid>
-        <materialDesign:Card Padding="32" Margin="16" FontSize="24">
-            <TextBlock Style="{DynamicResource MaterialDesignTitleTextBlock}" FontSize="24">Aplikacja</TextBlock>
-        </materialDesign:Card>
+        Title="Raport Maker V3" Height="400.998" Width="800"
+        HorizontalAlignment="Left" VerticalAlignment="Top"
+        ResizeMode="CanMinimize">
+    <Grid Margin="0,0,0.2,0.2">
         <DatePicker
-            materialDesign:HintAssist.Hint="Data"
-            Style="{StaticResource MaterialDesignFloatingHintDatePicker}" 
-            Margin="16,114,0,0" 
-            Height="60"
-            Width="160"
-            VerticalAlignment="Top" 
-            FontSize="24" 
-            HorizontalAlignment="Left" />
+            SelectedDateChanged="MonthlyCalendar_SelectedDatesChanged"
+            materialDesign:HintAssist.Hint="Data" Style="{StaticResource MaterialDesignFloatingHintDatePicker}" Margin="16,16,0,0" 
+            x:Name="DataPicker_1" Height="60" Width="160"  FontSize="24"  HorizontalAlignment="Left" VerticalAlignment="Top" />
         <Button
-            Style="{StaticResource MaterialDesignRaisedAccentButton}"
-            Width="160"
-            Height="60"
+            Style="{StaticResource MaterialDesignRaisedAccentButton}" materialDesign:ShadowAssist.ShadowDepth="Depth3"
+            Width="160" Height="40" Content="Przycisk" x:Name="Button_1"
             ToolTip="Resource name: MaterialDesignRaisedAccentButton"
-            Content="Przycisk"
-            materialDesign:RippleAssist.Feedback="#DD000000" FontSize="24" Margin="16,179,0,0" HorizontalAlignment="Left" VerticalAlignment="Top">
+            materialDesign:RippleAssist.Feedback="#DD000000" FontSize="24" Margin="16,0,0,16" VerticalAlignment="Bottom" HorizontalAlignment="Left" Click="Button_1_Click">
         </Button>
+        <TextBox x:Name="TextBox_1" HorizontalAlignment="Center" Height="60" TextWrapping="Wrap" Text="Miesiąc" 
+                 Width="350" FontSize="24" IsEnabled="False" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" 
+                 Margin="0,16,0,0" VerticalAlignment="Top"/>
+        <TextBox x:Name="TextBox_2"  Height="60" Margin="0,16,16,0" TextWrapping="Wrap" Text="Rok" 
+            VerticalAlignment="Top" Width="193" FontSize="24" IsEnabled="False" HorizontalContentAlignment="Center" 
+                 VerticalContentAlignment="Center" HorizontalAlignment="Right"/>
+        <GroupBox x:Name="groupBox_1" Header="Wybór raportu" Height="191" Margin="16,0,0,0" VerticalAlignment="Center" Width="370" 
+                  FontSize="24" HorizontalAlignment="Left" materialDesign:ShadowAssist.ShadowDepth="Depth3" BorderThickness="1">
+            <Grid>
+                <RadioButton x:Name="radioButton_1" Content="Zaiks" HorizontalAlignment="Left" Margin="16,16,0,0" VerticalAlignment="Top"/>
+                <RadioButton x:Name="radioButton_2" Content="Stoart" HorizontalAlignment="Left" Margin="16,0,0,16" VerticalAlignment="Bottom"/>
+            </Grid>
+        </GroupBox>
+        <GroupBox x:Name="groupBox_2" Header="Wybór audycji" Height="191" Margin="0,0,16,0" VerticalAlignment="Center" Width="370" 
+                  FontSize="24" HorizontalAlignment="Right" materialDesign:ShadowAssist.ShadowDepth="Depth3" BorderThickness="1">
+            <Grid>
+                <RadioButton x:Name="radioButton_3" Content="Szczecin" HorizontalAlignment="Left" Margin="16,16,0,0" VerticalAlignment="Top"/>
+                <RadioButton x:Name="radioButton_4" Content="Szczecin Extra" HorizontalAlignment="Left" Margin="16,0,0,16" VerticalAlignment="Bottom"/>
+            </Grid>
+        </GroupBox>
+        <ProgressBar x:Name="ProgressBar_1" IsIndeterminate="False" Margin="0,0,15.4,16" Width="556" Height="40" VerticalAlignment="Bottom" HorizontalAlignment="Right" Opacity="0.3" />
     </Grid>
 </Window>

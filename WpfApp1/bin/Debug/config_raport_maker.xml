@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<root>
+<!--Pusty Folder raport_maker_help jest wymagany do poprawnego działania programu-->
+<!--Ścieżki wymagają znaku \ na końcu-->
+<zaiks>
+    <name>Zaiks</name>
+	<!--Ścieżka do folderu z drzewem Szczecin 00000066-->
+    <get_folder_szczecin>E:\Praktyki\SeplServTree\00000066\</get_folder_szczecin>
+	<!--Ścieżka do folderu z dzrzewem Szczecin Ekstra 00000069 -->
+	<get_folder_x>E:\Praktyki\SeplServTree\00000069\</get_folder_x>
+	<!--Ścieżka do zapisu pliku wyjściowego Szczecin-->
+    <destination_folder>C:\Users\szumo\Desktop\Nowy folder\Szczecin\</destination_folder>
+	<!--Ścieżka do zapisu pliku wyjściowego Szczecin Ekstra-->
+    <destination_folder_ekstra>C:\Users\szumo\Desktop\Nowy folder\Szczecin Ekstra\</destination_folder_ekstra>
+</zaiks>
+<stoart>
+    <name>Stoart</name>
+	<!--Ścieżka do folderu z drzewem Szczecin-->
+    <get_folder_szczecin>E:\Praktyki\SeplServTree\00000066\</get_folder_szczecin>
+	<!--Ścieżka do folderu z dzrzewem Szczecin Ekstra 00000069 -->
+	<get_folder_x>E:\Praktyki\SeplServTree\00000069\</get_folder_x>
+	<!--Ścieżka do zapisu pliku wyjściowego-->
+    <destination_folder>C:\Users\szumo\Desktop\Nowy folder\Szczecin\</destination_folder>
+	<!--Ścieżka do zapisu pliku wyjściowego Szczecin Ekstra-->
+    <destination_folder_ekstra>C:\Users\szumo\Desktop\Nowy folder\Szczecin Ekstra\</destination_folder_ekstra>
+</stoart>
+</root>

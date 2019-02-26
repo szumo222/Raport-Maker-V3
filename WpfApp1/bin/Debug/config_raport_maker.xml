@@ -5,23 +5,23 @@
 <zaiks>
     <name>Zaiks</name>
 	<!--Ścieżka do folderu z drzewem Szczecin 00000066-->
-    <get_folder_szczecin>E:\Praktyki\SeplServTree\00000066\</get_folder_szczecin>
+    <get_folder_szczecin>H:\bck_BCS\SeplServTree\00000066\</get_folder_szczecin>
 	<!--Ścieżka do folderu z dzrzewem Szczecin Ekstra 00000069 -->
-	<get_folder_x>E:\Praktyki\SeplServTree\00000069\</get_folder_x>
+	<get_folder_x>H:\bck_BCS\SeplServTree\00000069\</get_folder_x>
 	<!--Ścieżka do zapisu pliku wyjściowego Szczecin-->
-    <destination_folder>C:\Users\szumo\Desktop\Nowy folder\Szczecin\</destination_folder>
+    <destination_folder>C:\Users\admin-szumielewicz\Desktop\RaportMaker\</destination_folder>
 	<!--Ścieżka do zapisu pliku wyjściowego Szczecin Ekstra-->
-    <destination_folder_ekstra>C:\Users\szumo\Desktop\Nowy folder\Szczecin Ekstra\</destination_folder_ekstra>
+    <destination_folder_ekstra>C:\Users\admin-szumielewicz\Desktop\RaportMaker\</destination_folder_ekstra>
 </zaiks>
 <stoart>
     <name>Stoart</name>
 	<!--Ścieżka do folderu z drzewem Szczecin-->
-    <get_folder_szczecin>E:\Praktyki\SeplServTree\00000066\</get_folder_szczecin>
+    <get_folder_szczecin>H:\bck_BCS\SeplServTree\00000066\</get_folder_szczecin>
 	<!--Ścieżka do folderu z dzrzewem Szczecin Ekstra 00000069 -->
-	<get_folder_x>E:\Praktyki\SeplServTree\00000069\</get_folder_x>
+	<get_folder_x>H:\bck_BCS\SeplServTree\00000069\</get_folder_x>
 	<!--Ścieżka do zapisu pliku wyjściowego-->
-    <destination_folder>C:\Users\szumo\Desktop\Nowy folder\Szczecin\</destination_folder>
+    <destination_folder>C:\Users\admin-szumielewicz\Desktop\RaportMaker\</destination_folder>
 	<!--Ścieżka do zapisu pliku wyjściowego Szczecin Ekstra-->
-    <destination_folder_ekstra>C:\Users\szumo\Desktop\Nowy folder\Szczecin Ekstra\</destination_folder_ekstra>
+    <destination_folder_ekstra>C:\Users\admin-szumielewicz\Desktop\RaportMaker\</destination_folder_ekstra>
 </stoart>
 </root>

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Text;
+using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Shapes;
@@ -69,7 +70,8 @@ namespace WpfApp1
                 XmlDocument doc = new XmlDocument();
                 doc.Load(@"config_raport_maker.xml");
                 XmlNodeList xml_zaiks = doc.GetElementsByTagName("zaiks");
-                for (int i = 0; i < xml_zaiks.Count; i++)
+
+                Parallel.For(0, xml_zaiks.Count, i=>
                 {
                     XmlNode xml_dest_folder_zaiks = xml_zaiks[i].SelectSingleNode("destination_folder");
                     XmlNode xml_dest_folder_ekstra_zaiks = xml_zaiks[i].SelectSingleNode("destination_folder_ekstra");
@@ -79,9 +81,22 @@ namespace WpfApp1
                     destination_folder_ekstra_zaiks = xml_dest_folder_ekstra_zaiks.InnerText;
                     get_folder_szczecin_zaiks = xml_get_folder_zaiks.InnerText;
                     get_folder_szn_ekstra_zaiks = xml_get_folder_x_zaiks.InnerText;
-                }
+                });
+
+                /*for (int i = 0; i < xml_zaiks.Count; i++)
+                {
+                    XmlNode xml_dest_folder_zaiks = xml_zaiks[i].SelectSingleNode("destination_folder");
+                    XmlNode xml_dest_folder_ekstra_zaiks = xml_zaiks[i].SelectSingleNode("destination_folder_ekstra");
+                    XmlNode xml_get_folder_zaiks = xml_zaiks[i].SelectSingleNode("get_folder_szczecin");
+                    XmlNode xml_get_folder_x_zaiks = xml_zaiks[i].SelectSingleNode("get_folder_x");
+                    destination_folder_zaiks = xml_dest_folder_zaiks.InnerText;
+                    destination_folder_ekstra_zaiks = xml_dest_folder_ekstra_zaiks.InnerText;
+                    get_folder_szczecin_zaiks = xml_get_folder_zaiks.InnerText;
+                    get_folder_szn_ekstra_zaiks = xml_get_folder_x_zaiks.InnerText;
+                }*/
                 XmlNodeList xml_stoart = doc.GetElementsByTagName("stoart");
-                for (int i = 0; i < xml_stoart.Count; i++)
+
+                Parallel.For(0, xml_stoart.Count, i=>
                 {
                     XmlNode xml_dest_folder_stoart = xml_stoart[i].SelectSingleNode("destination_folder");
                     XmlNode xml_dest_folder_ekstra_stoart = xml_stoart[i].SelectSingleNode("destination_folder_ekstra");
@@ -91,7 +106,19 @@ namespace WpfApp1
                     destination_folder_ekstra_stoart = xml_dest_folder_ekstra_stoart.InnerText;
                     get_folder_szczecin_stoart = xml_get_folder_stoart.InnerText;
                     get_folder_szn_ekstra_stoart = xml_get_folder_x_stoart.InnerText;
-                }
+                });
+
+                /*for (int i = 0; i < xml_stoart.Count; i++)
+                {
+                    XmlNode xml_dest_folder_stoart = xml_stoart[i].SelectSingleNode("destination_folder");
+                    XmlNode xml_dest_folder_ekstra_stoart = xml_stoart[i].SelectSingleNode("destination_folder_ekstra");
+                    XmlNode xml_get_folder_stoart = xml_stoart[i].SelectSingleNode("get_folder_szczecin");
+                    XmlNode xml_get_folder_x_stoart = xml_stoart[i].SelectSingleNode("get_folder_x");
+                    destination_folder_stoart = xml_dest_folder_stoart.InnerText;
+                    destination_folder_ekstra_stoart = xml_dest_folder_ekstra_stoart.InnerText;
+                    get_folder_szczecin_stoart = xml_get_folder_stoart.InnerText;
+                    get_folder_szn_ekstra_stoart = xml_get_folder_x_stoart.InnerText;
+                }*/
 
                 miesiac = DataPicker_1.SelectedDate.Value.Month.ToString();
                 rok = DataPicker_1.SelectedDate.Value.Year.ToString();
@@ -136,8 +163,7 @@ namespace WpfApp1
 
                 if (czynadpisac == true)
                 {
-
-                    foreach (string file in array2)
+                    Parallel.ForEach(array2, file =>
                     {
                         XslCompiledTransform xslt2 = new XslCompiledTransform();
                         xslt2.Load(f_xslt);
@@ -145,9 +171,28 @@ namespace WpfApp1
                         string f_out2 = @"raport_maker_help\" + path + "_" + z + ".txt";
                         xslt2.Transform(file, f_out2);
                         z++;
-                    }
+                    });
+                    /*foreach (string file in array2)
+                    {
+                        XslCompiledTransform xslt2 = new XslCompiledTransform();
+                        xslt2.Load(f_xslt);
+                        string path = Path.GetFileNameWithoutExtension(file);
+                        string f_out2 = @"raport_maker_help\" + path + "_" + z + ".txt";
+                        xslt2.Transform(file, f_out2);
+                        z++;
+                    }*/
                     string[] array = Directory.GetFiles(@"raport_maker_help\", "*.txt", SearchOption.AllDirectories);
 
+                    Parallel.ForEach(array, file =>
+                    {
+                        string[] lines = File.ReadAllLines(file);
+                        for(int i = 0; i < lines.Length; i++)
+                        {
+                            array3.Add(lines[i]);
+                        }
+                    });
+
+                    /*
                     foreach (string file in array)
                     {
                         string[] lines = File.ReadAllLines(file);
@@ -155,16 +200,25 @@ namespace WpfApp1
                         {
                             array3.Add(lines[i]);
                         }
-                    }
+                    }*/
                     array3.Sort();
                     array4.Add("Data|Godz.aud.|Tytul audycji|Tytul utworu|Kompozytor|Autor tekstu|Tlumacz|Czas|Wykonawca|Producent|Wydawca|");
-                    foreach (string s in array3)
+
+                    Parallel.ForEach(array3, s =>
                     {
                         StringBuilder ss = new StringBuilder(s);
                         ss.Remove(17, 6);
                         array4.Add(ss.ToString());
                         //array4.Add(s);
-                    }
+                    });
+
+                    /*foreach (string s in array3)
+                    {
+                        StringBuilder ss = new StringBuilder(s);
+                        ss.Remove(17, 6);
+                        array4.Add(ss.ToString());
+                        //array4.Add(s);
+                    }*/
                     File.WriteAllLines(fname, array4, Encoding.UTF8);
 
                     string dsa = @"raport_maker_help\";
@@ -172,10 +226,15 @@ namespace WpfApp1
                     array2.Clear();
                     array3.Clear();
                     array4.Clear();
-                    foreach (FileInfo file in di.GetFiles())
+
+                    Parallel.ForEach(di.GetFiles(), file =>
                     {
                         file.Delete();
-                    }
+                    });
+                    /*foreach (FileInfo file in di.GetFiles())
+                    {
+                        file.Delete();
+                    }*/
                 }
                 else
                 {
@@ -212,14 +271,24 @@ namespace WpfApp1
 
                 f_xslt = @"raportdlazaikkopias.xslt";
                 string[] folder_days_zaiks_dir = Directory.GetDirectories(get_folder_zaiks + rok + @"\" + miesiac + @"\");
-                foreach (string dir in folder_days_zaiks_dir)
+
+                Parallel.ForEach(folder_days_zaiks_dir, dir =>
                 {
                     day = Directory.GetFiles(dir, "*.xml", SearchOption.AllDirectories);
                     foreach (string d in day)
                     {
                         array2.Add(d);
                     }
-                }
+                });
+
+                /*foreach (string dir in folder_days_zaiks_dir)
+                {
+                    day = Directory.GetFiles(dir, "*.xml", SearchOption.AllDirectories);
+                    foreach (string d in day)
+                    {
+                        array2.Add(d);
+                    }
+                }*/
             }
 
             //Stoart
@@ -236,14 +305,24 @@ namespace WpfApp1
 
                 f_xslt = @"raportdlastoartkapias.xslt";
                 string[] folder_days_stoart_dir = Directory.GetDirectories(get_folder_stoart + rok + @"\" + miesiac + @"\");
-                foreach (string dir in folder_days_stoart_dir)
+
+                Parallel.ForEach(folder_days_stoart_dir, dir =>
                 {
                     day = Directory.GetFiles(dir, "*.xml", SearchOption.AllDirectories);
                     foreach (string d in day)
                     {
                         array2.Add(d);
                     }
-                }
+                });
+
+                /*foreach (string dir in folder_days_stoart_dir)
+                {
+                    day = Directory.GetFiles(dir, "*.xml", SearchOption.AllDirectories);
+                    foreach (string d in day)
+                    {
+                        array2.Add(d);
+                    }
+                }*/
             }
 
             //Brak

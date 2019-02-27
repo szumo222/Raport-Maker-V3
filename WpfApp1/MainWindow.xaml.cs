@@ -7,6 +7,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Threading;
 using System.Xml;
 using System.Xml.Xsl;
 using Path = System.IO.Path;
@@ -39,6 +40,7 @@ namespace WpfApp1
         int szn_or_szn_ekstra = 0;
         bool error = false;
         bool text_box_text_change = false;
+        bool progressbar_finish = false;
         List<string> array2 = new List<string>();
 
         public MainWindow()
@@ -48,6 +50,8 @@ namespace WpfApp1
             radioButton_2.IsChecked = false;
             radioButton_3.IsChecked = false;
             radioButton_4.IsChecked = false;
+            //ProgressBar_1.Value = 0;
+            //ProgressBar_1.Minimum = 0;
         }
 
         private void MonthlyCalendar_SelectedDatesChanged(object sender, SelectionChangedEventArgs e)
@@ -58,7 +62,7 @@ namespace WpfApp1
 
         }
 
-        private void Button_1_Click(object sender, RoutedEventArgs e)
+        private async void Button_1_Click(object sender, RoutedEventArgs e)
         {
             try
             {
@@ -67,17 +71,29 @@ namespace WpfApp1
                     MessageBox.Show("Ustaw datę!", "Raport Maker V2");
                     return;
                 }
-
-                Dispatcher.BeginInvoke(new Action(delegate
+                Button_1.IsEnabled = false;
+                progressbar_finish = false;
+                Main_Function();
+                ProgressBar_1.IsIndeterminate = true;
+                ProgressBar_1.Opacity = 100;
+                await Task.Run(() =>
                 {
-                    Start_ProgressBar();
-                }));
-                //Main_Function();
-                BackgroundWorker worker = new BackgroundWorker();
-                worker.DoWork += worker_DoWork;
+                    Main_Function();
+                });
+                //Dispatcher.Invoke(DispatcherPriority.Normal, (Action)delegate ()
+                //{
+                //    Main_Function();
+                //});
+                //BackgroundWorker worker = new BackgroundWorker();
+                //worker.DoWork += worker_DoWork;
                 //worker.RunWorkerCompleted += worker_RunWorkerCompleted;
-                worker.RunWorkerAsync();
-
+                //worker.RunWorkerAsync();
+                if (progressbar_finish == true)
+                {
+                    ProgressBar_1.IsIndeterminate = false;
+                    ProgressBar_1.Opacity = 30;
+                    Button_1.IsEnabled = true;
+                }
             }
             catch (Exception ex)
             {
@@ -155,6 +171,7 @@ namespace WpfApp1
             List<string> array4 = new List<string>();
             czynadpisac = false;
             int z = 0;
+            //ProgressBar_1.Maximum = array2.Count;
 
             if (File.Exists(fname))
             {
@@ -265,20 +282,13 @@ namespace WpfApp1
                 return;
             }
             FileInfo f1 = new FileInfo(fname);
-            ProgressBar_1.Opacity = 30;
-            ProgressBar_1.IsIndeterminate = false;
+            progressbar_finish = true;
             MessageBox.Show("Zakończono. Plik \n\n" + f1.Name + "\n\nzostał zapisany.", "Raport Maker V2");
         }
 
         private void worker_DoWork(object sender, DoWorkEventArgs e)
         {
             Main_Function();
-        }
-
-        private void Start_ProgressBar()
-        {
-            ProgressBar_1.Opacity = 100;
-            ProgressBar_1.IsIndeterminate = true;
         }
 
         private void Radiocheck()

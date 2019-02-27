@@ -163,7 +163,7 @@ namespace WpfApp1
 
                 if (czynadpisac == true)
                 {
-                    Parallel.ForEach(array2, file =>
+                    /*Parallel.ForEach(array2, file =>
                     {
                         XslCompiledTransform xslt2 = new XslCompiledTransform();
                         xslt2.Load(f_xslt);
@@ -171,8 +171,8 @@ namespace WpfApp1
                         string f_out2 = @"raport_maker_help\" + path + "_" + z + ".txt";
                         xslt2.Transform(file, f_out2);
                         z++;
-                    });
-                    /*foreach (string file in array2)
+                    });*/
+                    foreach (string file in array2)
                     {
                         XslCompiledTransform xslt2 = new XslCompiledTransform();
                         xslt2.Load(f_xslt);
@@ -180,7 +180,7 @@ namespace WpfApp1
                         string f_out2 = @"raport_maker_help\" + path + "_" + z + ".txt";
                         xslt2.Transform(file, f_out2);
                         z++;
-                    }*/
+                    }
                     string[] array = Directory.GetFiles(@"raport_maker_help\", "*.txt", SearchOption.AllDirectories);
 
                     Parallel.ForEach(array, file =>

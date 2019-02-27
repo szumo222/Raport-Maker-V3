@@ -7,12 +7,12 @@ using System.Windows;
 // Ogólne informacje o zestawie są kontrolowane poprzez następujący 
 // zestaw atrybutów. Zmień wartości tych atrybutów, aby zmodyfikować informacje
 // powiązane z zestawem.
-[assembly: AssemblyTitle("WpfApp1")]
-[assembly: AssemblyDescription("")]
+[assembly: AssemblyTitle("Raport Maker V3")]
+[assembly: AssemblyDescription("Tworzenie raportów z programu DigAIRange")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("WpfApp1")]
-[assembly: AssemblyCopyright("Copyright ©  2019")]
+[assembly: AssemblyProduct("Raport Maker V3")]
+[assembly: AssemblyCopyright("Patryk Szumielewicz")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 

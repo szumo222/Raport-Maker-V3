@@ -3,11 +3,9 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.IO;
 using System.Text;
-using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Threading;
 using System.Xml;
 using System.Xml.Xsl;
 using Path = System.IO.Path;
@@ -38,7 +36,6 @@ namespace WpfApp1
         int szn_or_szn_ekstra = 0;
         bool error = false;
         bool text_box_text_change = false;
-        bool progressbar_finish = false;
         List<string> array2 = new List<string>();
 
         public MainWindow()
@@ -68,17 +65,9 @@ namespace WpfApp1
                     return;
                 }
                 Button_1.IsEnabled = false;
-                progressbar_finish = false;
                 Main_Function();
                 ProgressBar_1.IsIndeterminate = true;
                 ProgressBar_1.Opacity = 100;
-                Main_Function();
-                if (progressbar_finish == true)
-                {
-                    ProgressBar_1.IsIndeterminate = false;
-                    ProgressBar_1.Opacity = 30;
-                    Button_1.IsEnabled = true;
-                }
             }
             catch (Exception ex)
             {
@@ -89,6 +78,64 @@ namespace WpfApp1
             }
         }
 
+        //Metoda główna
+        private void Main_Function()
+        {
+            Main_Function_Config_Raport_Maker();
+
+            miesiac = DataPicker_1.SelectedDate.Value.Month.ToString();
+            rok = DataPicker_1.SelectedDate.Value.Year.ToString();
+
+            Radiocheck_ktory_folder();
+            Radiocheck();
+
+            //Przerwanie programu gdy pojawi się Error
+            if (error == true) return;
+
+            List<string> array3 = new List<string>();
+            List<string> array4 = new List<string>();
+            czynadpisac = false;
+            int z = 0;
+
+            //Sprawdzanie czy dany plik wyjściowy już istnieje
+            if (File.Exists(fname))
+            {
+                if (MessageBox.Show("Raport już istnieje\nCzy chcesz go nadpisać?", "Raport Maker V2", MessageBoxButton.YesNo, MessageBoxImage.Warning) == MessageBoxResult.No)
+                {
+                    czynadpisac = false;
+                    return;
+                }
+                else
+                {
+                    FileInfo fff = new FileInfo(fname);
+                    fff.Delete();
+                    czynadpisac = true;
+                }
+            }
+            else if (!File.Exists(fname)) czynadpisac = true;
+
+            if (czynadpisac == true)
+            {
+                List<string> path = new List<string>();
+                foreach (string file in array2)
+                {
+                    path.Add(Path.GetFileNameWithoutExtension(file));
+                }
+
+                //Osbługa transformaty XSLT na osobnym wątku w celu nie zastygania UI
+                BackgroundWorker bw = new BackgroundWorker();
+                bw.DoWork += new DoWorkEventHandler((sender, args) => Main_Function_XSLT_Transform(array2, path, f_xslt, z));
+                bw.RunWorkerCompleted += new RunWorkerCompletedEventHandler((sender, args) => Main_Function_After_XSLT(array3, array4));
+                bw.RunWorkerAsync();
+            }
+            else
+            {
+                MessageBox.Show("Wybierz folder do zapisu!", "Raport Maker V2");
+                return;
+            }
+        }
+
+        //Metoda przypisująca nazwy folderów wg. pliku konfiguracyjnego config_raport_maker.xml
         private void Main_Function_Config_Raport_Maker()
         {
             XmlDocument doc = new XmlDocument();
@@ -122,163 +169,9 @@ namespace WpfApp1
             });
         }
 
-        private void Main_Function()
-        {
-
-            Main_Function_Config_Raport_Maker();
-
-            miesiac = DataPicker_1.SelectedDate.Value.Month.ToString();
-            rok = DataPicker_1.SelectedDate.Value.Year.ToString();
-
-            Radiocheck_ktory_folder();
-            Radiocheck();
-
-            if (error == true) return;
-
-            List<string> array3 = new List<string>();
-            List<string> array4 = new List<string>();
-            czynadpisac = false;
-            int z = 0;
-            //ProgressBar_1.Maximum = array2.Count;
-
-            if (File.Exists(fname))
-            {
-                if (MessageBox.Show("Raport już istnieje\nCzy chcesz go nadpisać?", "Raport Maker V2", MessageBoxButton.YesNo, MessageBoxImage.Warning) == MessageBoxResult.No)
-                {
-                    czynadpisac = false;
-                    return;
-                }
-                else
-                {
-                    FileInfo fff = new FileInfo(fname);
-                    fff.Delete();
-                    czynadpisac = true;
-                }
-            }
-            else if (!File.Exists(fname)) czynadpisac = true;
-
-            if (czynadpisac == true)
-            {
-                /*Parallel.ForEach(array2, file =>
-                {
-                    XslCompiledTransform xslt2 = new XslCompiledTransform();
-                    xslt2.Load(f_xslt);
-                    string path = Path.GetFileNameWithoutExtension(file);
-                    string f_out2 = @"raport_maker_help\" + path + "_" + z + ".txt";
-                    xslt2.Transform(file, f_out2);
-                    z++;
-                });*/
-                /*foreach (string file in array2)
-                {
-                    Console.WriteLine(file);
-                    XslCompiledTransform xslt2 = new XslCompiledTransform();
-                    xslt2.Load(f_xslt);
-                    string path = Path.GetFileNameWithoutExtension(file);
-                    //Console.WriteLine(path);
-                    string f_out2 = @"raport_maker_help\" + path + "_" + z + ".txt";
-                    xslt2.Transform(file, f_out2);
-                    z++;
-                }*/
-                List<string> path = new List<string>();
-                foreach (string file in array2)
-                {
-                    path.Add(Path.GetFileNameWithoutExtension(file));
-                }
-                /*foreach (string file in array2)
-                {
-                    Main_Function_XSLT_Transform(file, path, z);
-                }*/
-                //Thread thread = new Thread(new ThreadStart(Main_Function_XSLT_Transform(array2, path, z)));
-                //Thread thread = new Thread(delegate ()
-                //{
-                //Do somthing and set your value
-                //Main_Function_XSLT_Transform(array2, path, z);
-                //});
-                Thread thread = new Thread(() =>
-                {
-                    Main_Function_XSLT_Transform(array2, path, f_xslt, z);
-                });
-                thread.Start();
-                //string[] array = Directory.GetFiles(@"raport_maker_help\", "*.txt", SearchOption.AllDirectories);
-                IEnumerable <string> array = Directory.EnumerateFiles(@"raport_maker_help\", "*.txt", SearchOption.AllDirectories);
-
-                Parallel.ForEach(array, file =>
-                {
-                    string[] lines = File.ReadAllLines(file);
-                    for (int i = 0; i < lines.Length; i++)
-                    {
-                        array3.Add(lines[i]);
-                    }
-                });
-                array3.Sort();
-                array4.Add("Data|Godz.aud.|Tytul audycji|Tytul utworu|Kompozytor|Autor tekstu|Tlumacz|Czas|Wykonawca|Producent|Wydawca|");
-
-                foreach (string s in array3)
-                {
-                    StringBuilder ss = new StringBuilder(s);
-                    //ss.Remove(17, 6);
-                    array4.Add(ss.ToString());
-                    //array4.Add(s);
-                }
-                File.WriteAllLines(fname, array4, Encoding.UTF8);
-
-                string dsa = @"raport_maker_help\";
-                DirectoryInfo di = new DirectoryInfo(dsa);
-                array2.Clear();
-                array3.Clear();
-                array4.Clear();
-
-                Parallel.ForEach(di.GetFiles(), file =>
-                {
-                    file.Delete();
-                });
-            }
-            else
-            {
-                MessageBox.Show("Wybierz folder do zapisu!", "Raport Maker V2");
-                return;
-            }
-            FileInfo f1 = new FileInfo(fname);
-            progressbar_finish = true;
-            MessageBox.Show("Zakończono. Plik \n\n" + f1.Name + "\n\nzostał zapisany.", "Raport Maker V2");
-        }
-
+        //Metoda odpowiadająca za transformatę XSLT
         static void Main_Function_XSLT_Transform(List<string> array2, List<string>path, string f_xslt, int z)
         {
-            /*XslCompiledTransform xslt2 = new XslCompiledTransform();
-            xslt2.Load(f_xslt);
-
-            XmlWriterSettings writerSettings = xslt2.OutputSettings.Clone();
-            XmlReaderSettings readerSettings = new XmlReaderSettings();
-            readerSettings.DtdProcessing = DtdProcessing.Ignore;
-            readerSettings.XmlResolver = null;
-            */
-            /*Parallel.ForEach(array2, file =>
-            {
-                string f_out2;
-                f_out2 = @"raport_maker_help\" + path[z] + "_" + z + ".txt";
-                //f_out2 = @"raport_maker_help\" +
-                //string target = f_out2;
-                //f_out2 = "";
-                using (XmlReader xr = XmlReader.Create(file, readerSettings))
-                using (XmlWriter xw = XmlWriter.Create(f_out2, writerSettings))
-                    xslt2.Transform(xr, xw);
-                f_out2 = "";
-                z++;
-            });*/
-            /*foreach (string file in array2)
-            {
-                string f_out2;
-                f_out2 = @"raport_maker_help\" + path[z] + "_" + z + ".txt";
-                //f_out2 = @"raport_maker_help\" +
-                //string target = f_out2;
-                //f_out2 = "";
-                using (XmlReader xr = XmlReader.Create(file, readerSettings))
-                using (XmlWriter xw = XmlWriter.Create(f_out2, writerSettings))
-                    xslt2.Transform(xr, xw);
-                f_out2 = "";
-                z++;
-            }*/
             XslCompiledTransform xslt2 = new XslCompiledTransform();
             xslt2.Load(f_xslt);
             foreach (string file in array2)
@@ -292,6 +185,49 @@ namespace WpfApp1
             }
         }
 
+        //Metoda wywoływana po przeprowadzeniu transfomarty XSLT / operowanie na plikach w folderze pomocniczym raport_maker_help
+        private void Main_Function_After_XSLT(List<string> array3, List<string> array4)
+        {
+            IEnumerable<string> array = Directory.EnumerateFiles(@"raport_maker_help\", "*.txt", SearchOption.AllDirectories);
+
+            Parallel.ForEach(array, file =>
+            {
+                string[] lines = File.ReadAllLines(file);
+                for (int i = 0; i < lines.Length; i++)
+                {
+                    array3.Add(lines[i]);
+                }
+            });
+            array3.Sort();
+            array4.Add("Data|Godz.aud.|Tytul audycji|Tytul utworu|Kompozytor|Autor tekstu|Tlumacz|Czas|Wykonawca|Producent|Wydawca|");
+
+            foreach (string s in array3)
+            {
+                StringBuilder ss = new StringBuilder(s);
+                //if (ss.Length < 2) ss.Remove(0, 1);
+                //ss.Remove(17, 6);
+                array4.Add(ss.ToString());
+            }
+            File.WriteAllLines(fname, array4, Encoding.UTF8);
+
+            string dsa = @"raport_maker_help\";
+            DirectoryInfo di = new DirectoryInfo(dsa);
+            array2.Clear();
+            array3.Clear();
+            array4.Clear();
+
+            Parallel.ForEach(di.GetFiles(), file =>
+            {
+                file.Delete();
+            });
+            ProgressBar_1.IsIndeterminate = false;
+            ProgressBar_1.Opacity = 30;
+            FileInfo f1 = new FileInfo(fname);
+            MessageBox.Show("Zakończono. Plik \n\n" + f1.Name + "\n\nzostał zapisany.", "Raport Maker V2");
+            Button_1.IsEnabled = true;
+        }
+
+        //Sprawdzanie który rodzaj raportu został wybrany i przypisanie nazwy pierwszej częsci nazwy pliku wyjściowego
         private void Radiocheck()
         {
             //Zaiks
@@ -345,6 +281,7 @@ namespace WpfApp1
 
         }
 
+        //Szukanie plików z rozszerzeniem XML -> dodanie ich do listy
         private void RadioCheck_Parrel_ForEach(string dir)
         {
             dayy = Directory.EnumerateFiles(dir, "*.xml", SearchOption.AllDirectories);
@@ -355,6 +292,7 @@ namespace WpfApp1
             }
         }
 
+        //Sprwadznie który folder jest zaznaczony i przypisywanie odpowiedniej częsci nazwy pliku wyjściowego;
         private void Radiocheck_ktory_folder()
         {
             if (radioButton_4.IsChecked == true)

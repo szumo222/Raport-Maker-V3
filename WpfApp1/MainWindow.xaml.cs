@@ -10,6 +10,7 @@ using System.Xml;
 using System.Xml.Xsl;
 using Path = System.IO.Path;
 using System.Linq;
+using System.Windows.Input;
 
 namespace WpfApp1
 {
@@ -45,6 +46,7 @@ namespace WpfApp1
             radioButton_2.IsChecked = false;
             radioButton_3.IsChecked = false;
             radioButton_4.IsChecked = false;
+            WindowStartupLocation = System.Windows.WindowStartupLocation.CenterScreen;
         }
 
         private void MonthlyCalendar_SelectedDatesChanged(object sender, SelectionChangedEventArgs e)
@@ -76,6 +78,27 @@ namespace WpfApp1
                 ffff.Delete();
                 array2.Clear();
             }
+        }
+
+        //Możliwość ruszania oknem
+        private void Window_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            if (e.LeftButton == MouseButtonState.Pressed)
+            {
+                DragMove();
+            }
+        }
+
+        //Zamykanie okna
+        private void Close_Window(object sender, RoutedEventArgs e)
+        {
+            this.Close();
+        }
+
+        //Minimalizowanie okna
+        private void Minimalize_Window(object sender, RoutedEventArgs e)
+        {
+            WindowState = WindowState.Minimized;
         }
 
         //Metoda główna
@@ -188,8 +211,8 @@ namespace WpfApp1
         //Metoda wywoływana po przeprowadzeniu transfomarty XSLT / operowanie na plikach w folderze pomocniczym raport_maker_help
         private void Main_Function_After_XSLT(List<string> array3, List<string> array4)
         {
-            IEnumerable<string> array = Directory.EnumerateFiles(@"raport_maker_help\", "*.txt", SearchOption.AllDirectories);
-
+            //IEnumerable<string> array = Directory.EnumerateFiles(@"raport_maker_help\", "*.txt", SearchOption.AllDirectories);
+            string[] array = Directory.GetFiles(@"raport_maker_help\", "*.txt", SearchOption.AllDirectories);
             Parallel.ForEach(array, file =>
             {
                 string[] lines = File.ReadAllLines(file);
@@ -204,8 +227,8 @@ namespace WpfApp1
             foreach (string s in array3)
             {
                 StringBuilder ss = new StringBuilder(s);
-                //if (ss.Length < 2) ss.Remove(0, 1);
-                //ss.Remove(17, 6);
+                if (ss.Length < 2) ss.Remove(0, ss.Length);
+                if(ss.Length!=0) ss.Remove(17, 6);
                 array4.Add(ss.ToString());
             }
             File.WriteAllLines(fname, array4, Encoding.UTF8);
@@ -223,7 +246,9 @@ namespace WpfApp1
             ProgressBar_1.IsIndeterminate = false;
             ProgressBar_1.Opacity = 30;
             FileInfo f1 = new FileInfo(fname);
-            MessageBox.Show("Zakończono. Plik \n\n" + f1.Name + "\n\nzostał zapisany.", "Raport Maker V2");
+            //MessageBox.Show("Zakończono. Plik \n\n" + f1.Name + "\n\nzostał zapisany.", "Raport Maker V2");
+            Window1 window1 = new Window1(f1.Name);
+            window1.Show();
             Button_1.IsEnabled = true;
         }
 

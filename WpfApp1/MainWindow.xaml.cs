@@ -11,6 +11,7 @@ using System.Xml.Xsl;
 using Path = System.IO.Path;
 using System.Linq;
 using System.Windows.Input;
+using System.Reflection;
 
 namespace WpfApp1
 {
@@ -46,7 +47,7 @@ namespace WpfApp1
             radioButton_2.IsChecked = false;
             radioButton_3.IsChecked = false;
             radioButton_4.IsChecked = false;
-            WindowStartupLocation = System.Windows.WindowStartupLocation.CenterScreen;
+            WindowStartupLocation = WindowStartupLocation.CenterScreen;
         }
 
         private void MonthlyCalendar_SelectedDatesChanged(object sender, SelectionChangedEventArgs e)
@@ -63,20 +64,23 @@ namespace WpfApp1
             {
                 if (text_box_text_change == false)
                 {
-                    MessageBox.Show("Ustaw datę!", "Raport Maker V2");
+                    Window1 window1 = new Window1("Ustaw datę!");
+                    window1.ShowDialog();
                     return;
                 }
-                Button_1.IsEnabled = false;
                 Main_Function();
+                if (error == true) return;
                 ProgressBar_1.IsIndeterminate = true;
                 ProgressBar_1.Opacity = 100;
+                Button_1.IsEnabled = false;
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Błąd: " + ex);
+                MessageBox.Show("Błąd:\t" + ex, "Raport Maker V3");
                 FileInfo ffff = new FileInfo(fname);
                 ffff.Delete();
                 array2.Clear();
+                return;
             }
         }
 
@@ -123,7 +127,9 @@ namespace WpfApp1
             //Sprawdzanie czy dany plik wyjściowy już istnieje
             if (File.Exists(fname))
             {
-                if (MessageBox.Show("Raport już istnieje\nCzy chcesz go nadpisać?", "Raport Maker V2", MessageBoxButton.YesNo, MessageBoxImage.Warning) == MessageBoxResult.No)
+                Window2 window2 = new Window2();
+                window2.ShowDialog();
+                if(!window2.czynadpisac)
                 {
                     czynadpisac = false;
                     return;
@@ -153,7 +159,9 @@ namespace WpfApp1
             }
             else
             {
-                MessageBox.Show("Wybierz folder do zapisu!", "Raport Maker V2");
+                Window1 window1 = new Window1("Wybierz folder do zapisu!");
+                window1.ShowDialog();
+                //MessageBox.Show("Wybierz folder do zapisu!", "Raport Maker V3");
                 return;
             }
         }
@@ -243,13 +251,14 @@ namespace WpfApp1
             {
                 file.Delete();
             });
+            
+            FileInfo f1 = new FileInfo(fname);
+            string textblock_content = "Zakończono.Plik \n\n" + f1.Name + "\n\nzostał zapisany.";
+            Window1 window1 = new Window1(textblock_content);
+            Button_1.IsEnabled = true;
             ProgressBar_1.IsIndeterminate = false;
             ProgressBar_1.Opacity = 30;
-            FileInfo f1 = new FileInfo(fname);
-            //MessageBox.Show("Zakończono. Plik \n\n" + f1.Name + "\n\nzostał zapisany.", "Raport Maker V2");
-            Window1 window1 = new Window1(f1.Name);
             window1.Show();
-            Button_1.IsEnabled = true;
         }
 
         //Sprawdzanie który rodzaj raportu został wybrany i przypisanie nazwy pierwszej częsci nazwy pliku wyjściowego
@@ -300,8 +309,12 @@ namespace WpfApp1
             //Brak
             else
             {
-                MessageBox.Show("Wybierz rodzaj raportu!", "Raport Maker V2");
+                Window1 window1 = new Window1("Wybierz rodzaj raportu!");
+                window1.ShowDialog();
                 error = true;
+                Button_1.IsEnabled = true;
+                ProgressBar_1.IsIndeterminate = false;
+                ProgressBar_1.Opacity = 30;
             }
 
         }
@@ -337,9 +350,22 @@ namespace WpfApp1
             }
             else
             {
-                MessageBox.Show("Wybierz który folder!", "Raport Maker V2");
+                Window1 window1 = new Window1("Wybierz który raport!");
+                window1.ShowDialog();
                 error = true;
+                Button_1.IsEnabled = true;
+                ProgressBar_1.IsIndeterminate = false;
+                ProgressBar_1.Opacity = 30;
             }
+        }
+
+        //Informacje
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            string version = Assembly.GetExecutingAssembly().GetName().Version.ToString();
+            string context_menu= "Tytył:\tRaport Maker V3\nAutor:\tPatryk Szumielewicz\nE-mail:\tszumielewiczpatryk@gmail.com\nWersja:\t" + version;
+            Window1 window11 = new Window1(context_menu);
+            window11.Show();
         }
     }
 }

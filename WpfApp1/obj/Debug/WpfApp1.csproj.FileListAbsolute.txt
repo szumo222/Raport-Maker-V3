@@ -38,9 +38,10 @@ C:\Users\szumielewicz\source\repos\WpfApp1\WpfApp1\bin\Debug\Raport Maker V3.exe
 C:\Users\szumielewicz\source\repos\WpfApp1\WpfApp1\bin\Debug\Raport Maker V3.exe
 C:\Users\szumielewicz\source\repos\WpfApp1\WpfApp1\bin\Debug\Raport Maker V3.pdb
 C:\Users\szumielewicz\source\repos\WpfApp1\WpfApp1\obj\Debug\Raport Maker V3_MarkupCompile.cache
-C:\Users\szumielewicz\source\repos\WpfApp1\WpfApp1\obj\Debug\Raport Maker V3_MarkupCompile.lref
 C:\Users\szumielewicz\source\repos\WpfApp1\WpfApp1\obj\Debug\Raport Maker V3.g.resources
 C:\Users\szumielewicz\source\repos\WpfApp1\WpfApp1\obj\Debug\Raport Maker V3.exe
 C:\Users\szumielewicz\source\repos\WpfApp1\WpfApp1\obj\Debug\Raport Maker V3.pdb
 C:\Users\szumielewicz\source\repos\WpfApp1\WpfApp1\obj\Debug\Window1.baml
 C:\Users\szumielewicz\source\repos\WpfApp1\WpfApp1\obj\Debug\Window1.g.cs
+C:\Users\szumielewicz\source\repos\WpfApp1\WpfApp1\obj\Debug\Window2.baml
+C:\Users\szumielewicz\source\repos\WpfApp1\WpfApp1\obj\Debug\Window2.g.cs

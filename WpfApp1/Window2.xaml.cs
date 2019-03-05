@@ -1,17 +1,29 @@
-﻿using System.Windows;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Windows;
+using System.Windows.Controls;
+using System.Windows.Data;
+using System.Windows.Documents;
 using System.Windows.Input;
+using System.Windows.Media;
+using System.Windows.Media.Imaging;
+using System.Windows.Shapes;
 
 namespace WpfApp1
 {
     /// <summary>
-    /// Logika interakcji dla klasy Window1.xaml
+    /// Logika interakcji dla klasy Window2.xaml
     /// </summary>
-    public partial class Window1 : Window
+    public partial class Window2 : Window
     {
-        public Window1(string s)
+        public bool czynadpisac;
+        public Window2()
         {
             InitializeComponent();
-            TextBlock_1.Text = s;
+            TextBlock_1.Text = "Raport już istnieje\nCzy chcesz go nadpisać?";
             WindowStartupLocation = WindowStartupLocation.CenterScreen;
         }
 
@@ -38,6 +50,13 @@ namespace WpfApp1
 
         private void Button_1_Click(object sender, RoutedEventArgs e)
         {
+            czynadpisac = true;
+            this.Close();
+        }
+
+        private void Button_2_Click(object sender, RoutedEventArgs e)
+        {
+            czynadpisac = false;
             this.Close();
         }
     }

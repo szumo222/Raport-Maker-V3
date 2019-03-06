@@ -40,6 +40,7 @@ namespace WpfApp1
         bool text_box_text_change = false;
         List<string> array2 = new List<string>();
 
+
         public MainWindow()
         {
             InitializeComponent();
@@ -50,6 +51,7 @@ namespace WpfApp1
             WindowStartupLocation = WindowStartupLocation.CenterScreen;
         }
 
+        //Selektor kalendarza
         private void MonthlyCalendar_SelectedDatesChanged(object sender, SelectionChangedEventArgs e)
         {
             TextBox_1.Text = DataPicker_1.SelectedDate.Value.ToString("MMMM");
@@ -58,6 +60,7 @@ namespace WpfApp1
 
         }
 
+        //Główny przycisk
         private void Button_1_Click(object sender, RoutedEventArgs e)
         {
             try
@@ -68,11 +71,83 @@ namespace WpfApp1
                     window1.ShowDialog();
                     return;
                 }
-                Main_Function();
-                if (error == true) return;
-                ProgressBar_1.IsIndeterminate = true;
-                ProgressBar_1.Opacity = 100;
-                Button_1.IsEnabled = false;
+
+                Main_Function_Config_Raport_Maker();
+
+                miesiac = DataPicker_1.SelectedDate.Value.Month.ToString();
+                rok = DataPicker_1.SelectedDate.Value.Year.ToString();
+
+                Radiocheck_ktory_folder();
+                
+                //Przerwanie programu gdy pojawi się error
+                if (error == true)
+                {
+                    Button_1.IsEnabled = true;
+                    ProgressBar_1.IsIndeterminate = false;
+                    ProgressBar_1.Opacity = 0.1;
+                    return;
+                }
+                else
+                {
+                    Radiocheck();
+
+                    //Przerwanie programu gdy pojawi się Error
+                    if (error == true)
+                    {
+                        Button_1.IsEnabled = true;
+                        ProgressBar_1.IsIndeterminate = false;
+                        ProgressBar_1.Opacity = 0.1;
+                        return;
+                    }
+                    else
+                    {
+                        List<string> array3 = new List<string>();
+                        List<string> array4 = new List<string>();
+                        czynadpisac = false;
+                        int z = 0;
+
+                        //Sprawdzanie czy dany plik wyjściowy już istnieje
+                        if (File.Exists(fname))
+                        {
+                            Window2 window2 = new Window2();
+                            window2.ShowDialog();
+                            if (!window2.czynadpisac)
+                            {
+                                czynadpisac = false;
+                                return;
+                            }
+                            else
+                            {
+                                FileInfo fff = new FileInfo(fname);
+                                fff.Delete();
+                                czynadpisac = true;
+                            }
+                        }
+                        else if (!File.Exists(fname)) czynadpisac = true;
+
+                        if (czynadpisac == true)
+                        {
+                            List<string> path = new List<string>();
+                            foreach (string file in array2)
+                            {
+                                path.Add(Path.GetFileNameWithoutExtension(file));
+                            }
+
+                            //Osbługa transformaty XSLT na osobnym wątku w celu nie zastygania UI
+                            BackgroundWorker bw = new BackgroundWorker();
+                            bw.DoWork += new DoWorkEventHandler((sender1, args) => Main_Function_XSLT_Transform(array2, path, f_xslt, z));
+                            bw.RunWorkerCompleted += new RunWorkerCompletedEventHandler((sender1, args) => Main_Function_After_XSLT(array3, array4));
+                            bw.RunWorkerAsync();
+                            ProgressBar_1.IsIndeterminate = true;
+                            ProgressBar_1.Opacity = 100;
+                            Button_1.IsEnabled = false;
+                        }
+                        else
+                        {
+                            return;
+                        }
+                    }
+                }
             }
             catch (Exception ex)
             {
@@ -103,67 +178,6 @@ namespace WpfApp1
         private void Minimalize_Window(object sender, RoutedEventArgs e)
         {
             WindowState = WindowState.Minimized;
-        }
-
-        //Metoda główna
-        private void Main_Function()
-        {
-            Main_Function_Config_Raport_Maker();
-
-            miesiac = DataPicker_1.SelectedDate.Value.Month.ToString();
-            rok = DataPicker_1.SelectedDate.Value.Year.ToString();
-
-            Radiocheck_ktory_folder();
-            Radiocheck();
-
-            //Przerwanie programu gdy pojawi się Error
-            if (error == true) return;
-
-            List<string> array3 = new List<string>();
-            List<string> array4 = new List<string>();
-            czynadpisac = false;
-            int z = 0;
-
-            //Sprawdzanie czy dany plik wyjściowy już istnieje
-            if (File.Exists(fname))
-            {
-                Window2 window2 = new Window2();
-                window2.ShowDialog();
-                if(!window2.czynadpisac)
-                {
-                    czynadpisac = false;
-                    return;
-                }
-                else
-                {
-                    FileInfo fff = new FileInfo(fname);
-                    fff.Delete();
-                    czynadpisac = true;
-                }
-            }
-            else if (!File.Exists(fname)) czynadpisac = true;
-
-            if (czynadpisac == true)
-            {
-                List<string> path = new List<string>();
-                foreach (string file in array2)
-                {
-                    path.Add(Path.GetFileNameWithoutExtension(file));
-                }
-
-                //Osbługa transformaty XSLT na osobnym wątku w celu nie zastygania UI
-                BackgroundWorker bw = new BackgroundWorker();
-                bw.DoWork += new DoWorkEventHandler((sender, args) => Main_Function_XSLT_Transform(array2, path, f_xslt, z));
-                bw.RunWorkerCompleted += new RunWorkerCompletedEventHandler((sender, args) => Main_Function_After_XSLT(array3, array4));
-                bw.RunWorkerAsync();
-            }
-            else
-            {
-                Window1 window1 = new Window1("Wybierz folder do zapisu!");
-                window1.ShowDialog();
-                //MessageBox.Show("Wybierz folder do zapisu!", "Raport Maker V3");
-                return;
-            }
         }
 
         //Metoda przypisująca nazwy folderów wg. pliku konfiguracyjnego config_raport_maker.xml
@@ -257,7 +271,7 @@ namespace WpfApp1
             Window1 window1 = new Window1(textblock_content);
             Button_1.IsEnabled = true;
             ProgressBar_1.IsIndeterminate = false;
-            ProgressBar_1.Opacity = 30;
+            ProgressBar_1.Opacity = 0.1;
             window1.Show();
         }
 
@@ -267,6 +281,7 @@ namespace WpfApp1
             //Zaiks
             if (radioButton_1.IsChecked == true)
             {
+                error = false;
                 if (szn_or_szn_ekstra == 1)
                 {
                     fname = destination_folder_zaiks + @"raport_zaiks_" + fname_part;
@@ -288,6 +303,7 @@ namespace WpfApp1
             //Stoart
             else if (radioButton_2.IsChecked == true)
             {
+                error = false;
                 if (szn_or_szn_ekstra == 1)
                 {
                     fname = destination_folder_stoart + @"raport_stoart_" + fname_part;
@@ -310,11 +326,8 @@ namespace WpfApp1
             else
             {
                 Window1 window1 = new Window1("Wybierz rodzaj raportu!");
-                window1.ShowDialog();
+                window1.Show();
                 error = true;
-                Button_1.IsEnabled = true;
-                ProgressBar_1.IsIndeterminate = false;
-                ProgressBar_1.Opacity = 30;
             }
 
         }
@@ -339,6 +352,7 @@ namespace WpfApp1
                 get_folder_stoart = get_folder_szczecin_stoart;
                 fname_part = @"szczecin_" + miesiac + "_" + rok + ".txt";
                 szn_or_szn_ekstra = 1;
+                error = false;
 
             }
             else if (radioButton_3.IsChecked == true)
@@ -347,15 +361,13 @@ namespace WpfApp1
                 get_folder_stoart = get_folder_szn_ekstra_stoart;
                 fname_part = @"szczecin_ekstra_" + miesiac + "_" + rok + ".txt";
                 szn_or_szn_ekstra = 2;
+                error = false;
             }
             else
             {
                 Window1 window1 = new Window1("Wybierz który raport!");
-                window1.ShowDialog();
+                window1.Show();
                 error = true;
-                Button_1.IsEnabled = true;
-                ProgressBar_1.IsIndeterminate = false;
-                ProgressBar_1.Opacity = 30;
             }
         }
 

@@ -1,4 +1,4 @@
-﻿<Window x:Class="WpfApp1.Window1"
+﻿<Window x:Class="WpfApp1.StartWindow"
         x:Name="window"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
@@ -23,7 +23,7 @@
         <materialDesign:Card Padding="5" Margin="4">
             <TextBlock Style="{DynamicResource MaterialDesignTitleTextBlock}" Text="Raport Maker V3"/>
         </materialDesign:Card>
-        <Grid Margin="16,46,15.8,100.8">
+        <Grid Margin="16,46,15.8,95.8">
             <Grid.Background>
                 <SolidColorBrush Color="#FFF0F8FF" Opacity="0.7"/>
             </Grid.Background>
@@ -31,7 +31,7 @@
         </Grid>
         <Button
             Style="{StaticResource MaterialDesignRaisedAccentButton}" materialDesign:ShadowAssist.ShadowDepth="Depth3"
-            Width="160" Height="40" Content="Ok" x:Name="Button_1"
+            Width="160" Height="40" Content="Dalej" x:Name="Button_1"
             materialDesign:RippleAssist.Feedback="#DD000000" FontSize="24" Margin="16,0,0,48" VerticalAlignment="Bottom" HorizontalAlignment="Left" Click="Button_1_Click">
         </Button>
         <Button HorizontalAlignment="Right" Margin="0,5,16,0" VerticalAlignment="Top" Width="40" Click="Close_Window">

@@ -18,7 +18,7 @@
         Title="Raport Maker V3" Height="300" Width="400"
         HorizontalAlignment="Left" VerticalAlignment="Top"
         MouseDown="Window_MouseDown"
-        ResizeMode="NoResize" Icon="writing.ico" WindowStyle="None">
+        ResizeMode="NoResize" Icon="contract.ico" WindowStyle="None">
     <Grid Margin="0,0,0.2,0.2">
         <materialDesign:Card Padding="5" Margin="4">
             <TextBlock Style="{DynamicResource MaterialDesignTitleTextBlock}" Text="Raport Maker V3"/>

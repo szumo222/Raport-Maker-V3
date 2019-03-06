@@ -45,3 +45,5 @@ C:\Users\szumielewicz\source\repos\WpfApp1\WpfApp1\obj\Debug\Window1.baml
 C:\Users\szumielewicz\source\repos\WpfApp1\WpfApp1\obj\Debug\Window1.g.cs
 C:\Users\szumielewicz\source\repos\WpfApp1\WpfApp1\obj\Debug\Window2.baml
 C:\Users\szumielewicz\source\repos\WpfApp1\WpfApp1\obj\Debug\Window2.g.cs
+C:\Users\szumielewicz\source\repos\WpfApp1\WpfApp1\obj\Debug\StartWindow.baml
+C:\Users\szumielewicz\source\repos\WpfApp1\WpfApp1\obj\Debug\StartWindow.g.cs

@@ -53,8 +53,9 @@
                 <Grid.Background>
                     <SolidColorBrush Color="#FFF0F8FF" Opacity="0.7"/>
                 </Grid.Background>
-                <RadioButton x:Name="radioButton_1" Content="Zaiks" HorizontalAlignment="Left" Margin="16,16,0,0" VerticalAlignment="Top" FontWeight="Bold"/>
-                <RadioButton x:Name="radioButton_2" Content="Stoart" HorizontalAlignment="Left" Margin="16,0,0,16" VerticalAlignment="Bottom" FontWeight="Bold"/>
+                <RadioButton FontSize="22" x:Name="radioButton_1" Content="Zaiks" HorizontalAlignment="Left" Margin="16,16,0,0" VerticalAlignment="Top" FontWeight="Bold"/>
+                <RadioButton FontSize="22" x:Name="radioButton_2" Content="Stoart" HorizontalAlignment="Center" Margin="16,16,0,0" VerticalAlignment="Top" FontWeight="Bold"/>
+                <RadioButton FontSize="22" x:Name="radioButton_5" Content="Raport materiały" HorizontalAlignment="Left" Margin="16,0,0,16" VerticalAlignment="Bottom" FontWeight="Bold"/>
             </Grid>
         </GroupBox>
         <GroupBox x:Name="groupBox_2" Header="Wybór audycji" Height="191" Margin="0,0,16,32" VerticalAlignment="Center" Width="370" 
@@ -63,8 +64,8 @@
                 <Grid.Background>
                     <SolidColorBrush Color="#FFF0F8FF" Opacity="0.7"/>
                 </Grid.Background>
-                <RadioButton x:Name="radioButton_3" Content="Szczecin" HorizontalAlignment="Left" Margin="16,16,0,0" VerticalAlignment="Top" FontWeight="Bold"/>
-                <RadioButton x:Name="radioButton_4" Content="Szczecin Extra" HorizontalAlignment="Left" Margin="16,0,0,16" VerticalAlignment="Bottom" FontWeight="Bold"/>
+                <RadioButton FontSize="22" x:Name="radioButton_3" Content="Szczecin" HorizontalAlignment="Left" Margin="16,16,0,0" VerticalAlignment="Top" FontWeight="Bold"/>
+                <RadioButton FontSize="22" x:Name="radioButton_4" Content="Szczecin FM (Ekstra)" HorizontalAlignment="Left" Margin="16,0,0,16" VerticalAlignment="Bottom" FontWeight="Bold"/>
             </Grid>
         </GroupBox>
         <ProgressBar

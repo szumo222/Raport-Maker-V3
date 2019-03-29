@@ -39,7 +39,9 @@ namespace WpfApp1
         bool error = false;
         bool text_box_text_change = false;
         List<string> array2 = new List<string>();
-
+        int tree_1_index = 0;
+        int tree_2_index = 0;
+        string first_line;
 
         public MainWindow()
         {
@@ -244,7 +246,7 @@ namespace WpfApp1
                 }
             });
             array3.Sort();
-            array4.Add("Data|Godz.aud.|Tytul audycji|Tytul utworu|Kompozytor|Autor tekstu|Tlumacz|Czas|Wykonawca|Producent|Wydawca|");
+            array4.Add(first_line);
 
             foreach (string s in array3)
             {
@@ -291,6 +293,7 @@ namespace WpfApp1
                     fname = destination_folder_ekstra_zaiks + @"raport_zaiks_" + fname_part;
                 }
 
+                first_line = "Data|Godz.aud.|Tytul audycji|Tytul utworu|Kompozytor|Autor tekstu|Tlumacz|Czas|Wykonawca|Producent|Wydawca|";
                 f_xslt = @"raportdlazaikkopias.xslt";
                 string[] folder_days_zaiks_dir = Directory.GetDirectories(get_folder_zaiks + rok + @"\" + miesiac + @"\");
 
@@ -313,7 +316,30 @@ namespace WpfApp1
                     fname = destination_folder_ekstra_stoart + @"raport_stoart_" + fname_part;
                 }
 
+                first_line = "Data|Godz.aud.|Tytul audycji|Tytul utworu|Kompozytor|Autor tekstu|Tlumacz|Czas|Wykonawca|Producent|Wydawca|";
                 f_xslt = @"raportdlastoartkapias.xslt";
+                string[] folder_days_stoart_dir = Directory.GetDirectories(get_folder_stoart + rok + @"\" + miesiac + @"\");
+
+                Parallel.ForEach(folder_days_stoart_dir, dir =>
+                {
+                    RadioCheck_Parrel_ForEach(dir);
+                });
+            }
+
+            else if (radioButton_5.IsChecked == true)
+            {
+                error = false;
+                if (szn_or_szn_ekstra == 1)
+                {
+                    fname = destination_folder_stoart + @"raport_materialy_" + fname_part;
+                }
+                else if (szn_or_szn_ekstra == 2)
+                {
+                    fname = destination_folder_ekstra_stoart + @"raport_materialy_" + fname_part;
+                }
+
+                first_line = "Data;Godz.aud.;Tytul audycji;Godz. emisji;Długość;Tytuł;Autor;";
+                f_xslt = @"raportmaterialykopia.xslt";
                 string[] folder_days_stoart_dir = Directory.GetDirectories(get_folder_stoart + rok + @"\" + miesiac + @"\");
 
                 Parallel.ForEach(folder_days_stoart_dir, dir =>
@@ -343,23 +369,23 @@ namespace WpfApp1
             }
         }
 
-        //Sprwadznie który folder jest zaznaczony i przypisywanie odpowiedniej częsci nazwy pliku wyjściowego;
+        //Sprwadznie który folder jest zaznaczony i przypisywanie odpowiedniej częsci nazwy pliku wyjściowego
         private void Radiocheck_ktory_folder()
         {
-            if (radioButton_4.IsChecked == true)
+            if (radioButton_3.IsChecked == true)
             {
                 get_folder_zaiks = get_folder_szczecin_zaiks;
                 get_folder_stoart = get_folder_szczecin_stoart;
-                fname_part = @"szczecin_" + miesiac + "_" + rok + ".txt";
+                fname_part = @"szczecin_" + TextBox_1.Text + "_" + TextBox_2.Text + ".txt";
                 szn_or_szn_ekstra = 1;
                 error = false;
 
             }
-            else if (radioButton_3.IsChecked == true)
+            else if (radioButton_4.IsChecked == true)
             {
                 get_folder_zaiks = get_folder_szn_ekstra_zaiks;
                 get_folder_stoart = get_folder_szn_ekstra_stoart;
-                fname_part = @"szczecin_ekstra_" + miesiac + "_" + rok + ".txt";
+                fname_part = @"szczecin_FM_" + TextBox_1.Text + "_" + TextBox_2.Text + ".txt";
                 szn_or_szn_ekstra = 2;
                 error = false;
             }

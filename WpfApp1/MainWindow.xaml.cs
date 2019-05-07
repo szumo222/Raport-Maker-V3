@@ -12,6 +12,7 @@ using Path = System.IO.Path;
 using System.Linq;
 using System.Windows.Input;
 using System.Reflection;
+using System.Text.RegularExpressions;
 
 namespace WpfApp1
 {
@@ -35,12 +36,11 @@ namespace WpfApp1
         string get_folder_stoart;
         string fname;
         string fname_part;
+        string dsa = @"raport_maker_help\";
         int szn_or_szn_ekstra = 0;
         bool error = false;
         bool text_box_text_change = false;
         List<string> array2 = new List<string>();
-        int tree_1_index = 0;
-        int tree_2_index = 0;
         string first_line;
 
         public MainWindow()
@@ -135,6 +135,11 @@ namespace WpfApp1
                                 path.Add(Path.GetFileNameWithoutExtension(file));
                             }
 
+                            DirectoryInfo di = new DirectoryInfo(dsa);
+                            Parallel.ForEach(di.GetFiles(), file =>
+                            {
+                                file.Delete();
+                            });
                             //Osbługa transformaty XSLT na osobnym wątku w celu nie zastygania UI
                             BackgroundWorker bw = new BackgroundWorker();
                             bw.DoWork += new DoWorkEventHandler((sender1, args) => Main_Function_XSLT_Transform(array2, path, f_xslt, z));
@@ -237,32 +242,142 @@ namespace WpfApp1
         {
             //IEnumerable<string> array = Directory.EnumerateFiles(@"raport_maker_help\", "*.txt", SearchOption.AllDirectories);
             string[] array = Directory.GetFiles(@"raport_maker_help\", "*.txt", SearchOption.AllDirectories);
-            Parallel.ForEach(array, file =>
+            foreach(string file in array)
             {
                 string[] lines = File.ReadAllLines(file);
                 for (int i = 0; i < lines.Length; i++)
                 {
                     array3.Add(lines[i]);
                 }
-            });
+            }
             array3.Sort();
-            array4.Add(first_line);
-
+            int iiii = 1;
             foreach (string s in array3)
             {
                 StringBuilder ss = new StringBuilder(s);
-                if (ss.Length < 2) ss.Remove(0, ss.Length);
-                if(ss.Length!=0) ss.Remove(17, 6);
-                array4.Add(ss.ToString());
-            }
-            File.WriteAllLines(fname, array4, Encoding.UTF8);
+                
+                // Raport Stoart
+                if (radioButton_2.IsChecked == true)
+                {
+                    if (ss.Length < 2) ss.Remove(0, ss.Length);
+                    if (ss.Length >= 2) ss.Remove(0, 6);
+                    if (ss.Length != 0) { ss.Insert(0, iiii.ToString() + "|"); iiii++; }
+                    array4.Add(ss.ToString());
+                }
 
-            string dsa = @"raport_maker_help\";
+                //Raporty zaiks, materiały
+                else
+                {
+                    if (ss.Length < 2) ss.Remove(0, ss.Length);
+                    if (ss.Length >= 2) ss.Remove(17, 6);
+                    array4.Add(ss.ToString());
+                }
+            }
+            iiii = 1;
+
+            //Czyszczenie listy z pustych wierszy
+            for(int i = array4.Count - 1; i>=0; i--)
+            {
+                if(array4[i] == "")
+                {
+                    array4.RemoveAt(i);
+                }
+            }
+
+            
+            List<string> array5 = new List<string>();
+            List<string> array6 = new List<string>();
+            if (radioButton_2.IsChecked == true)
+            {
+                //Usuwanie liczby Lp. na początku 
+                foreach(string line in array4)
+                {
+                    string replacte;
+                    replacte = Regex.Replace(line, @"^\d{1,}\|", "");
+                    array5.Add(replacte);
+                }
+                array5.Sort();
+
+                string linia_liczba_odt_1 = "";
+                string linia_liczba_odt_2 = "";
+                int odt = 1;
+
+                //Liczenie takich samych wierszy
+                for (int i = 0; i < array5.Count(); i++)
+                {
+                    //Dla całej listy bez ostatniego elementu
+                    if (i < array5.Count()-1)
+                    {
+                        //Jeżeli wierwsze są takie same to wstawia pusty wierwsz i zwiększa licznik
+                        string part_of_line = Regex.Replace(array5[i].ToString(), @"\|\d{1,}:\d{1,}:\d{1,}.+", "");
+                        string part_of_compare_line = Regex.Replace(array5[i+1].ToString(), @"\|\d{1,}:\d{1,}:\d{1,}.+", "");
+                        //if (array5[i].ToString() == array5[i + 1].ToString())
+                        if(part_of_line == part_of_compare_line)
+                        {
+                            linia_liczba_odt_1 = Regex.Replace(array5[i].ToString(), "L.nad.", odt.ToString());
+                            array6.Add("");
+                            odt++;
+                        }
+                        //Jeżeli nie są takie same to wstawia wiersz z ilość takich samych wierwszy
+                        else
+                        {
+                            linia_liczba_odt_1 = Regex.Replace(array5[i].ToString(), "L.nad.", odt.ToString());
+                            linia_liczba_odt_2 = iiii.ToString() + "|" + linia_liczba_odt_1;
+                            iiii++;
+                            array6.Add(linia_liczba_odt_2);
+                            odt = 1;
+                        }
+                    }
+                    //Dla ostatniego elementu
+                    else
+                    {
+                        string part_of_line = Regex.Replace(array5[i].ToString(), @"\|\d{1,}:\d{1,}:\d{1,}.+", "");
+                        string part_of_compare_line = Regex.Replace(array5[i - 1].ToString(), @"\|\d{1,}:\d{1,}:\d{1,}.+", "");
+                        //Jeżeli wierwsze są takie same to wstawia pusty wierwsz i zwiększa licznik
+                        //if (array5[i].ToString() == array5[i -1 ].ToString())
+                        if(part_of_line == part_of_compare_line)
+                        {
+                            linia_liczba_odt_1 = Regex.Replace(array5[i].ToString(), "L.nad.", odt.ToString());
+                            linia_liczba_odt_2 = iiii.ToString() + "|" + linia_liczba_odt_1;
+                            iiii++;
+                            array6.Add(linia_liczba_odt_2);
+                            odt++;
+                        }
+                        //Jeżeli nie są takie same to wstawia wiersz z ilość takich samych wierwszy
+                        else
+                        {
+                            linia_liczba_odt_1 = Regex.Replace(array5[i].ToString(), "L.nad.", odt.ToString());
+                            linia_liczba_odt_2 = iiii.ToString() + "|" + linia_liczba_odt_1;
+                            iiii++;
+                            array6.Add(linia_liczba_odt_2);
+                            odt = 1;
+                        }
+                    }
+                }
+                //Czyszczenie listy z pustych wierwszy
+                for (int i = array6.Count - 1; i >= 0; i--)
+                {
+                    if (array6[i] == "")
+                    {
+                        array6.RemoveAt(i);
+                    }
+                }
+            }
+            array4.Insert(0, first_line);
+            if (radioButton_2.IsChecked == true)
+            {
+                array6.Insert(0, first_line);
+                File.WriteAllLines(fname, array6, Encoding.UTF8);
+                File.WriteAllLines(fname + "_pomocny.txt", array4, Encoding.UTF8);
+            }
+            else File.WriteAllLines(fname, array4, Encoding.UTF8);
+
             DirectoryInfo di = new DirectoryInfo(dsa);
             array2.Clear();
             array3.Clear();
             array4.Clear();
-
+            array5.Clear();
+            array6.Clear();
             Parallel.ForEach(di.GetFiles(), file =>
             {
                 file.Delete();
@@ -297,6 +412,10 @@ namespace WpfApp1
                 f_xslt = @"raportdlazaikkopias.xslt";
                 string[] folder_days_zaiks_dir = Directory.GetDirectories(get_folder_zaiks + rok + @"\" + miesiac + @"\");
 
+                /*foreach(string dir in folder_days_zaiks_dir)
+                {
+                    RadioCheck_Parrel_ForEach(dir);
+                }*/
                 Parallel.ForEach(folder_days_zaiks_dir, dir =>
                 {
                     RadioCheck_Parrel_ForEach(dir);
@@ -316,9 +435,14 @@ namespace WpfApp1
                     fname = destination_folder_ekstra_stoart + @"raport_stoart_" + fname_part;
                 }
 
-                first_line = "Data|Godz.aud.|Tytul audycji|Tytul utworu|Kompozytor|Autor tekstu|Tlumacz|Czas|Wykonawca|Producent|Wydawca|";
+                first_line = "Lp|WYKONAWCA|TUTYŁ UTWORU|CZAS UTWORU|ILOŚĆ NADAŃ|TYTUŁ PŁYTY|NUMER KATALOGOWY PŁYTY|WYDAWCA|ROK WYDANIA|POLSKA/ZAGRANICA(PL/Z)|KOD ISRC|";
                 f_xslt = @"raportdlastoartkapias.xslt";
                 string[] folder_days_stoart_dir = Directory.GetDirectories(get_folder_stoart + rok + @"\" + miesiac + @"\");
+
+                /*foreach (string dir in folder_days_stoart_dir)
+                {
+                    RadioCheck_Parrel_ForEach(dir);
+                }*/
 
                 Parallel.ForEach(folder_days_stoart_dir, dir =>
                 {
@@ -342,6 +466,12 @@ namespace WpfApp1
                 f_xslt = @"raportmaterialykopia.xslt";
                 string[] folder_days_stoart_dir = Directory.GetDirectories(get_folder_stoart + rok + @"\" + miesiac + @"\");
 
+
+                /*foreach (string dir in folder_days_stoart_dir)
+                {
+                    RadioCheck_Parrel_ForEach(dir);
+                }*/
+
                 Parallel.ForEach(folder_days_stoart_dir, dir =>
                 {
                     RadioCheck_Parrel_ForEach(dir);
@@ -361,7 +491,8 @@ namespace WpfApp1
         //Szukanie plików z rozszerzeniem XML -> dodanie ich do listy
         private void RadioCheck_Parrel_ForEach(string dir)
         {
-            dayy = Directory.EnumerateFiles(dir, "*.xml", SearchOption.AllDirectories);
+            string dirrr = dir + @"\Shows";
+            dayy = Directory.EnumerateFiles(dirrr, "*.xml", SearchOption.AllDirectories);
             day = dayy.ToArray();
             foreach (string d in day)
             {

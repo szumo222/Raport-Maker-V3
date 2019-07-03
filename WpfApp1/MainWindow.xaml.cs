@@ -284,7 +284,6 @@ namespace WpfApp1
         private void Main_Function_After_XSLT(List<string> array3, List<string> array4, Stopwatch sw)
         {
             IEnumerable<string> array = Directory.EnumerateFiles(@"raport_maker_help\", "*.txt", SearchOption.AllDirectories);
-            //string[] array = Directory.GetFiles(@"raport_maker_help\", "*.txt", SearchOption.AllDirectories);
             foreach (string file in array)
             {
                 string[] lines = File.ReadAllLines(file);

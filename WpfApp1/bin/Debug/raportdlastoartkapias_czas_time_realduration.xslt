@@ -18,11 +18,11 @@
 	<xsl:if test="Time_Duration &lt; 3600000">
 	<xsl:variable name="element_godzina_start" select="substring(Time_Start,12,5)"/>
 		<xsl:if test="Time_RealDuration &gt; 2000">
-		<xsl:value-of select="$element_godzina_start"/>|<xsl:value-of select="Music_Performer"/>|<xsl:value-of select="Title"/>|<xsl:value-of select="floor(Fade_MarkOut div 3600000)"/>:<xsl:value-of select="floor(Fade_MarkOut div 60000)"/>:<xsl:value-of select="round(Fade_MarkOut div 1000 mod 60)"/>|L.nad.|<xsl:value-of select="Music_Album"/>|Nr.Kat.|<xsl:value-of select="Music_Publisher"/>|<xsl:value-of select="Music_RecordDate"/>|PL|<xsl:value-of select="Music_GemaID"/>|
+		<xsl:value-of select="$element_godzina_start"/>|<xsl:value-of select="Music_Performer"/>|<xsl:value-of select="Title"/>|<xsl:value-of select="floor(Time_RealDuration div 3600000)"/>:<xsl:value-of select="floor(Time_RealDuration div 60000)"/>:<xsl:value-of select="round(Time_RealDuration div 1000 mod 60)"/>|L.nad.|<xsl:value-of select="Music_Album"/>|Nr.Kat.|<xsl:value-of select="Music_Publisher"/>|<xsl:value-of select="substring(Music_RecordDate,0,5)"/>|PL|<xsl:value-of select="Music_GemaID"/>|
 </xsl:if>
 			<xsl:if test="Time_RealDuration &lt;= 2000">
-				<xsl:variable name="realtime" select="(Fade_MarkOut + Time_RealDuration)"/>
-				<xsl:value-of select="$element_godzina_start"/>|<xsl:value-of select="Music_Performer"/>|<xsl:value-of select="Title"/>|<xsl:value-of select="floor($realtime div 3600000)"/>:<xsl:value-of select="floor($realtime div 60000)"/>:<xsl:value-of select="round($realtime div 1000 mod 60)"/>|L.nad.|<xsl:value-of select="Music_Album"/>|Nr.Kat.|<xsl:value-of select="Music_Publisher"/>|<xsl:value-of select="Music_RecordDate"/>|PL|<xsl:value-of select="Music_GemaID"/>|
+				<xsl:variable name="realtime" select="(Time_RealDuration)"/>
+				<xsl:value-of select="$element_godzina_start"/>|<xsl:value-of select="Music_Performer"/>|<xsl:value-of select="Title"/>|<xsl:value-of select="floor($realtime div 3600000)"/>:<xsl:value-of select="floor($realtime div 60000)"/>:<xsl:value-of select="round($realtime div 1000 mod 60)"/>|L.nad.|<xsl:value-of select="Music_Album"/>|Nr.Kat.|<xsl:value-of select="Music_Publisher"/>|<xsl:value-of select="substring(Music_RecordDate,0,5)"/>|PL|<xsl:value-of select="Music_GemaID"/>|
 </xsl:if>
 	</xsl:if>
 	</xsl:if>

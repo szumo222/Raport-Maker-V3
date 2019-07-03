@@ -23,6 +23,7 @@
         <materialDesign:Card Padding="5" Margin="4">
             <TextBlock Style="{DynamicResource MaterialDesignTitleTextBlock}" Text="Raport Maker V3"/>
         </materialDesign:Card>
+        <Grid Name="grid_main" Visibility="Hidden">
         <DatePicker Language="pl-PL"
             SelectedDateChanged="MonthlyCalendar_SelectedDatesChanged"
             materialDesign:HintAssist.Hint="Data"
@@ -49,27 +50,46 @@
         </TextBox>
         <GroupBox x:Name="groupBox_1" Header="Wybór raportu" Height="191" Margin="16,0,0,32" VerticalAlignment="Center" Width="370" 
                   FontSize="24" HorizontalAlignment="Left" materialDesign:ShadowAssist.ShadowDepth="Depth3" BorderThickness="1">
-            <Grid>
-                <Grid.Background>
-                    <SolidColorBrush Color="#FFF0F8FF" Opacity="0.7"/>
-                </Grid.Background>
-                <RadioButton FontSize="22" x:Name="radioButton_1" Content="Zaiks" HorizontalAlignment="Left" Margin="16,16,0,0" VerticalAlignment="Top" FontWeight="Bold"/>
-                <RadioButton FontSize="22" x:Name="radioButton_2" Content="Stoart" HorizontalAlignment="Center" Margin="16,16,0,0" VerticalAlignment="Top" FontWeight="Bold"/>
-                <RadioButton FontSize="22" x:Name="radioButton_5" Content="Raport materiały" HorizontalAlignment="Left" Margin="16,0,0,16" VerticalAlignment="Bottom" FontWeight="Bold"/>
-            </Grid>
+            <ScrollViewer>
+                <Grid>
+                    <Grid.Background>
+                        <SolidColorBrush Color="#FFF0F8FF" Opacity="0.7"/>
+                    </Grid.Background>
+                    <RadioButton FontSize="20" x:Name="radioButton_1" Content="Zaiks" HorizontalAlignment="Left" Margin="16,16,0,0" VerticalAlignment="Top" FontWeight="Bold"/>
+                    <RadioButton FontSize="20" x:Name="radioButton_2" Content="Stoart" HorizontalAlignment="Left" Margin="16,51,0,0" VerticalAlignment="Top" FontWeight="Bold"/>
+                    <RadioButton FontSize="20" x:Name="radioButton_5" Content="Materiały" HorizontalAlignment="Left" Margin="16,86,0,0" VerticalAlignment="Top" FontWeight="Bold"/>
+                    <RadioButton FontSize="20" x:Name="radioButton_6" Content="Klasa reklama" HorizontalAlignment="Left" Margin="16,121,0,0" VerticalAlignment="Top" FontWeight="Bold"/>
+                </Grid>
+            </ScrollViewer>
         </GroupBox>
         <GroupBox x:Name="groupBox_2" Header="Wybór audycji" Height="191" Margin="0,0,16,32" VerticalAlignment="Center" Width="370" 
                   FontSize="24" HorizontalAlignment="Right" materialDesign:ShadowAssist.ShadowDepth="Depth3" BorderThickness="1">
-            <Grid>
-                <Grid.Background>
-                    <SolidColorBrush Color="#FFF0F8FF" Opacity="0.7"/>
-                </Grid.Background>
-                <RadioButton FontSize="22" x:Name="radioButton_3" Content="Szczecin" HorizontalAlignment="Left" Margin="16,16,0,0" VerticalAlignment="Top" FontWeight="Bold"/>
-                <RadioButton FontSize="22" x:Name="radioButton_4" Content="Szczecin FM (Ekstra)" HorizontalAlignment="Left" Margin="16,0,0,16" VerticalAlignment="Bottom" FontWeight="Bold"/>
-            </Grid>
+            <ScrollViewer>
+                <Grid>
+                    <Grid.Background>
+                        <SolidColorBrush Color="#FFF0F8FF" Opacity="0.7"/>
+                    </Grid.Background>
+                    <RadioButton FontSize="20" x:Name="radioButton_3" Content="Szczecin" HorizontalAlignment="Left" Margin="16,16,0,0" VerticalAlignment="Top" FontWeight="Bold"/>
+                    <RadioButton FontSize="20" x:Name="radioButton_4" Content="Szczecin FM (Ekstra)" HorizontalAlignment="Left" Margin="16,51,0,0" VerticalAlignment="Top" FontWeight="Bold"/>
+                </Grid>
+            </ScrollViewer>
         </GroupBox>
         <ProgressBar
             x:Name="ProgressBar_1" Margin="0,0,16,100" Width="556" Height="40" VerticalAlignment="Bottom" HorizontalAlignment="Right" Opacity="0.1" />
+        </Grid>
+        <Grid Name="grid_start" Visibility="Visible" >
+            <Grid Margin="16,46,15.8,154.8">
+                <Grid.Background>
+                    <SolidColorBrush Color="#FFF0F8FF" Opacity="0.7"/>
+                </Grid.Background>
+                <TextBlock x:Name="TextBlock_1" FontSize="20" Text="Content" Margin="10,10,10.2,10.2" FontWeight="Bold" HorizontalAlignment="Left" VerticalAlignment="Center" />
+            </Grid>
+            <Button
+            Style="{StaticResource MaterialDesignRaisedAccentButton}" materialDesign:ShadowAssist.ShadowDepth="Depth3"
+            Width="160" Height="40" Content="Dalej" x:Name="Button_2"
+            materialDesign:RippleAssist.Feedback="#DD000000" FontSize="24" Margin="16,0,0,100" VerticalAlignment="Bottom" HorizontalAlignment="Left" Click="Button_2_Click">
+            </Button>
+        </Grid>
         <Button materialDesign:ShadowAssist.ShadowDepth="Depth3"
             HorizontalAlignment="Right" Margin="0,5,16,0" VerticalAlignment="Top" Width="40" Click="Close_Window">
             <materialDesign:PackIcon Kind="Close" HorizontalAlignment="Center" VerticalAlignment="Center" Height="32" Width="36" />

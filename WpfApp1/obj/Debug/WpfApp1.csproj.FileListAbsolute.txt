@@ -25,7 +25,6 @@ C:\Users\szumielewicz\source\repos\WpfApp1\WpfApp1\bin\Debug\MaterialDesignTheme
 C:\Users\szumielewicz\source\repos\WpfApp1\WpfApp1\bin\Debug\MaterialDesignColors.pdb
 C:\Users\szumielewicz\source\repos\WpfApp1\WpfApp1\bin\Debug\MaterialDesignThemes.Wpf.pdb
 C:\Users\szumielewicz\source\repos\WpfApp1\WpfApp1\bin\Debug\MaterialDesignThemes.Wpf.xml
-C:\Users\szumielewicz\source\repos\WpfApp1\WpfApp1\obj\Debug\WpfApp1.csprojAssemblyReference.cache
 C:\Users\szumielewicz\source\repos\WpfApp1\WpfApp1\obj\Debug\MainWindow.g.cs
 C:\Users\szumielewicz\source\repos\WpfApp1\WpfApp1\obj\Debug\App.g.cs
 C:\Users\szumielewicz\source\repos\WpfApp1\WpfApp1\obj\Debug\App.baml
@@ -47,3 +46,4 @@ C:\Users\szumielewicz\source\repos\WpfApp1\WpfApp1\obj\Debug\Window2.baml
 C:\Users\szumielewicz\source\repos\WpfApp1\WpfApp1\obj\Debug\Window2.g.cs
 C:\Users\szumielewicz\source\repos\WpfApp1\WpfApp1\obj\Debug\StartWindow.baml
 C:\Users\szumielewicz\source\repos\WpfApp1\WpfApp1\obj\Debug\StartWindow.g.cs
+C:\Users\szumielewicz\source\repos\WpfApp1\WpfApp1\obj\Debug\WpfApp1.csprojAssemblyReference.cache

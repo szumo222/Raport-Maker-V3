@@ -44,6 +44,10 @@ C:\Users\szumielewicz\source\repos\WpfApp1\WpfApp1\obj\Debug\Window1.baml
 C:\Users\szumielewicz\source\repos\WpfApp1\WpfApp1\obj\Debug\Window1.g.cs
 C:\Users\szumielewicz\source\repos\WpfApp1\WpfApp1\obj\Debug\Window2.baml
 C:\Users\szumielewicz\source\repos\WpfApp1\WpfApp1\obj\Debug\Window2.g.cs
+C:\Users\szumielewicz\source\repos\WpfApp1\WpfApp1\obj\Debug\WpfApp1.csprojAssemblyReference.cache
+C:\Users\szumielewicz\source\repos\WpfApp1\WpfApp1\obj\Debug\Window_insert_class.baml
+C:\Users\szumielewicz\source\repos\WpfApp1\WpfApp1\obj\Debug\Window_insert_class.g.cs
 C:\Users\szumielewicz\source\repos\WpfApp1\WpfApp1\obj\Debug\StartWindow.baml
 C:\Users\szumielewicz\source\repos\WpfApp1\WpfApp1\obj\Debug\StartWindow.g.cs
-C:\Users\szumielewicz\source\repos\WpfApp1\WpfApp1\obj\Debug\WpfApp1.csprojAssemblyReference.cache
+C:\Users\szumielewicz\source\repos\WpfApp1\WpfApp1\obj\Debug\Window_insert_name.baml
+C:\Users\szumielewicz\source\repos\WpfApp1\WpfApp1\obj\Debug\Window_insert_name.g.cs

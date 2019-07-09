@@ -5,6 +5,8 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         mc:Ignorable="d"
+        BorderThickness="1"
+        BorderBrush="Indigo"
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         TextElement.Foreground="{DynamicResource MaterialDesignBody}"
         TextElement.FontWeight="Regular"
@@ -12,8 +14,6 @@
         TextOptions.TextFormattingMode="Ideal"
         TextOptions.TextRenderingMode="Auto"
         Background="#FFFFFFFF"
-        BorderThickness="1"
-        BorderBrush="Indigo"
         FontFamily="{DynamicResource MaterialDesignFont}"
         Title="Raport Maker V3" Height="300" Width="400"
         HorizontalAlignment="Left" VerticalAlignment="Top"
@@ -27,7 +27,7 @@
             <Grid.Background>
                 <SolidColorBrush Color="#FFF0F8FF" Opacity="0.7"/>
             </Grid.Background>
-            <TextBlock x:Name="TextBlock_1" FontSize="12" Text="Content" Margin="10,10,10.2,10.2" FontWeight="Bold" HorizontalAlignment="Left" VerticalAlignment="Center" />
+            <TextBlock x:Name="TextBlock_1" FontSize="12" Text="Content" Margin="10,10,10.2,10.2" FontWeight="Bold" HorizontalAlignment="Center" VerticalAlignment="Center" />
         </Grid>
         <Button
             Style="{StaticResource MaterialDesignRaisedAccentButton}" materialDesign:ShadowAssist.ShadowDepth="Depth3"

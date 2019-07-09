@@ -1,14 +1,21 @@
 ﻿using System.Windows;
 using System.Windows.Input;
+using System.Text.RegularExpressions;
+using System.IO;
 
 namespace WpfApp1
 {
-    public partial class Window1 : Window
+    public partial class Window_insert_class : Window
     {
-        public Window1(string s)
+        string xstl_content;
+        public string NameOfTheClassWrittenByUser;
+        string path1 = @"raport_custom_class_backup.xslt";
+        string path2 = @"raport_custom_class.xslt";
+
+
+        public Window_insert_class()
         {
             InitializeComponent();
-            TextBlock_1.Text = s;
             WindowStartupLocation = WindowStartupLocation.CenterScreen;
         }
 
@@ -35,6 +42,10 @@ namespace WpfApp1
 
         private void Button_1_Click(object sender, RoutedEventArgs e)
         {
+            xstl_content = File.ReadAllText(path1);
+            NameOfTheClassWrittenByUser = TextBox_1.Text;
+            xstl_content = Regex.Replace(xstl_content, "NameOfTheClassWrittenByUser", NameOfTheClassWrittenByUser);
+            File.WriteAllText(path2, xstl_content);
             this.Close();
         }
     }

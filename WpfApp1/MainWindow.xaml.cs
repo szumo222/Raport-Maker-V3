@@ -19,24 +19,17 @@ namespace WpfApp1
 {
     public partial class MainWindow : Window
     {
-        string miesiac;
-        string rok;
+        string miesiac, rok;
         bool czynadpisac;
         string f_xslt;
         string[] day;
         IEnumerable<string> dayy;
-        string destination_folder_zaiks;
-        string destination_folder_stoart;
-        string destination_folder_ekstra_zaiks;
-        string destination_folder_ekstra_stoart;
-        string get_folder_szczecin_zaiks;
-        string get_folder_szczecin_stoart;
-        string get_folder_szn_ekstra_zaiks;
-        string get_folder_szn_ekstra_stoart;
-        string get_folder_zaiks;
-        string get_folder_stoart;
-        string fname;
-        string fname_part;
+        string destination_folder_zaiks, destination_folder_stoart;
+        string destination_folder_ekstra_zaiks, destination_folder_ekstra_stoart;
+        string get_folder_szczecin_zaiks, get_folder_szczecin_stoart;
+        string get_folder_szn_ekstra_zaiks, get_folder_szn_ekstra_stoart;
+        string get_folder_zaiks, get_folder_stoart;
+        string fname, fname_part;
         string dsa = @"raport_maker_help\";
         int szn_or_szn_ekstra = 0;
         bool error = false;
@@ -48,9 +41,9 @@ namespace WpfApp1
         {
             InitializeComponent();
             radioButton_1.IsChecked = false;
-            radioButton_2.IsChecked = false;
-            radioButton_3.IsChecked = false;
-            radioButton_4.IsChecked = false;
+            grid_main.Visibility = Visibility.Hidden;
+            grid_start.Visibility = Visibility.Visible;
+            radioButton_2.IsChecked = radioButton_3.IsChecked = radioButton_4.IsChecked = radioButton_5.IsChecked = radioButton_6.IsChecked = radioButton_7.IsChecked = radioButton_8.IsChecked = false;
             TextBlock_1.Text = "Aplikacja tworzy raporty z programu DigAIRange.\n\nW następnym oknie należy wybrać:\n\n\tdatę (dzień miesiąca jest bez znaczenia)\n\trodzaj raportu\n\taudycję\n\nDziękuję.";
             WindowStartupLocation = WindowStartupLocation.CenterScreen;
         }
@@ -79,10 +72,7 @@ namespace WpfApp1
 
                 if (error == true)
                 {
-                    Button_1.IsEnabled = true;
-                    groupBox_1.IsEnabled = true;
-                    groupBox_2.IsEnabled = true;
-                    DataPicker_1.IsEnabled = true;
+                    Button_1.IsEnabled = groupBox_1.IsEnabled = groupBox_2.IsEnabled = DataPicker_1.IsEnabled = true;
                     ProgressBar_1.IsIndeterminate = false;
                     ProgressBar_1.Opacity = 0.1;
                     return;
@@ -96,10 +86,7 @@ namespace WpfApp1
                 //Przerwanie programu gdy pojawi się error
                 if (error == true)
                 {
-                    Button_1.IsEnabled = true;
-                    groupBox_1.IsEnabled = true;
-                    groupBox_2.IsEnabled = true;
-                    DataPicker_1.IsEnabled = true;
+                    Button_1.IsEnabled = groupBox_1.IsEnabled = groupBox_2.IsEnabled = DataPicker_1.IsEnabled = true;
                     ProgressBar_1.IsIndeterminate = false;
                     ProgressBar_1.Opacity = 0.1;
                     return;
@@ -111,10 +98,7 @@ namespace WpfApp1
                     //Przerwanie programu gdy pojawi się Error
                     if (error == true)
                     {
-                        Button_1.IsEnabled = true;
-                        groupBox_1.IsEnabled = true;
-                        groupBox_2.IsEnabled = true;
-                        DataPicker_1.IsEnabled = true;
+                        Button_1.IsEnabled = groupBox_1.IsEnabled = groupBox_2.IsEnabled = DataPicker_1.IsEnabled = true;
                         ProgressBar_1.IsIndeterminate = false;
                         ProgressBar_1.Opacity = 0.1;
                         return;
@@ -166,10 +150,7 @@ namespace WpfApp1
                             bw.RunWorkerAsync();
                             ProgressBar_1.IsIndeterminate = true;
                             ProgressBar_1.Opacity = 100;
-                            Button_1.IsEnabled = false;
-                            groupBox_1.IsEnabled = false;
-                            groupBox_2.IsEnabled = false;
-                            DataPicker_1.IsEnabled = false;
+                            Button_1.IsEnabled = groupBox_1.IsEnabled = groupBox_2.IsEnabled = DataPicker_1.IsEnabled = false;
                         }
                         else
                         {
@@ -369,15 +350,21 @@ namespace WpfApp1
                 file.Delete();
             });
 
+            if(radioButton_7.IsChecked == true)
+            {
+                if (File.Exists(f_xslt)) File.Delete(f_xslt);
+            }
+            else if (radioButton_8.IsChecked == true)
+            {
+                if (File.Exists(f_xslt)) File.Delete(f_xslt);
+            }
+
             FileInfo f1 = new FileInfo(fname);
             string textblock_content = "Zakończono.Plik \n\n" + f1.Name + "\n\nzostał zapisany.";
             Window1 window1 = new Window1(textblock_content);
             sw.Stop();
             Console.WriteLine("Czas wykonania programu: " + Math.Round(TimeSpan.FromMilliseconds(sw.ElapsedMilliseconds).TotalSeconds));
-            Button_1.IsEnabled = true;
-            groupBox_1.IsEnabled = true;
-            groupBox_2.IsEnabled = true;
-            DataPicker_1.IsEnabled = true;
+            Button_1.IsEnabled = groupBox_1.IsEnabled = groupBox_2.IsEnabled = DataPicker_1.IsEnabled = true;
             ProgressBar_1.IsIndeterminate = false;
             ProgressBar_1.Opacity = 0.1;
             window1.Show();
@@ -574,7 +561,7 @@ namespace WpfApp1
                 });
             }
 
-            //Reklamy
+            //Wg klasy reklama
             else if (radioButton_6.IsChecked == true)
             {
                 error = false;
@@ -589,6 +576,60 @@ namespace WpfApp1
 
                 first_line = "Data|Godz.aud.|Tytul audycji|Tytul reklamy|Kompozytor|Autor|Czas|";
                 f_xslt = @"raportreklamakapias.xslt";
+                string[] folder_days_stoart_dir = Directory.GetDirectories(get_folder_stoart + rok + @"\" + miesiac + @"\");
+
+                Parallel.ForEach(folder_days_stoart_dir, dir =>
+                {
+                    RadioCheck_Parrel_ForEach(dir);
+                });
+            }
+
+            //Wg własnej klasy
+            else if (radioButton_7.IsChecked == true)
+            {
+                error = false;
+
+                Window_insert_class window_Insert_Class = new Window_insert_class();
+                window_Insert_Class.ShowDialog();
+
+                if (szn_or_szn_ekstra == 1)
+                {
+                    fname = destination_folder_stoart + @"raport_z_klasy_" + window_Insert_Class.NameOfTheClassWrittenByUser + "_" + fname_part;
+                }
+                else if (szn_or_szn_ekstra == 2)
+                {
+                    fname = destination_folder_ekstra_stoart + @"raport_z_klasy_" + window_Insert_Class.NameOfTheClassWrittenByUser + "_" + fname_part;
+                }
+
+                first_line = "Data|Godz.aud.|Tytul audycji|Tytul elementu|Kompozytor|Autor|Czas|";
+                f_xslt = @"raport_custom_class.xslt";
+                string[] folder_days_stoart_dir = Directory.GetDirectories(get_folder_stoart + rok + @"\" + miesiac + @"\");
+
+                Parallel.ForEach(folder_days_stoart_dir, dir =>
+                {
+                    RadioCheck_Parrel_ForEach(dir);
+                });
+            }
+
+            //Wg nazwy
+            else if (radioButton_8.IsChecked == true)
+            {
+                error = false;
+
+                Window_insert_name window_Insert_Name = new Window_insert_name();
+                window_Insert_Name.ShowDialog();
+
+                if (szn_or_szn_ekstra == 1)
+                {
+                    fname = destination_folder_stoart + @"raport_z_nazwy_" + window_Insert_Name.NameOfTheTitleWrittenByUser + "_" + fname_part;
+                }
+                else if (szn_or_szn_ekstra == 2)
+                {
+                    fname = destination_folder_ekstra_stoart + @"raport_z_nazwy_" + window_Insert_Name.NameOfTheTitleWrittenByUser + "_" + fname_part;
+                }
+
+                first_line = "Data|Godz.aud.|Tytul audycji|Tytul elementu|Kompozytor|Autor|Czas|";
+                f_xslt = @"raport_custom_title_name.xslt";
                 string[] folder_days_stoart_dir = Directory.GetDirectories(get_folder_stoart + rok + @"\" + miesiac + @"\");
 
                 Parallel.ForEach(folder_days_stoart_dir, dir =>

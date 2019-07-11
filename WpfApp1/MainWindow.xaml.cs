@@ -84,6 +84,7 @@ namespace WpfApp1
                 Radiocheck_ktory_folder();
 
                 //Przerwanie programu gdy pojawi się error
+
                 if (error == true)
                 {
                     Button_1.IsEnabled = groupBox_1.IsEnabled = groupBox_2.IsEnabled = DataPicker_1.IsEnabled = true;
@@ -264,6 +265,7 @@ namespace WpfApp1
         //Metoda wywoływana po przeprowadzeniu transfomarty XSLT / operowanie na plikach w folderze pomocniczym raport_maker_help
         private void Main_Function_After_XSLT(List<string> array3, List<string> array4, Stopwatch sw)
         {
+            Class1 class1 = new Class1();
             IEnumerable<string> array = Directory.EnumerateFiles(@"raport_maker_help\", "*.txt", SearchOption.AllDirectories);
             foreach (string file in array)
             {
@@ -312,13 +314,16 @@ namespace WpfApp1
             //Wywołanie funkcji dla stoart
             if (radioButton_2.IsChecked == true)
             {
-                Stoart_Array_Prepare(array4, array5, array6, iiii);
+                
+                class1.Stoart_Array_Prepare(array4, array5, array6, iiii);
+                //Stoart_Array_Prepare(array4, array5, array6, iiii);
             }
 
             //Wywołanie funkcji do reklamy
-            if ((radioButton_6.IsChecked == true) || (radioButton_7.IsChecked == true) || (radioButton_8.IsChecked == true))
+            if ((radioButton_6.IsChecked == true) || (radioButton_7.IsChecked == true) || (radioButton_8.IsChecked == true) || (radioButton_9.IsChecked == true))
             {
-                Reklama_Array_Prepare(array4, array5);
+                class1.Reklama_Array_Prepare(array4, array5);
+                //Reklama_Array_Prepare(array4, array5);
             }
 
             array4.Insert(0, first_line);
@@ -331,7 +336,7 @@ namespace WpfApp1
                 File.WriteAllLines(fname, array4, Encoding.UTF8);
             }
             //Zapisanie pliku dla reklamy, własnej klasy, własnej nazwy
-            else if ((radioButton_6.IsChecked == true) || (radioButton_7.IsChecked == true) || (radioButton_8.IsChecked == true))
+            else if ((radioButton_6.IsChecked == true) || (radioButton_7.IsChecked == true) || (radioButton_8.IsChecked == true) || (radioButton_9.IsChecked == true))
             {
                 array5.Insert(0, first_line);
                 File.WriteAllLines(fname, array5, Encoding.UTF8);
@@ -350,7 +355,7 @@ namespace WpfApp1
                 file.Delete();
             });
 
-            if((radioButton_7.IsChecked == true) || (radioButton_8.IsChecked == true))
+            if((radioButton_7.IsChecked == true) || (radioButton_8.IsChecked == true) || (radioButton_9.IsChecked == true))
             {
                 if (File.Exists(f_xslt)) File.Delete(f_xslt);
             }
@@ -364,134 +369,6 @@ namespace WpfApp1
             ProgressBar_1.IsIndeterminate = false;
             ProgressBar_1.Opacity = 0.1;
             window1.Show();
-        }
-
-        //Przygotowanie listy do zapisu dla Stoart
-        private void Stoart_Array_Prepare(List<string> array4, List<string> array5, List<string> array6, int iiii)
-        {
-            //Usuwanie liczby Lp. na początku 
-            foreach (string line in array4)
-            {
-                string replace;
-                replace = Regex.Replace(line, @"^\d{1,}\|", "");
-                array5.Add(replace);
-            }
-            array5.Sort();
-
-            string linia_liczba_odt_1 = "";
-            string linia_liczba_odt_2 = "";
-            int odt = 1;
-
-            //Liczenie takich samych wierszy
-            for (int i = 0; i < array5.Count; i++)
-            {
-                //Dla całej listy bez ostatniego elementu
-                if (i < array5.Count() - 1)
-                {
-                    //Jeżeli wierwsze są takie same to wstawia pusty wierwsz i zwiększa licznik
-                    string part_of_line = Regex.Replace(array5[i].ToString(), @"L.nad.\|.+", "");
-                    string part_of_compare_line = Regex.Replace(array5[i + 1].ToString(), @"L.nad.\|.+", "");
-                    if (part_of_line == part_of_compare_line)
-                    {
-                        linia_liczba_odt_1 = Regex.Replace(array5[i].ToString(), "L.nad.", odt.ToString());
-                        array6.Add("");
-                        odt++;
-                    }
-                    //Jeżeli nie są takie same to wstawia wiersz z ilość takich samych wierwszy
-                    else
-                    {
-                        linia_liczba_odt_1 = Regex.Replace(array5[i].ToString(), "L.nad.", odt.ToString());
-                        linia_liczba_odt_2 = iiii.ToString() + "|" + linia_liczba_odt_1;
-                        iiii++;
-                        array6.Add(linia_liczba_odt_2);
-                        odt = 1;
-                    }
-                }
-                //Dla ostatniego elementu
-                else
-                {
-                    //Jeżeli wierwsze są takie same to wstawia pusty wierwsz i zwiększa licznik
-                    string part_of_line = Regex.Replace(array5[i].ToString(), @"L.nad.\|.+", "");
-                    string part_of_compare_line = Regex.Replace(array5[i - 1].ToString(), @"L.nad.\|.+", "");
-                    if (part_of_line == part_of_compare_line)
-                    {
-                        linia_liczba_odt_1 = Regex.Replace(array5[i].ToString(), "L.nad.", odt.ToString());
-                        array6.Add("");
-                        odt++;
-                    }
-                    //Jeżeli nie są takie same to wstawia wiersz z ilość takich samych wierwszy
-                    else
-                    {
-                        linia_liczba_odt_1 = Regex.Replace(array5[i].ToString(), "L.nad.", odt.ToString());
-                        linia_liczba_odt_2 = iiii.ToString() + "|" + linia_liczba_odt_1;
-                        iiii++;
-                        array6.Add(linia_liczba_odt_2);
-                        odt = 1;
-                    }
-                }
-            }
-            //Czyszczenie listy z pustych wierwszy
-            for (int i = array6.Count - 1; i >= 0; i--)
-            {
-                if (array6[i] == "")
-                {
-                    array6.RemoveAt(i);
-                }
-            }
-        }
-
-        //Przygotowanie listy do zapisu dla reklam
-        private void Reklama_Array_Prepare(List<string> array4, List<string> array5)
-        {
-            int suma_czas_reklama = 0;
-            int czas_reklaman_dzien = 0;
-            List<string> suma_czas_dzien = new List<string>();
-            suma_czas_dzien.Clear();
-            for (int i = 0; i < array4.Count; i++)
-            {
-                Match match = Regex.Match(Regex.Match(array4[i], @"\|\d+\|$").ToString(), @"\d+");
-                string string_out = Regex.Replace(array4[i], @"\|\d+\|$", "|");
-                array5.Add(string_out);
-                suma_czas_reklama = suma_czas_reklama + int.Parse(match.ToString());
-                if (i == 0) czas_reklaman_dzien = int.Parse(match.ToString());
-                else if ((i > 0) && (i < array4.Count - 1))
-                {
-                    Match match_2 = Regex.Match(array4[i], @"^\d{1,4}-\d{1,2}-\d{1,2}");
-                    Match match_3 = Regex.Match(array4[i - 1], @"^\d{1,4}-\d{1,2}-\d{1,2}");
-                    if (match_2.ToString() == match_3.ToString())
-                    {
-                        czas_reklaman_dzien = czas_reklaman_dzien + int.Parse(match.ToString());
-                    }
-                    else
-                    {
-                        suma_czas_dzien.Add("Suma elementów z dnia|" + match_3.ToString() + "|" + Calculate_duration(czas_reklaman_dzien) + "|");
-                        czas_reklaman_dzien = int.Parse(match.ToString());
-                    }
-                }
-                else if (i == array4.Count - 1)
-                {
-                    Match match_2 = Regex.Match(array4[i], @"^\d{1,4}-\d{1,2}-\d{1,2}");
-                    Match match_3 = Regex.Match(array4[i - 1], @"^\d{1,4}-\d{1,2}-\d{1,2}");
-                    czas_reklaman_dzien = czas_reklaman_dzien + int.Parse(match.ToString());
-                    suma_czas_dzien.Add("Suma elementów z dnia|" + match_2.ToString() + "|" + Calculate_duration(czas_reklaman_dzien) + "|");
-                }
-            }
-            for(int i = 0; i < suma_czas_dzien.Count; i++)
-            {
-                array5.Insert(i, suma_czas_dzien[i]);
-            }
-            array5.Insert(0, "Sumaryczny czas elementów w miesiacu|" + Calculate_duration(suma_czas_reklama) + "|");
-        }
-
-        //Przeliczanie czasu z milisekund na format H:M:S
-        private string Calculate_duration(int suma_czas_reklama)
-        {
-            int godziny = suma_czas_reklama / 3600000;
-            int reszta_z_godzin = suma_czas_reklama % 3600000;
-            int minuty = reszta_z_godzin / 60000;
-            int reszta_z_minut = reszta_z_godzin % 60000;
-            int sekundy = reszta_z_minut / 1000;
-            return godziny + ":" + minuty + ":" + sekundy;
         }
 
         //Sprawdzanie który rodzaj raportu został wybrany i przypisanie nazwy pierwszej częsci nazwy pliku wyjściowego
@@ -621,10 +498,9 @@ namespace WpfApp1
             {
                 error = false;
 
-                //Window_insert_name window_Insert_Name = new Window_insert_name();
-                Window_custom_raport window_Insert_Name = new Window_custom_raport();
+                Window_insert_name window_Insert_Name = new Window_insert_name();
                 window_Insert_Name.ShowDialog();
-                /*
+                
                 if (szn_or_szn_ekstra == 1)
                 {
                     fname = destination_folder_stoart + @"raport_z_nazwy_" + window_Insert_Name.NameOfTheTitleWrittenByUser + "_" + fname_part;
@@ -632,10 +508,37 @@ namespace WpfApp1
                 else if (szn_or_szn_ekstra == 2)
                 {
                     fname = destination_folder_ekstra_stoart + @"raport_z_nazwy_" + window_Insert_Name.NameOfTheTitleWrittenByUser + "_" + fname_part;
-                }*/
+                }
 
                 first_line = "Data|Godz.aud.|Tytul audycji|Tytul elementu|Kompozytor|Autor|Czas|";
                 f_xslt = @"raport_custom_title_name.xslt";
+                string[] folder_days_stoart_dir = Directory.GetDirectories(get_folder_stoart + rok + @"\" + miesiac + @"\");
+
+                Parallel.ForEach(folder_days_stoart_dir, dir =>
+                {
+                    RadioCheck_Parrel_ForEach(dir);
+                });
+            }
+
+            //Wg klasy lub/i nazwy
+            else if (radioButton_9.IsChecked == true)
+            {
+                error = false;
+
+                Window_custom_raport window_Custom_Raport = new Window_custom_raport();
+                window_Custom_Raport.ShowDialog();
+
+                if (szn_or_szn_ekstra == 1)
+                {
+                    fname = destination_folder_stoart + @"raport_z_" + window_Custom_Raport.Part_of_File_Name + "_" + fname_part;
+                }
+                else if (szn_or_szn_ekstra == 2)
+                {
+                    fname = destination_folder_ekstra_stoart + @"raport_z_" + window_Custom_Raport.Part_of_File_Name + "_" + fname_part;
+                }
+
+                first_line = "Data|Godz.aud.|Tytul audycji|Tytul elementu|Kompozytor|Autor|Czas|";
+                f_xslt = @"raport_custom_raport.xslt";
                 string[] folder_days_stoart_dir = Directory.GetDirectories(get_folder_stoart + rok + @"\" + miesiac + @"\");
 
                 Parallel.ForEach(folder_days_stoart_dir, dir =>

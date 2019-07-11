@@ -88,6 +88,9 @@
     <Compile Include="Window2.xaml.cs">
       <DependentUpon>Window2.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Window_custom_raport.xaml.cs">
+      <DependentUpon>Window_custom_raport.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Window_insert_class.xaml.cs">
       <DependentUpon>Window_insert_class.xaml</DependentUpon>
     </Compile>
@@ -115,6 +118,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Window2.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Window_custom_raport.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

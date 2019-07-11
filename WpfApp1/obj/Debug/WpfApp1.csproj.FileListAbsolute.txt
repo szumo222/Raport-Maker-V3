@@ -51,3 +51,5 @@ C:\Users\szumielewicz\source\repos\WpfApp1\WpfApp1\obj\Debug\StartWindow.baml
 C:\Users\szumielewicz\source\repos\WpfApp1\WpfApp1\obj\Debug\StartWindow.g.cs
 C:\Users\szumielewicz\source\repos\WpfApp1\WpfApp1\obj\Debug\Window_insert_name.baml
 C:\Users\szumielewicz\source\repos\WpfApp1\WpfApp1\obj\Debug\Window_insert_name.g.cs
+C:\Users\szumielewicz\source\repos\WpfApp1\WpfApp1\obj\Debug\Window_custom_raport.baml
+C:\Users\szumielewicz\source\repos\WpfApp1\WpfApp1\obj\Debug\Window_custom_raport.g.cs

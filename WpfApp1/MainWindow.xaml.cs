@@ -316,7 +316,7 @@ namespace WpfApp1
             }
 
             //Wywołanie funkcji do reklamy
-            if (radioButton_6.IsChecked == true)
+            if ((radioButton_6.IsChecked == true) || (radioButton_7.IsChecked == true) || (radioButton_8.IsChecked == true))
             {
                 Reklama_Array_Prepare(array4, array5);
             }
@@ -330,8 +330,8 @@ namespace WpfApp1
                 File.WriteAllLines(fname + "_ze_zliczaniem.txt", array6, Encoding.UTF8);
                 File.WriteAllLines(fname, array4, Encoding.UTF8);
             }
-            //Zapisanie pliku dla reklamy
-            else if (radioButton_6.IsChecked == true)
+            //Zapisanie pliku dla reklamy, własnej klasy, własnej nazwy
+            else if ((radioButton_6.IsChecked == true) || (radioButton_7.IsChecked == true) || (radioButton_8.IsChecked == true))
             {
                 array5.Insert(0, first_line);
                 File.WriteAllLines(fname, array5, Encoding.UTF8);
@@ -350,11 +350,7 @@ namespace WpfApp1
                 file.Delete();
             });
 
-            if(radioButton_7.IsChecked == true)
-            {
-                if (File.Exists(f_xslt)) File.Delete(f_xslt);
-            }
-            else if (radioButton_8.IsChecked == true)
+            if((radioButton_7.IsChecked == true) || (radioButton_8.IsChecked == true))
             {
                 if (File.Exists(f_xslt)) File.Delete(f_xslt);
             }
@@ -468,7 +464,7 @@ namespace WpfApp1
                     }
                     else
                     {
-                        suma_czas_dzien.Add("Suma reklam z dnia|" + match_3.ToString() + "|" + TimeSpan.FromMilliseconds(czas_reklaman_dzien).ToString(@"h\:m\:s") + "|");
+                        suma_czas_dzien.Add("Suma elementów z dnia|" + match_3.ToString() + "|" + Calculate_duration(czas_reklaman_dzien) + "|");
                         czas_reklaman_dzien = int.Parse(match.ToString());
                     }
                 }
@@ -477,16 +473,25 @@ namespace WpfApp1
                     Match match_2 = Regex.Match(array4[i], @"^\d{1,4}-\d{1,2}-\d{1,2}");
                     Match match_3 = Regex.Match(array4[i - 1], @"^\d{1,4}-\d{1,2}-\d{1,2}");
                     czas_reklaman_dzien = czas_reklaman_dzien + int.Parse(match.ToString());
-                    suma_czas_dzien.Add("Suma reklam z dnia|" + match_2.ToString() + "|" + TimeSpan.FromMilliseconds(czas_reklaman_dzien).ToString(@"h\:m\:s") + "|");
-
-
+                    suma_czas_dzien.Add("Suma elementów z dnia|" + match_2.ToString() + "|" + Calculate_duration(czas_reklaman_dzien) + "|");
                 }
             }
             for(int i = 0; i < suma_czas_dzien.Count; i++)
             {
                 array5.Insert(i, suma_czas_dzien[i]);
             }
-            array5.Insert(0, "Sumaryczny czas reklam w miesiacu|" + TimeSpan.FromMilliseconds(suma_czas_reklama).ToString(@"h\:m\:s"));
+            array5.Insert(0, "Sumaryczny czas elementów w miesiacu|" + Calculate_duration(suma_czas_reklama) + "|");
+        }
+
+        //Przeliczanie czasu z milisekund na format H:M:S
+        private string Calculate_duration(int suma_czas_reklama)
+        {
+            int godziny = suma_czas_reklama / 3600000;
+            int reszta_z_godzin = suma_czas_reklama % 3600000;
+            int minuty = reszta_z_godzin / 60000;
+            int reszta_z_minut = reszta_z_godzin % 60000;
+            int sekundy = reszta_z_minut / 1000;
+            return godziny + ":" + minuty + ":" + sekundy;
         }
 
         //Sprawdzanie który rodzaj raportu został wybrany i przypisanie nazwy pierwszej częsci nazwy pliku wyjściowego
@@ -594,11 +599,11 @@ namespace WpfApp1
 
                 if (szn_or_szn_ekstra == 1)
                 {
-                    fname = destination_folder_stoart + @"raport_z_klasy_" + window_Insert_Class.NameOfTheClassWrittenByUser + "_" + fname_part;
+                    fname = destination_folder_stoart + @"raport_z_klasy_" + window_Insert_Class.Part_of_File_Name + "_" + fname_part;
                 }
                 else if (szn_or_szn_ekstra == 2)
                 {
-                    fname = destination_folder_ekstra_stoart + @"raport_z_klasy_" + window_Insert_Class.NameOfTheClassWrittenByUser + "_" + fname_part;
+                    fname = destination_folder_ekstra_stoart + @"raport_z_klasy_" + window_Insert_Class.Part_of_File_Name + "_" + fname_part;
                 }
 
                 first_line = "Data|Godz.aud.|Tytul audycji|Tytul elementu|Kompozytor|Autor|Czas|";
@@ -616,9 +621,10 @@ namespace WpfApp1
             {
                 error = false;
 
-                Window_insert_name window_Insert_Name = new Window_insert_name();
+                //Window_insert_name window_Insert_Name = new Window_insert_name();
+                Window_custom_raport window_Insert_Name = new Window_custom_raport();
                 window_Insert_Name.ShowDialog();
-
+                /*
                 if (szn_or_szn_ekstra == 1)
                 {
                     fname = destination_folder_stoart + @"raport_z_nazwy_" + window_Insert_Name.NameOfTheTitleWrittenByUser + "_" + fname_part;
@@ -626,7 +632,7 @@ namespace WpfApp1
                 else if (szn_or_szn_ekstra == 2)
                 {
                     fname = destination_folder_ekstra_stoart + @"raport_z_nazwy_" + window_Insert_Name.NameOfTheTitleWrittenByUser + "_" + fname_part;
-                }
+                }*/
 
                 first_line = "Data|Godz.aud.|Tytul audycji|Tytul elementu|Kompozytor|Autor|Czas|";
                 f_xslt = @"raport_custom_title_name.xslt";

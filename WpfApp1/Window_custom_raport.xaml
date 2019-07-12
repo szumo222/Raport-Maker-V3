@@ -50,7 +50,7 @@
             <Grid.Background>
                 <SolidColorBrush Color="#FFF0F8FF" Opacity="0.7"/>
             </Grid.Background>
-            <TextBox x:Name="TextBox_1" FontSize="20" Margin="16, 16, 0, 0" MinWidth="180" FontWeight="Bold" HorizontalAlignment="Left" VerticalAlignment="Top" HorizontalContentAlignment="Center" materialDesign:HintAssist.Hint="nazwa elementu"></TextBox>
+            <TextBox x:Name="TextBox_1" TextChanged="TextBox_1_TextChanged" FontSize="20" Margin="16, 16, 0, 0" MinWidth="180" FontWeight="Bold" HorizontalAlignment="Left" VerticalAlignment="Top" HorizontalContentAlignment="Center" materialDesign:HintAssist.Hint="nazwa elementu"></TextBox>
         </Grid>
         <Button
             Style="{StaticResource MaterialDesignRaisedAccentButton}" materialDesign:ShadowAssist.ShadowDepth="Depth3"

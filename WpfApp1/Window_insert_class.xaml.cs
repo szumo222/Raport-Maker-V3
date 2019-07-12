@@ -10,6 +10,7 @@ namespace WpfApp1
         string xstl_content;
         public string NameOfTheClassWrittenByUser;
         public string Part_of_File_Name;
+        public bool correct;
         string path1 = @"raport_custom_class_backup.xslt";
         string path2 = @"raport_custom_class.xslt";
 
@@ -33,6 +34,7 @@ namespace WpfApp1
         //Zamykanie okna
         private void Close_Window(object sender, RoutedEventArgs e)
         {
+            correct = false;
             this.Close();
         }
 
@@ -60,6 +62,7 @@ namespace WpfApp1
             }
             xstl_content = Regex.Replace(xstl_content, "NameOfTheClassWrittenByUser", NameOfTheClassWrittenByUser);
             File.WriteAllText(path2, xstl_content);
+            correct = true;
             this.Close();
         }
     }

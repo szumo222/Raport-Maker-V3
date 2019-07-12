@@ -28,7 +28,7 @@
                 <SolidColorBrush Color="#FFF0F8FF" Opacity="0.7"/>
             </Grid.Background>
             <TextBlock x:Name="TextBlock_1" FontSize="20" Text="Wpisz nazwę elementu" Margin="16,16,0,0" FontWeight="Bold" HorizontalAlignment="Left" VerticalAlignment="Top" />
-            <TextBox x:Name="TextBox_1" FontSize="20" Margin="16, 51, 0, 0" MinWidth="180" FontWeight="Bold" HorizontalAlignment="Left" VerticalAlignment="Top" HorizontalContentAlignment="Center" materialDesign:HintAssist.Hint="nazwa elementu"></TextBox>
+            <TextBox x:Name="TextBox_1" FontSize="20" Margin="16, 51, 0, 0" TextChanged="TextBox_1_TextChanged" MinWidth="180" FontWeight="Bold" HorizontalAlignment="Left" VerticalAlignment="Top" HorizontalContentAlignment="Center" materialDesign:HintAssist.Hint="nazwa elementu"></TextBox>
         </Grid>
         <Button
             Style="{StaticResource MaterialDesignRaisedAccentButton}" materialDesign:ShadowAssist.ShadowDepth="Depth3"

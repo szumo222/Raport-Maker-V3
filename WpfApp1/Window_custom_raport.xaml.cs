@@ -1,18 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Text;
+﻿using System.IO;
 using System.Text.RegularExpressions;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
+
 using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
 
 namespace WpfApp1
 {
@@ -24,6 +15,8 @@ namespace WpfApp1
         public string NameOfTheClassWrittenByUser;
         public string Part_of_File_Name;
         public string NameOfTheTitleWrittenByUser;
+        public bool correct;
+        bool text_changed;
         string xstl_content, Part_1_of_File_Name, Part_2_of_File_Name;
         string path1 = @"raport_custom_raport_backup.xslt";
         string path2 = @"raport_custom_raport.xslt";
@@ -32,6 +25,7 @@ namespace WpfApp1
         {
             InitializeComponent();
             WindowStartupLocation = WindowStartupLocation.CenterScreen;
+            text_changed = false;
         }
         private void CheckBox_1_Changed(object sender, RoutedEventArgs e)
         {
@@ -43,6 +37,11 @@ namespace WpfApp1
         {
             if (checkBox_2.IsChecked == true) grid_title_name.IsEnabled = true;
             else if (checkBox_2.IsChecked == false) grid_title_name.IsEnabled = false;
+        }
+
+        private void TextBox_1_TextChanged(object sender, TextChangedEventArgs args)
+        {
+            text_changed = true;
         }
 
         private void Button_1_Click(object sender, RoutedEventArgs e)
@@ -70,8 +69,17 @@ namespace WpfApp1
             //Sprawdzanie czy jest wybrana opcja Nazwy
             if (checkBox_2.IsChecked == true)
             {
-                NameOfTheTitleWrittenByUser = TextBox_1.Text;
-                Part_2_of_File_Name = TextBox_1.Text;
+                if (text_changed)
+                {
+                    NameOfTheTitleWrittenByUser = TextBox_1.Text;
+                    Part_2_of_File_Name = TextBox_1.Text;
+                }
+                else
+                {
+                    Window1 window1 = new Window1("Wpisz nazwę!");
+                    window1.ShowDialog();
+                    return;
+                }
             }
 
             //Ustawianie pliku do raportu
@@ -131,14 +139,15 @@ namespace WpfApp1
         //Zamykanie okna
         private void Close_Window(object sender, RoutedEventArgs e)
         {
+            correct = false;
             this.Close();
         }
 
         //Minimalizowanie okna
         private void Minimalize_Window(object sender, RoutedEventArgs e)
         {
+            correct = true;
             WindowState = WindowState.Minimized;
         }
-
     }
 }

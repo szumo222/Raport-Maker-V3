@@ -32,7 +32,7 @@ namespace WpfApp1
         string fname, fname_part;
         string dsa = @"raport_maker_help\";
         int szn_or_szn_ekstra = 0;
-        bool error = false;
+        bool error;
         bool text_box_text_change = false;
         List<string> array2 = new List<string>();
         string first_line;
@@ -46,6 +46,11 @@ namespace WpfApp1
             radioButton_2.IsChecked = radioButton_3.IsChecked = radioButton_4.IsChecked = radioButton_5.IsChecked = radioButton_6.IsChecked = radioButton_7.IsChecked = radioButton_8.IsChecked = false;
             TextBlock_1.Text = "Aplikacja tworzy raporty z programu DigAIRange.\n\nW następnym oknie należy wybrać:\n\n\tdatę (dzień miesiąca jest bez znaczenia)\n\trodzaj raportu\n\taudycję\n\nDziękuję.";
             WindowStartupLocation = WindowStartupLocation.CenterScreen;
+            DirectoryInfo di = new DirectoryInfo(dsa);
+            Parallel.ForEach(di.GetFiles(), file =>
+            {
+                file.Delete();
+            });
         }
 
         //Selektor kalendarza
@@ -61,6 +66,7 @@ namespace WpfApp1
         {
             try
             {
+                error = false;
                 if (text_box_text_change == false)
                 {
                     Window1 window1 = new Window1("Ustaw datę!");
@@ -84,7 +90,6 @@ namespace WpfApp1
                 Radiocheck_ktory_folder();
 
                 //Przerwanie programu gdy pojawi się error
-
                 if (error == true)
                 {
                     Button_1.IsEnabled = groupBox_1.IsEnabled = groupBox_2.IsEnabled = DataPicker_1.IsEnabled = true;
@@ -139,11 +144,6 @@ namespace WpfApp1
                                 path.Add(Path.GetFileNameWithoutExtension(file));
                             }
 
-                            DirectoryInfo di = new DirectoryInfo(dsa);
-                            Parallel.ForEach(di.GetFiles(), file =>
-                            {
-                                file.Delete();
-                            });
                             //Osbługa transformaty XSLT na osobnym wątku w celu nie zastygania UI
                             BackgroundWorker bw = new BackgroundWorker();
                             bw.DoWork += new DoWorkEventHandler((sender1, args) => Main_Function_XSLT_Transform(array2, path, f_xslt, z, sw));
@@ -374,185 +374,221 @@ namespace WpfApp1
         //Sprawdzanie który rodzaj raportu został wybrany i przypisanie nazwy pierwszej częsci nazwy pliku wyjściowego
         private void Radiocheck()
         {
-            //Zaiks
-            if (radioButton_1.IsChecked == true)
+            try
             {
-                error = false;
-                if (szn_or_szn_ekstra == 1)
+                //Zaiks
+                if (radioButton_1.IsChecked == true)
                 {
-                    fname = destination_folder_zaiks + @"raport_zaiks_" + fname_part;
-                }
-                else if (szn_or_szn_ekstra == 2)
-                {
-                    fname = destination_folder_ekstra_zaiks + @"raport_zaiks_" + fname_part;
+                    error = false;
+                    if (szn_or_szn_ekstra == 1)
+                    {
+                        fname = destination_folder_zaiks + @"raport_zaiks_" + fname_part;
+                    }
+                    else if (szn_or_szn_ekstra == 2)
+                    {
+                        fname = destination_folder_ekstra_zaiks + @"raport_zaiks_" + fname_part;
+                    }
+
+                    first_line = "Data|Godz.aud.|Tytul audycji|Tytul utworu|Kompozytor|Autor tekstu|Tlumacz|Czas|Wykonawca|Producent|Wydawca|";
+                    f_xslt = @"raportdlazaikkopias.xslt";
+                    string[] folder_days_zaiks_dir = Directory.GetDirectories(get_folder_zaiks + rok + @"\" + miesiac + @"\");
+
+                    Parallel.ForEach(folder_days_zaiks_dir, dir =>
+                    {
+                        RadioCheck_Parrel_ForEach(dir);
+                    });
                 }
 
-                first_line = "Data|Godz.aud.|Tytul audycji|Tytul utworu|Kompozytor|Autor tekstu|Tlumacz|Czas|Wykonawca|Producent|Wydawca|";
-                f_xslt = @"raportdlazaikkopias.xslt";
-                string[] folder_days_zaiks_dir = Directory.GetDirectories(get_folder_zaiks + rok + @"\" + miesiac + @"\");
-
-                Parallel.ForEach(folder_days_zaiks_dir, dir =>
+                //Stoart
+                else if (radioButton_2.IsChecked == true)
                 {
-                    RadioCheck_Parrel_ForEach(dir);
-                });
+                    error = false;
+                    if (szn_or_szn_ekstra == 1)
+                    {
+                        fname = destination_folder_stoart + @"raport_stoart_" + fname_part;
+                    }
+                    else if (szn_or_szn_ekstra == 2)
+                    {
+                        fname = destination_folder_ekstra_stoart + @"raport_stoart_" + fname_part;
+                    }
+
+                    first_line = "Lp|WYKONAWCA|TUTYŁ UTWORU|CZAS UTWORU|ILOŚĆ NADAŃ|TYTUŁ PŁYTY|NUMER KATALOGOWY PŁYTY|WYDAWCA|ROK WYDANIA|POLSKA/ZAGRANICA(PL/Z)|KOD ISRC|";
+                    f_xslt = @"raportdlastoartkapias.xslt";
+                    string[] folder_days_stoart_dir = Directory.GetDirectories(get_folder_stoart + rok + @"\" + miesiac + @"\");
+
+                    Parallel.ForEach(folder_days_stoart_dir, dir =>
+                    {
+                        RadioCheck_Parrel_ForEach(dir);
+                    });
+                }
+
+                //Materiały
+                else if (radioButton_5.IsChecked == true)
+                {
+                    error = false;
+                    if (szn_or_szn_ekstra == 1)
+                    {
+                        fname = destination_folder_stoart + @"raport_materialy_" + fname_part;
+                    }
+                    else if (szn_or_szn_ekstra == 2)
+                    {
+                        fname = destination_folder_ekstra_stoart + @"raport_materialy_" + fname_part;
+                    }
+
+                    first_line = "Data;Godz.aud.;Tytul audycji;Godz. emisji;Długość;Tytuł;Autor;";
+                    f_xslt = @"raportmaterialykopia.xslt";
+                    string[] folder_days_stoart_dir = Directory.GetDirectories(get_folder_stoart + rok + @"\" + miesiac + @"\");
+
+                    Parallel.ForEach(folder_days_stoart_dir, dir =>
+                    {
+                        RadioCheck_Parrel_ForEach(dir);
+                    });
+                }
+
+                //Wg klasy reklama
+                else if (radioButton_6.IsChecked == true)
+                {
+                    error = false;
+                    if (szn_or_szn_ekstra == 1)
+                    {
+                        fname = destination_folder_stoart + @"raport_reklamy_" + fname_part;
+                    }
+                    else if (szn_or_szn_ekstra == 2)
+                    {
+                        fname = destination_folder_ekstra_stoart + @"raport_reklamy_" + fname_part;
+                    }
+
+                    first_line = "Data|Godz.aud.|Tytul audycji|Tytul reklamy|Kompozytor|Autor|Czas|";
+                    f_xslt = @"raportreklamakapias.xslt";
+                    string[] folder_days_stoart_dir = Directory.GetDirectories(get_folder_stoart + rok + @"\" + miesiac + @"\");
+
+                    Parallel.ForEach(folder_days_stoart_dir, dir =>
+                    {
+                        RadioCheck_Parrel_ForEach(dir);
+                    });
+                }
+
+                //Wg własnej klasy
+                else if (radioButton_7.IsChecked == true)
+                {
+                    error = false;
+
+                    Window_insert_class window_Insert_Class = new Window_insert_class();
+                    window_Insert_Class.ShowDialog();
+
+                    if (!window_Insert_Class.correct)
+                    {
+                        error = true;
+                        return;
+                    }
+                    else
+                    {
+                        if (szn_or_szn_ekstra == 1)
+                        {
+                            fname = destination_folder_stoart + @"raport_z_klasy_" + window_Insert_Class.Part_of_File_Name + "_" + fname_part;
+                        }
+                        else if (szn_or_szn_ekstra == 2)
+                        {
+                            fname = destination_folder_ekstra_stoart + @"raport_z_klasy_" + window_Insert_Class.Part_of_File_Name + "_" + fname_part;
+                        }
+
+                        first_line = "Data|Godz.aud.|Tytul audycji|Tytul elementu|Kompozytor|Autor|Czas|";
+                        f_xslt = @"raport_custom_class.xslt";
+                        string[] folder_days_stoart_dir = Directory.GetDirectories(get_folder_stoart + rok + @"\" + miesiac + @"\");
+
+                        Parallel.ForEach(folder_days_stoart_dir, dir =>
+                        {
+                            RadioCheck_Parrel_ForEach(dir);
+                        });
+                    }
+                }
+
+                //Wg nazwy
+                else if (radioButton_8.IsChecked == true)
+                {
+                    error = false;
+
+                    Window_insert_name window_Insert_Name = new Window_insert_name();
+                    window_Insert_Name.ShowDialog();
+
+                    if (!window_Insert_Name.correct)
+                    {
+                        error = true;
+                        return;
+                    }
+                    else
+                    {
+                        if (szn_or_szn_ekstra == 1)
+                        {
+                            fname = destination_folder_stoart + @"raport_z_nazwy_" + window_Insert_Name.NameOfTheTitleWrittenByUser + "_" + fname_part;
+                        }
+                        else if (szn_or_szn_ekstra == 2)
+                        {
+                            fname = destination_folder_ekstra_stoart + @"raport_z_nazwy_" + window_Insert_Name.NameOfTheTitleWrittenByUser + "_" + fname_part;
+                        }
+
+                        first_line = "Data|Godz.aud.|Tytul audycji|Tytul elementu|Kompozytor|Autor|Czas|";
+                        f_xslt = @"raport_custom_title_name.xslt";
+                        string[] folder_days_stoart_dir = Directory.GetDirectories(get_folder_stoart + rok + @"\" + miesiac + @"\");
+
+                        Parallel.ForEach(folder_days_stoart_dir, dir =>
+                        {
+                            RadioCheck_Parrel_ForEach(dir);
+                        });
+                    }
+                }
+
+                //Wg klasy lub/i nazwy
+                else if (radioButton_9.IsChecked == true)
+                {
+                    error = false;
+
+                    Window_custom_raport window_Custom_Raport = new Window_custom_raport();
+                    window_Custom_Raport.ShowDialog();
+
+                    if (!window_Custom_Raport.correct)
+                    {
+                        error = true;
+                        return;
+                    }
+                    else
+                    {
+                        if (szn_or_szn_ekstra == 1)
+                        {
+                            fname = destination_folder_stoart + @"raport_z_" + window_Custom_Raport.Part_of_File_Name + "_" + fname_part;
+                        }
+                        else if (szn_or_szn_ekstra == 2)
+                        {
+                            fname = destination_folder_ekstra_stoart + @"raport_z_" + window_Custom_Raport.Part_of_File_Name + "_" + fname_part;
+                        }
+
+                        first_line = "Data|Godz.aud.|Tytul audycji|Tytul elementu|Kompozytor|Autor|Czas|";
+                        f_xslt = @"raport_custom_raport.xslt";
+                        string[] folder_days_stoart_dir = Directory.GetDirectories(get_folder_stoart + rok + @"\" + miesiac + @"\");
+
+                        Parallel.ForEach(folder_days_stoart_dir, dir =>
+                        {
+                            RadioCheck_Parrel_ForEach(dir);
+                        });
+                    }
+                }
+
+                //Brak
+                else
+                {
+                    Window1 window1 = new Window1("Wybierz rodzaj raportu!");
+                    window1.Show();
+                    error = true;
+                    return;
+                }
             }
-
-            //Stoart
-            else if (radioButton_2.IsChecked == true)
+            catch (Exception ex)
             {
-                error = false;
-                if (szn_or_szn_ekstra == 1)
-                {
-                    fname = destination_folder_stoart + @"raport_stoart_" + fname_part;
-                }
-                else if (szn_or_szn_ekstra == 2)
-                {
-                    fname = destination_folder_ekstra_stoart + @"raport_stoart_" + fname_part;
-                }
-
-                first_line = "Lp|WYKONAWCA|TUTYŁ UTWORU|CZAS UTWORU|ILOŚĆ NADAŃ|TYTUŁ PŁYTY|NUMER KATALOGOWY PŁYTY|WYDAWCA|ROK WYDANIA|POLSKA/ZAGRANICA(PL/Z)|KOD ISRC|";
-                f_xslt = @"raportdlastoartkapias.xslt";
-                string[] folder_days_stoart_dir = Directory.GetDirectories(get_folder_stoart + rok + @"\" + miesiac + @"\");
-
-                Parallel.ForEach(folder_days_stoart_dir, dir =>
-                {
-                    RadioCheck_Parrel_ForEach(dir);
-                });
-            }
-
-            //Materiały
-            else if (radioButton_5.IsChecked == true)
-            {
-                error = false;
-                if (szn_or_szn_ekstra == 1)
-                {
-                    fname = destination_folder_stoart + @"raport_materialy_" + fname_part;
-                }
-                else if (szn_or_szn_ekstra == 2)
-                {
-                    fname = destination_folder_ekstra_stoart + @"raport_materialy_" + fname_part;
-                }
-
-                first_line = "Data;Godz.aud.;Tytul audycji;Godz. emisji;Długość;Tytuł;Autor;";
-                f_xslt = @"raportmaterialykopia.xslt";
-                string[] folder_days_stoart_dir = Directory.GetDirectories(get_folder_stoart + rok + @"\" + miesiac + @"\");
-
-                Parallel.ForEach(folder_days_stoart_dir, dir =>
-                {
-                    RadioCheck_Parrel_ForEach(dir);
-                });
-            }
-
-            //Wg klasy reklama
-            else if (radioButton_6.IsChecked == true)
-            {
-                error = false;
-                if (szn_or_szn_ekstra == 1)
-                {
-                    fname = destination_folder_stoart + @"raport_reklamy_" + fname_part;
-                }
-                else if (szn_or_szn_ekstra == 2)
-                {
-                    fname = destination_folder_ekstra_stoart + @"raport_reklamy_" + fname_part;
-                }
-
-                first_line = "Data|Godz.aud.|Tytul audycji|Tytul reklamy|Kompozytor|Autor|Czas|";
-                f_xslt = @"raportreklamakapias.xslt";
-                string[] folder_days_stoart_dir = Directory.GetDirectories(get_folder_stoart + rok + @"\" + miesiac + @"\");
-
-                Parallel.ForEach(folder_days_stoart_dir, dir =>
-                {
-                    RadioCheck_Parrel_ForEach(dir);
-                });
-            }
-
-            //Wg własnej klasy
-            else if (radioButton_7.IsChecked == true)
-            {
-                error = false;
-
-                Window_insert_class window_Insert_Class = new Window_insert_class();
-                window_Insert_Class.ShowDialog();
-
-                if (szn_or_szn_ekstra == 1)
-                {
-                    fname = destination_folder_stoart + @"raport_z_klasy_" + window_Insert_Class.Part_of_File_Name + "_" + fname_part;
-                }
-                else if (szn_or_szn_ekstra == 2)
-                {
-                    fname = destination_folder_ekstra_stoart + @"raport_z_klasy_" + window_Insert_Class.Part_of_File_Name + "_" + fname_part;
-                }
-
-                first_line = "Data|Godz.aud.|Tytul audycji|Tytul elementu|Kompozytor|Autor|Czas|";
-                f_xslt = @"raport_custom_class.xslt";
-                string[] folder_days_stoart_dir = Directory.GetDirectories(get_folder_stoart + rok + @"\" + miesiac + @"\");
-
-                Parallel.ForEach(folder_days_stoart_dir, dir =>
-                {
-                    RadioCheck_Parrel_ForEach(dir);
-                });
-            }
-
-            //Wg nazwy
-            else if (radioButton_8.IsChecked == true)
-            {
-                error = false;
-
-                Window_insert_name window_Insert_Name = new Window_insert_name();
-                window_Insert_Name.ShowDialog();
-                
-                if (szn_or_szn_ekstra == 1)
-                {
-                    fname = destination_folder_stoart + @"raport_z_nazwy_" + window_Insert_Name.NameOfTheTitleWrittenByUser + "_" + fname_part;
-                }
-                else if (szn_or_szn_ekstra == 2)
-                {
-                    fname = destination_folder_ekstra_stoart + @"raport_z_nazwy_" + window_Insert_Name.NameOfTheTitleWrittenByUser + "_" + fname_part;
-                }
-
-                first_line = "Data|Godz.aud.|Tytul audycji|Tytul elementu|Kompozytor|Autor|Czas|";
-                f_xslt = @"raport_custom_title_name.xslt";
-                string[] folder_days_stoart_dir = Directory.GetDirectories(get_folder_stoart + rok + @"\" + miesiac + @"\");
-
-                Parallel.ForEach(folder_days_stoart_dir, dir =>
-                {
-                    RadioCheck_Parrel_ForEach(dir);
-                });
-            }
-
-            //Wg klasy lub/i nazwy
-            else if (radioButton_9.IsChecked == true)
-            {
-                error = false;
-
-                Window_custom_raport window_Custom_Raport = new Window_custom_raport();
-                window_Custom_Raport.ShowDialog();
-
-                if (szn_or_szn_ekstra == 1)
-                {
-                    fname = destination_folder_stoart + @"raport_z_" + window_Custom_Raport.Part_of_File_Name + "_" + fname_part;
-                }
-                else if (szn_or_szn_ekstra == 2)
-                {
-                    fname = destination_folder_ekstra_stoart + @"raport_z_" + window_Custom_Raport.Part_of_File_Name + "_" + fname_part;
-                }
-
-                first_line = "Data|Godz.aud.|Tytul audycji|Tytul elementu|Kompozytor|Autor|Czas|";
-                f_xslt = @"raport_custom_raport.xslt";
-                string[] folder_days_stoart_dir = Directory.GetDirectories(get_folder_stoart + rok + @"\" + miesiac + @"\");
-
-                Parallel.ForEach(folder_days_stoart_dir, dir =>
-                {
-                    RadioCheck_Parrel_ForEach(dir);
-                });
-            }
-
-            //Brak
-            else
-            {
-                Window1 window1 = new Window1("Wybierz rodzaj raportu!");
-                window1.Show();
-                error = true;
+                MessageBox.Show("Błąd:\t" + ex, "Raport Maker V3");
+                FileInfo ffff = new FileInfo(fname);
+                ffff.Delete();
+                array2.Clear();
+                return;
             }
         }
 

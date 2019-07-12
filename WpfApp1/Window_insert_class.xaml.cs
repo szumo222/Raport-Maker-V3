@@ -7,13 +7,12 @@ namespace WpfApp1
 {
     public partial class Window_insert_class : Window
     {
-        string xstl_content;
-        public string NameOfTheClassWrittenByUser;
-        public string Part_of_File_Name;
-        public bool correct;
-        string path1 = @"raport_custom_class_backup.xslt";
-        string path2 = @"raport_custom_class.xslt";
-
+        public string Xstl_content { get; set; }
+        public string NameOfTheClassWrittenByUser { get; set; }
+        public string Part_of_File_Name { get; set; }
+        public bool Correct { get; set; }
+        public string Path1 { get; set; } = @"raport_custom_class_backup.xslt";
+        public string Path2 { get; set; } = @"raport_custom_class.xslt";
 
         public Window_insert_class()
         {
@@ -34,7 +33,7 @@ namespace WpfApp1
         //Zamykanie okna
         private void Close_Window(object sender, RoutedEventArgs e)
         {
-            correct = false;
+            Correct = false;
             this.Close();
         }
 
@@ -46,7 +45,7 @@ namespace WpfApp1
 
         private void Button_1_Click(object sender, RoutedEventArgs e)
         {
-            xstl_content = File.ReadAllText(path1);
+            Xstl_content = File.ReadAllText(Path1);
             if (radioButton_1.IsChecked == true) { NameOfTheClassWrittenByUser = "News"; Part_of_File_Name = radioButton_1.Content.ToString(); }
             else if (radioButton_2.IsChecked == true) { NameOfTheClassWrittenByUser = "Music"; Part_of_File_Name = radioButton_2.Content.ToString(); }
             else if (radioButton_3.IsChecked == true) { NameOfTheClassWrittenByUser = "Cart"; Part_of_File_Name = radioButton_3.Content.ToString(); }
@@ -60,9 +59,9 @@ namespace WpfApp1
                 window1.ShowDialog();
                 return;
             }
-            xstl_content = Regex.Replace(xstl_content, "NameOfTheClassWrittenByUser", NameOfTheClassWrittenByUser);
-            File.WriteAllText(path2, xstl_content);
-            correct = true;
+            Xstl_content = Regex.Replace(Xstl_content, "NameOfTheClassWrittenByUser", NameOfTheClassWrittenByUser);
+            File.WriteAllText(Path2, Xstl_content);
+            Correct = true;
             this.Close();
         }
     }

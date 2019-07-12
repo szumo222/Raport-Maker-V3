@@ -5,7 +5,8 @@ namespace WpfApp1
 {
     public partial class Window2 : Window
     {
-        public bool czynadpisac;
+        public bool Czynadpisac { get; set; }
+
         public Window2()
         {
             InitializeComponent();
@@ -36,13 +37,13 @@ namespace WpfApp1
 
         private void Button_1_Click(object sender, RoutedEventArgs e)
         {
-            czynadpisac = true;
+            Czynadpisac = true;
             this.Close();
         }
 
         private void Button_2_Click(object sender, RoutedEventArgs e)
         {
-            czynadpisac = false;
+            Czynadpisac = false;
             this.Close();
         }
     }

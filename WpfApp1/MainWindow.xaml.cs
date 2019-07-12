@@ -6,7 +6,6 @@ using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Text;
-using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -19,23 +18,30 @@ namespace WpfApp1
 {
     public partial class MainWindow : Window
     {
-        string miesiac, rok;
-        bool czynadpisac;
-        string f_xslt;
-        string[] day;
-        IEnumerable<string> dayy;
-        string destination_folder_zaiks, destination_folder_stoart;
-        string destination_folder_ekstra_zaiks, destination_folder_ekstra_stoart;
-        string get_folder_szczecin_zaiks, get_folder_szczecin_stoart;
-        string get_folder_szn_ekstra_zaiks, get_folder_szn_ekstra_stoart;
-        string get_folder_zaiks, get_folder_stoart;
-        string fname, fname_part;
-        string dsa = @"raport_maker_help\";
-        int szn_or_szn_ekstra = 0;
-        bool error;
-        bool text_box_text_change = false;
-        List<string> array2 = new List<string>();
-        string first_line;
+        public string Miesiac { get; set; }
+        public string Rok { get; set; }
+        public bool Czynadpisac { get; set; }
+        public string F_xslt { get; set; }
+        public string[] Day { get; set; }
+        public IEnumerable<string> Dayy { get; set; }
+        public string Destination_folder_zaiks { get; set; }
+        public string Destination_folder_stoart { get; set; }
+        public string Destination_folder_ekstra_zaiks { get; set; }
+        public string Destination_folder_ekstra_stoart { get; set; }
+        public string Get_folder_szczecin_zaiks { get; set; }
+        public string Get_folder_szczecin_stoart { get; set; }
+        public string Get_folder_szn_ekstra_zaiks { get; set; }
+        public string Get_folder_szn_ekstra_stoart { get; set; }
+        public string Get_folder_zaiks { get; set; }
+        public string Get_folder_stoart { get; set; }
+        public string Fname { get; set; }
+        public string Fname_part { get; set; }
+        public string Dsa { get; set; } = @"raport_maker_help\";
+        public int Szn_or_szn_ekstra { get; set; } = 0;
+        public bool Error { get; set; }
+        public bool Text_box_text_change { get; set; } = false;
+        public List<string> Array2 { get; set; } = new List<string>();
+        public string First_line { get; set; }
 
         public MainWindow()
         {
@@ -46,7 +52,7 @@ namespace WpfApp1
             radioButton_2.IsChecked = radioButton_3.IsChecked = radioButton_4.IsChecked = radioButton_5.IsChecked = radioButton_6.IsChecked = radioButton_7.IsChecked = radioButton_8.IsChecked = false;
             TextBlock_1.Text = "Aplikacja tworzy raporty z programu DigAIRange.\n\nW następnym oknie należy wybrać:\n\n\tdatę (dzień miesiąca jest bez znaczenia)\n\trodzaj raportu\n\taudycję\n\nDziękuję.";
             WindowStartupLocation = WindowStartupLocation.CenterScreen;
-            DirectoryInfo di = new DirectoryInfo(dsa);
+            DirectoryInfo di = new DirectoryInfo(Dsa);
             Parallel.ForEach(di.GetFiles(), file =>
             {
                 file.Delete();
@@ -58,7 +64,7 @@ namespace WpfApp1
         {
             TextBox_1.Text = DataPicker_1.SelectedDate.Value.ToString("MMMM");
             TextBox_2.Text = DataPicker_1.SelectedDate.Value.ToString("yyyy");
-            text_box_text_change = true;
+            Text_box_text_change = true;
         }
 
         //Główny przycisk
@@ -66,8 +72,8 @@ namespace WpfApp1
         {
             try
             {
-                error = false;
-                if (text_box_text_change == false)
+                Error = false;
+                if (Text_box_text_change == false)
                 {
                     Window1 window1 = new Window1("Ustaw datę!");
                     window1.ShowDialog();
@@ -76,7 +82,7 @@ namespace WpfApp1
 
                 Main_Function_Config_Raport_Maker();
 
-                if (error == true)
+                if (Error == true)
                 {
                     Button_1.IsEnabled = groupBox_1.IsEnabled = groupBox_2.IsEnabled = DataPicker_1.IsEnabled = true;
                     ProgressBar_1.IsIndeterminate = false;
@@ -84,13 +90,13 @@ namespace WpfApp1
                     return;
                 }
 
-                miesiac = DataPicker_1.SelectedDate.Value.Month.ToString();
-                rok = DataPicker_1.SelectedDate.Value.Year.ToString();
+                Miesiac = DataPicker_1.SelectedDate.Value.Month.ToString();
+                Rok = DataPicker_1.SelectedDate.Value.Year.ToString();
 
                 Radiocheck_ktory_folder();
 
                 //Przerwanie programu gdy pojawi się error
-                if (error == true)
+                if (Error == true)
                 {
                     Button_1.IsEnabled = groupBox_1.IsEnabled = groupBox_2.IsEnabled = DataPicker_1.IsEnabled = true;
                     ProgressBar_1.IsIndeterminate = false;
@@ -102,7 +108,7 @@ namespace WpfApp1
                     Radiocheck();
 
                     //Przerwanie programu gdy pojawi się Error
-                    if (error == true)
+                    if (Error == true)
                     {
                         Button_1.IsEnabled = groupBox_1.IsEnabled = groupBox_2.IsEnabled = DataPicker_1.IsEnabled = true;
                         ProgressBar_1.IsIndeterminate = false;
@@ -114,39 +120,39 @@ namespace WpfApp1
                         Stopwatch sw = new Stopwatch();
                         List<string> array3 = new List<string>();
                         List<string> array4 = new List<string>();
-                        czynadpisac = false;
+                        Czynadpisac = false;
                         int z = 0;
 
                         //Sprawdzanie czy dany plik wyjściowy już istnieje
-                        if (File.Exists(fname))
+                        if (File.Exists(Fname))
                         {
                             Window2 window2 = new Window2();
                             window2.ShowDialog();
-                            if (!window2.czynadpisac)
+                            if (!window2.Czynadpisac)
                             {
-                                czynadpisac = false;
+                                Czynadpisac = false;
                                 return;
                             }
                             else
                             {
-                                FileInfo fff = new FileInfo(fname);
+                                FileInfo fff = new FileInfo(Fname);
                                 fff.Delete();
-                                czynadpisac = true;
+                                Czynadpisac = true;
                             }
                         }
-                        else if (!File.Exists(fname)) czynadpisac = true;
+                        else if (!File.Exists(Fname)) Czynadpisac = true;
 
-                        if (czynadpisac == true)
+                        if (Czynadpisac == true)
                         {
                             List<string> path = new List<string>();
-                            foreach (string file in array2)
+                            foreach (string file in Array2)
                             {
                                 path.Add(Path.GetFileNameWithoutExtension(file));
                             }
 
                             //Osbługa transformaty XSLT na osobnym wątku w celu nie zastygania UI
                             BackgroundWorker bw = new BackgroundWorker();
-                            bw.DoWork += new DoWorkEventHandler((sender1, args) => Main_Function_XSLT_Transform(array2, path, f_xslt, z, sw));
+                            bw.DoWork += new DoWorkEventHandler((sender1, args) => Main_Function_XSLT_Transform(Array2, path, F_xslt, z, sw));
                             bw.RunWorkerCompleted += new RunWorkerCompletedEventHandler((sender1, args) => Main_Function_After_XSLT(array3, array4, sw));
                             bw.RunWorkerAsync();
                             ProgressBar_1.IsIndeterminate = true;
@@ -163,9 +169,9 @@ namespace WpfApp1
             catch (Exception ex)
             {
                 MessageBox.Show("Błąd:\t" + ex, "Raport Maker V3");
-                FileInfo ffff = new FileInfo(fname);
+                FileInfo ffff = new FileInfo(Fname);
                 ffff.Delete();
-                array2.Clear();
+                Array2.Clear();
                 return;
             }
         }
@@ -204,10 +210,10 @@ namespace WpfApp1
                 XmlNode xml_dest_folder_ekstra_zaiks = xml_zaiks[i].SelectSingleNode("destination_folder_ekstra");
                 XmlNode xml_get_folder_zaiks = xml_zaiks[i].SelectSingleNode("get_folder_szczecin");
                 XmlNode xml_get_folder_x_zaiks = xml_zaiks[i].SelectSingleNode("get_folder_x");
-                destination_folder_zaiks = xml_dest_folder_zaiks.InnerText;
-                destination_folder_ekstra_zaiks = xml_dest_folder_ekstra_zaiks.InnerText;
-                get_folder_szczecin_zaiks = xml_get_folder_zaiks.InnerText;
-                get_folder_szn_ekstra_zaiks = xml_get_folder_x_zaiks.InnerText;
+                Destination_folder_zaiks = xml_dest_folder_zaiks.InnerText;
+                Destination_folder_ekstra_zaiks = xml_dest_folder_ekstra_zaiks.InnerText;
+                Get_folder_szczecin_zaiks = xml_get_folder_zaiks.InnerText;
+                Get_folder_szn_ekstra_zaiks = xml_get_folder_x_zaiks.InnerText;
             });
 
             XmlNodeList xml_stoart = doc.GetElementsByTagName("stoart");
@@ -218,10 +224,10 @@ namespace WpfApp1
                 XmlNode xml_dest_folder_ekstra_stoart = xml_stoart[i].SelectSingleNode("destination_folder_ekstra");
                 XmlNode xml_get_folder_stoart = xml_stoart[i].SelectSingleNode("get_folder_szczecin");
                 XmlNode xml_get_folder_x_stoart = xml_stoart[i].SelectSingleNode("get_folder_x");
-                destination_folder_stoart = xml_dest_folder_stoart.InnerText;
-                destination_folder_ekstra_stoart = xml_dest_folder_ekstra_stoart.InnerText;
-                get_folder_szczecin_stoart = xml_get_folder_stoart.InnerText;
-                get_folder_szn_ekstra_stoart = xml_get_folder_x_stoart.InnerText;
+                Destination_folder_stoart = xml_dest_folder_stoart.InnerText;
+                Destination_folder_ekstra_stoart = xml_dest_folder_ekstra_stoart.InnerText;
+                Get_folder_szczecin_stoart = xml_get_folder_stoart.InnerText;
+                Get_folder_szn_ekstra_stoart = xml_get_folder_x_stoart.InnerText;
             });
 
             Check_folders_exist();
@@ -230,15 +236,15 @@ namespace WpfApp1
         //Sprawdzanie dostępu do folderu z plikami xml (w domyślne w sieciowej lokalizacji)
         private void Check_folders_exist()
         {
-            string[] folders_exist = { destination_folder_zaiks , destination_folder_ekstra_zaiks , get_folder_szczecin_zaiks, get_folder_szn_ekstra_zaiks ,
-                destination_folder_stoart , destination_folder_ekstra_stoart , get_folder_szczecin_stoart , get_folder_szn_ekstra_stoart };
+            string[] folders_exist = { Destination_folder_zaiks , Destination_folder_ekstra_zaiks , Get_folder_szczecin_zaiks, Get_folder_szn_ekstra_zaiks ,
+                Destination_folder_stoart , Destination_folder_ekstra_stoart , Get_folder_szczecin_stoart , Get_folder_szn_ekstra_stoart };
 
             for (int i = 0; i < folders_exist.Length; i++)
             {
                 if (!Directory.Exists(folders_exist[i]))
                 {
                     MessageBox.Show("Nie można znaleźć ścieżki " + folders_exist[i]);
-                    error = true;
+                    Error = true;
                     return;
                 }
             }
@@ -326,26 +332,26 @@ namespace WpfApp1
                 //Reklama_Array_Prepare(array4, array5);
             }
 
-            array4.Insert(0, first_line);
+            array4.Insert(0, First_line);
 
             //Zapisanie pliku dla stoart
             if (radioButton_2.IsChecked == true)
             {
-                array6.Insert(0, first_line);
-                File.WriteAllLines(fname + "_ze_zliczaniem.txt", array6, Encoding.UTF8);
-                File.WriteAllLines(fname, array4, Encoding.UTF8);
+                array6.Insert(0, First_line);
+                File.WriteAllLines(Fname + "_ze_zliczaniem.txt", array6, Encoding.UTF8);
+                File.WriteAllLines(Fname, array4, Encoding.UTF8);
             }
             //Zapisanie pliku dla reklamy, własnej klasy, własnej nazwy
             else if ((radioButton_6.IsChecked == true) || (radioButton_7.IsChecked == true) || (radioButton_8.IsChecked == true) || (radioButton_9.IsChecked == true))
             {
-                array5.Insert(0, first_line);
-                File.WriteAllLines(fname, array5, Encoding.UTF8);
+                array5.Insert(0, First_line);
+                File.WriteAllLines(Fname, array5, Encoding.UTF8);
             }
             //Zapisanie pliku dla zaiks, materiały
-            else File.WriteAllLines(fname, array4, Encoding.UTF8);
+            else File.WriteAllLines(Fname, array4, Encoding.UTF8);
 
-            DirectoryInfo di = new DirectoryInfo(dsa);
-            array2.Clear();
+            DirectoryInfo di = new DirectoryInfo(Dsa);
+            Array2.Clear();
             array3.Clear();
             array4.Clear();
             array5.Clear();
@@ -357,10 +363,10 @@ namespace WpfApp1
 
             if((radioButton_7.IsChecked == true) || (radioButton_8.IsChecked == true) || (radioButton_9.IsChecked == true))
             {
-                if (File.Exists(f_xslt)) File.Delete(f_xslt);
+                if (File.Exists(F_xslt)) File.Delete(F_xslt);
             }
 
-            FileInfo f1 = new FileInfo(fname);
+            FileInfo f1 = new FileInfo(Fname);
             string textblock_content = "Zakończono.Plik \n\n" + f1.Name + "\n\nzostał zapisany.";
             Window1 window1 = new Window1(textblock_content);
             sw.Stop();
@@ -379,19 +385,19 @@ namespace WpfApp1
                 //Zaiks
                 if (radioButton_1.IsChecked == true)
                 {
-                    error = false;
-                    if (szn_or_szn_ekstra == 1)
+                    Error = false;
+                    if (Szn_or_szn_ekstra == 1)
                     {
-                        fname = destination_folder_zaiks + @"raport_zaiks_" + fname_part;
+                        Fname = Destination_folder_zaiks + @"raport_zaiks_" + Fname_part;
                     }
-                    else if (szn_or_szn_ekstra == 2)
+                    else if (Szn_or_szn_ekstra == 2)
                     {
-                        fname = destination_folder_ekstra_zaiks + @"raport_zaiks_" + fname_part;
+                        Fname = Destination_folder_ekstra_zaiks + @"raport_zaiks_" + Fname_part;
                     }
 
-                    first_line = "Data|Godz.aud.|Tytul audycji|Tytul utworu|Kompozytor|Autor tekstu|Tlumacz|Czas|Wykonawca|Producent|Wydawca|";
-                    f_xslt = @"raportdlazaikkopias.xslt";
-                    string[] folder_days_zaiks_dir = Directory.GetDirectories(get_folder_zaiks + rok + @"\" + miesiac + @"\");
+                    First_line = "Data|Godz.aud.|Tytul audycji|Tytul utworu|Kompozytor|Autor tekstu|Tlumacz|Czas|Wykonawca|Producent|Wydawca|";
+                    F_xslt = @"raportdlazaikkopias.xslt";
+                    string[] folder_days_zaiks_dir = Directory.GetDirectories(Get_folder_zaiks + Rok + @"\" + Miesiac + @"\");
 
                     Parallel.ForEach(folder_days_zaiks_dir, dir =>
                     {
@@ -402,19 +408,19 @@ namespace WpfApp1
                 //Stoart
                 else if (radioButton_2.IsChecked == true)
                 {
-                    error = false;
-                    if (szn_or_szn_ekstra == 1)
+                    Error = false;
+                    if (Szn_or_szn_ekstra == 1)
                     {
-                        fname = destination_folder_stoart + @"raport_stoart_" + fname_part;
+                        Fname = Destination_folder_stoart + @"raport_stoart_" + Fname_part;
                     }
-                    else if (szn_or_szn_ekstra == 2)
+                    else if (Szn_or_szn_ekstra == 2)
                     {
-                        fname = destination_folder_ekstra_stoart + @"raport_stoart_" + fname_part;
+                        Fname = Destination_folder_ekstra_stoart + @"raport_stoart_" + Fname_part;
                     }
 
-                    first_line = "Lp|WYKONAWCA|TUTYŁ UTWORU|CZAS UTWORU|ILOŚĆ NADAŃ|TYTUŁ PŁYTY|NUMER KATALOGOWY PŁYTY|WYDAWCA|ROK WYDANIA|POLSKA/ZAGRANICA(PL/Z)|KOD ISRC|";
-                    f_xslt = @"raportdlastoartkapias.xslt";
-                    string[] folder_days_stoart_dir = Directory.GetDirectories(get_folder_stoart + rok + @"\" + miesiac + @"\");
+                    First_line = "Lp|WYKONAWCA|TUTYŁ UTWORU|CZAS UTWORU|ILOŚĆ NADAŃ|TYTUŁ PŁYTY|NUMER KATALOGOWY PŁYTY|WYDAWCA|ROK WYDANIA|POLSKA/ZAGRANICA(PL/Z)|KOD ISRC|";
+                    F_xslt = @"raportdlastoartkapias.xslt";
+                    string[] folder_days_stoart_dir = Directory.GetDirectories(Get_folder_stoart + Rok + @"\" + Miesiac + @"\");
 
                     Parallel.ForEach(folder_days_stoart_dir, dir =>
                     {
@@ -425,19 +431,19 @@ namespace WpfApp1
                 //Materiały
                 else if (radioButton_5.IsChecked == true)
                 {
-                    error = false;
-                    if (szn_or_szn_ekstra == 1)
+                    Error = false;
+                    if (Szn_or_szn_ekstra == 1)
                     {
-                        fname = destination_folder_stoart + @"raport_materialy_" + fname_part;
+                        Fname = Destination_folder_stoart + @"raport_materialy_" + Fname_part;
                     }
-                    else if (szn_or_szn_ekstra == 2)
+                    else if (Szn_or_szn_ekstra == 2)
                     {
-                        fname = destination_folder_ekstra_stoart + @"raport_materialy_" + fname_part;
+                        Fname = Destination_folder_ekstra_stoart + @"raport_materialy_" + Fname_part;
                     }
 
-                    first_line = "Data;Godz.aud.;Tytul audycji;Godz. emisji;Długość;Tytuł;Autor;";
-                    f_xslt = @"raportmaterialykopia.xslt";
-                    string[] folder_days_stoart_dir = Directory.GetDirectories(get_folder_stoart + rok + @"\" + miesiac + @"\");
+                    First_line = "Data;Godz.aud.;Tytul audycji;Godz. emisji;Długość;Tytuł;Autor;";
+                    F_xslt = @"raportmaterialykopia.xslt";
+                    string[] folder_days_stoart_dir = Directory.GetDirectories(Get_folder_stoart + Rok + @"\" + Miesiac + @"\");
 
                     Parallel.ForEach(folder_days_stoart_dir, dir =>
                     {
@@ -448,19 +454,19 @@ namespace WpfApp1
                 //Wg klasy reklama
                 else if (radioButton_6.IsChecked == true)
                 {
-                    error = false;
-                    if (szn_or_szn_ekstra == 1)
+                    Error = false;
+                    if (Szn_or_szn_ekstra == 1)
                     {
-                        fname = destination_folder_stoart + @"raport_reklamy_" + fname_part;
+                        Fname = Destination_folder_stoart + @"raport_reklamy_" + Fname_part;
                     }
-                    else if (szn_or_szn_ekstra == 2)
+                    else if (Szn_or_szn_ekstra == 2)
                     {
-                        fname = destination_folder_ekstra_stoart + @"raport_reklamy_" + fname_part;
+                        Fname = Destination_folder_ekstra_stoart + @"raport_reklamy_" + Fname_part;
                     }
 
-                    first_line = "Data|Godz.aud.|Tytul audycji|Tytul reklamy|Kompozytor|Autor|Czas|";
-                    f_xslt = @"raportreklamakapias.xslt";
-                    string[] folder_days_stoart_dir = Directory.GetDirectories(get_folder_stoart + rok + @"\" + miesiac + @"\");
+                    First_line = "Data|Godz.aud.|Tytul audycji|Tytul reklamy|Kompozytor|Autor|Czas|";
+                    F_xslt = @"raportreklamakapias.xslt";
+                    string[] folder_days_stoart_dir = Directory.GetDirectories(Get_folder_stoart + Rok + @"\" + Miesiac + @"\");
 
                     Parallel.ForEach(folder_days_stoart_dir, dir =>
                     {
@@ -471,30 +477,30 @@ namespace WpfApp1
                 //Wg własnej klasy
                 else if (radioButton_7.IsChecked == true)
                 {
-                    error = false;
+                    Error = false;
 
                     Window_insert_class window_Insert_Class = new Window_insert_class();
                     window_Insert_Class.ShowDialog();
 
-                    if (!window_Insert_Class.correct)
+                    if (!window_Insert_Class.Correct)
                     {
-                        error = true;
+                        Error = true;
                         return;
                     }
                     else
                     {
-                        if (szn_or_szn_ekstra == 1)
+                        if (Szn_or_szn_ekstra == 1)
                         {
-                            fname = destination_folder_stoart + @"raport_z_klasy_" + window_Insert_Class.Part_of_File_Name + "_" + fname_part;
+                            Fname = Destination_folder_stoart + @"raport_z_klasy_" + window_Insert_Class.Part_of_File_Name + "_" + Fname_part;
                         }
-                        else if (szn_or_szn_ekstra == 2)
+                        else if (Szn_or_szn_ekstra == 2)
                         {
-                            fname = destination_folder_ekstra_stoart + @"raport_z_klasy_" + window_Insert_Class.Part_of_File_Name + "_" + fname_part;
+                            Fname = Destination_folder_ekstra_stoart + @"raport_z_klasy_" + window_Insert_Class.Part_of_File_Name + "_" + Fname_part;
                         }
 
-                        first_line = "Data|Godz.aud.|Tytul audycji|Tytul elementu|Kompozytor|Autor|Czas|";
-                        f_xslt = @"raport_custom_class.xslt";
-                        string[] folder_days_stoart_dir = Directory.GetDirectories(get_folder_stoart + rok + @"\" + miesiac + @"\");
+                        First_line = "Data|Godz.aud.|Tytul audycji|Tytul elementu|Kompozytor|Autor|Czas|";
+                        F_xslt = @"raport_custom_class.xslt";
+                        string[] folder_days_stoart_dir = Directory.GetDirectories(Get_folder_stoart + Rok + @"\" + Miesiac + @"\");
 
                         Parallel.ForEach(folder_days_stoart_dir, dir =>
                         {
@@ -506,30 +512,30 @@ namespace WpfApp1
                 //Wg nazwy
                 else if (radioButton_8.IsChecked == true)
                 {
-                    error = false;
+                    Error = false;
 
                     Window_insert_name window_Insert_Name = new Window_insert_name();
                     window_Insert_Name.ShowDialog();
 
-                    if (!window_Insert_Name.correct)
+                    if (!window_Insert_Name.Correct)
                     {
-                        error = true;
+                        Error = true;
                         return;
                     }
                     else
                     {
-                        if (szn_or_szn_ekstra == 1)
+                        if (Szn_or_szn_ekstra == 1)
                         {
-                            fname = destination_folder_stoart + @"raport_z_nazwy_" + window_Insert_Name.NameOfTheTitleWrittenByUser + "_" + fname_part;
+                            Fname = Destination_folder_stoart + @"raport_z_nazwy_" + window_Insert_Name.NameOfTheTitleWrittenByUser + "_" + Fname_part;
                         }
-                        else if (szn_or_szn_ekstra == 2)
+                        else if (Szn_or_szn_ekstra == 2)
                         {
-                            fname = destination_folder_ekstra_stoart + @"raport_z_nazwy_" + window_Insert_Name.NameOfTheTitleWrittenByUser + "_" + fname_part;
+                            Fname = Destination_folder_ekstra_stoart + @"raport_z_nazwy_" + window_Insert_Name.NameOfTheTitleWrittenByUser + "_" + Fname_part;
                         }
 
-                        first_line = "Data|Godz.aud.|Tytul audycji|Tytul elementu|Kompozytor|Autor|Czas|";
-                        f_xslt = @"raport_custom_title_name.xslt";
-                        string[] folder_days_stoart_dir = Directory.GetDirectories(get_folder_stoart + rok + @"\" + miesiac + @"\");
+                        First_line = "Data|Godz.aud.|Tytul audycji|Tytul elementu|Kompozytor|Autor|Czas|";
+                        F_xslt = @"raport_custom_title_name.xslt";
+                        string[] folder_days_stoart_dir = Directory.GetDirectories(Get_folder_stoart + Rok + @"\" + Miesiac + @"\");
 
                         Parallel.ForEach(folder_days_stoart_dir, dir =>
                         {
@@ -541,30 +547,30 @@ namespace WpfApp1
                 //Wg klasy lub/i nazwy
                 else if (radioButton_9.IsChecked == true)
                 {
-                    error = false;
+                    Error = false;
 
                     Window_custom_raport window_Custom_Raport = new Window_custom_raport();
                     window_Custom_Raport.ShowDialog();
 
-                    if (!window_Custom_Raport.correct)
+                    if (!window_Custom_Raport.Correct)
                     {
-                        error = true;
+                        Error = true;
                         return;
                     }
                     else
                     {
-                        if (szn_or_szn_ekstra == 1)
+                        if (Szn_or_szn_ekstra == 1)
                         {
-                            fname = destination_folder_stoart + @"raport_z_" + window_Custom_Raport.Part_of_File_Name + "_" + fname_part;
+                            Fname = Destination_folder_stoart + @"raport_z_" + window_Custom_Raport.Part_of_File_Name + "_" + Fname_part;
                         }
-                        else if (szn_or_szn_ekstra == 2)
+                        else if (Szn_or_szn_ekstra == 2)
                         {
-                            fname = destination_folder_ekstra_stoart + @"raport_z_" + window_Custom_Raport.Part_of_File_Name + "_" + fname_part;
+                            Fname = Destination_folder_ekstra_stoart + @"raport_z_" + window_Custom_Raport.Part_of_File_Name + "_" + Fname_part;
                         }
 
-                        first_line = "Data|Godz.aud.|Tytul audycji|Tytul elementu|Kompozytor|Autor|Czas|";
-                        f_xslt = @"raport_custom_raport.xslt";
-                        string[] folder_days_stoart_dir = Directory.GetDirectories(get_folder_stoart + rok + @"\" + miesiac + @"\");
+                        First_line = "Data|Godz.aud.|Tytul audycji|Tytul elementu|Kompozytor|Autor|Czas|";
+                        F_xslt = @"raport_custom_raport.xslt";
+                        string[] folder_days_stoart_dir = Directory.GetDirectories(Get_folder_stoart + Rok + @"\" + Miesiac + @"\");
 
                         Parallel.ForEach(folder_days_stoart_dir, dir =>
                         {
@@ -578,16 +584,16 @@ namespace WpfApp1
                 {
                     Window1 window1 = new Window1("Wybierz rodzaj raportu!");
                     window1.Show();
-                    error = true;
+                    Error = true;
                     return;
                 }
             }
             catch (Exception ex)
             {
                 MessageBox.Show("Błąd:\t" + ex, "Raport Maker V3");
-                FileInfo ffff = new FileInfo(fname);
+                FileInfo ffff = new FileInfo(Fname);
                 ffff.Delete();
-                array2.Clear();
+                Array2.Clear();
                 return;
             }
         }
@@ -596,11 +602,11 @@ namespace WpfApp1
         private void RadioCheck_Parrel_ForEach(string dir)
         {
             string dirrr = dir + @"\Shows";
-            dayy = Directory.EnumerateFiles(dirrr, "*.xml", SearchOption.AllDirectories);
-            day = dayy.ToArray();
-            foreach (string d in day)
+            Dayy = Directory.EnumerateFiles(dirrr, "*.xml", SearchOption.AllDirectories);
+            Day = Dayy.ToArray();
+            foreach (string d in Day)
             {
-                array2.Add(d);
+                Array2.Add(d);
             }
         }
 
@@ -609,26 +615,26 @@ namespace WpfApp1
         {
             if (radioButton_3.IsChecked == true)
             {
-                get_folder_zaiks = get_folder_szczecin_zaiks;
-                get_folder_stoart = get_folder_szczecin_stoart;
-                fname_part = @"szczecin_" + TextBox_1.Text + "_" + TextBox_2.Text + ".txt";
-                szn_or_szn_ekstra = 1;
-                error = false;
+                Get_folder_zaiks = Get_folder_szczecin_zaiks;
+                Get_folder_stoart = Get_folder_szczecin_stoart;
+                Fname_part = @"szczecin_" + TextBox_1.Text + "_" + TextBox_2.Text + ".txt";
+                Szn_or_szn_ekstra = 1;
+                Error = false;
 
             }
             else if (radioButton_4.IsChecked == true)
             {
-                get_folder_zaiks = get_folder_szn_ekstra_zaiks;
-                get_folder_stoart = get_folder_szn_ekstra_stoart;
-                fname_part = @"szczecin_FM_" + TextBox_1.Text + "_" + TextBox_2.Text + ".txt";
-                szn_or_szn_ekstra = 2;
-                error = false;
+                Get_folder_zaiks = Get_folder_szn_ekstra_zaiks;
+                Get_folder_stoart = Get_folder_szn_ekstra_stoart;
+                Fname_part = @"szczecin_FM_" + TextBox_1.Text + "_" + TextBox_2.Text + ".txt";
+                Szn_or_szn_ekstra = 2;
+                Error = false;
             }
             else
             {
                 Window1 window1 = new Window1("Wybierz który raport!");
                 window1.Show();
-                error = true;
+                Error = true;
             }
         }
 

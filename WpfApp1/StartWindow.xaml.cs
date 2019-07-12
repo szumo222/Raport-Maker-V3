@@ -1,22 +1,22 @@
 ﻿using System;
 using System.Windows;
 using System.Windows.Input;
+using System.Windows.Threading;
 
 namespace WpfApp1
 {
     public partial class StartWindow : Window
     {
-
-        System.Windows.Threading.DispatcherTimer dispatcherTimer = new System.Windows.Threading.DispatcherTimer();
-
         public StartWindow()
         {
             InitializeComponent();
             WindowStartupLocation = WindowStartupLocation.CenterScreen;
-            dispatcherTimer.Tick += new EventHandler(dispatcherTimer_Tick);
-            dispatcherTimer.Interval = new TimeSpan(0, 0, 2);
-            dispatcherTimer.Start();
+            DispatcherTimer.Tick += new EventHandler(dispatcherTimer_Tick);
+            DispatcherTimer.Interval = new TimeSpan(0, 0, 2);
+            DispatcherTimer.Start();
         }
+
+        public DispatcherTimer DispatcherTimer { get; set; } = new DispatcherTimer();
 
         //Przełączenie okna po czasie
         private void dispatcherTimer_Tick(object sender, EventArgs e)
@@ -24,7 +24,7 @@ namespace WpfApp1
             MainWindow mainWindow = new MainWindow();
             mainWindow.Show();
             this.Close();
-            dispatcherTimer.Stop();
+            DispatcherTimer.Stop();
         }
 
         //Możliwość ruszania oknem

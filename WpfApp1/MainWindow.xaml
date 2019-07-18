@@ -58,10 +58,11 @@
                         <RadioButton FontSize="20" x:Name="radioButton_1" Content="Zaiks" HorizontalAlignment="Left" Margin="16,16,0,0" VerticalAlignment="Top" FontWeight="Bold"/>
                         <RadioButton FontSize="20" x:Name="radioButton_2" Content="Stoart" HorizontalAlignment="Left" Margin="16,51,0,0" VerticalAlignment="Top" FontWeight="Bold"/>
                         <RadioButton FontSize="20" x:Name="radioButton_5" Content="Materiały" HorizontalAlignment="Left" Margin="16,86,0,0" VerticalAlignment="Top" FontWeight="Bold"/>
-                        <RadioButton FontSize="20" x:Name="radioButton_6" Content="Wg. klasy reklama" ToolTip="Raport wg klasy Reklama(Commercial)" HorizontalAlignment="Left" Margin="16,121,0,0" VerticalAlignment="Top" FontWeight="Bold"/>
-                        <RadioButton FontSize="20" x:Name="radioButton_7" Content="Wg. klasy własnej" ToolTip="Raport wg wpisanej w następnym oknie klasy" HorizontalAlignment="Left" Margin="16,156,0,0" VerticalAlignment="Top" FontWeight="Bold"/>
+                        <RadioButton FontSize="20" x:Name="radioButton_6" Content="Wg klasy reklama" ToolTip="Raport wg klasy Reklama(Commercial)" HorizontalAlignment="Left" Margin="16,121,0,0" VerticalAlignment="Top" FontWeight="Bold"/>
+                        <RadioButton FontSize="20" x:Name="radioButton_7" Content="Wg klasy własnej" ToolTip="Raport wg wpisanej w następnym oknie klasy" HorizontalAlignment="Left" Margin="16,156,0,0" VerticalAlignment="Top" FontWeight="Bold"/>
                         <RadioButton FontSize="20" x:Name="radioButton_8" Content="Wg nazwy" ToolTip="Raport wg wpisanej w następnym oknie nazwy elementu" HorizontalAlignment="Left" Margin="16,191,0,0" VerticalAlignment="Top" FontWeight="Bold"/>
-                        <RadioButton FontSize="20" x:Name="radioButton_9" Content="Raport wg klasy lub/i nazwy" ToolTip="Raport wg wpisanej w następnym oknie klasy lub/i nazwy elementu" HorizontalAlignment="Left" Margin="16,226,0,0" VerticalAlignment="Top" FontWeight="Bold"/>
+                        <RadioButton FontSize="20" x:Name="radioButton_9" Content="Wg klasy lub/i nazwy" ToolTip="Raport wg wpisanej w następnym oknie klasy lub/i nazwy elementu" HorizontalAlignment="Left" Margin="16,226,0,0" VerticalAlignment="Top" FontWeight="Bold"/>
+                        <RadioButton FontSize="20" x:Name="radioButton_10" Content="Wg wybranego wzoru" ToolTip="Raport wg wybranego w następnym oknie wzoru XSLT" HorizontalAlignment="Left" Margin="16,261,0,0" VerticalAlignment="Top" FontWeight="Bold"/>
                     </Grid>
                 </ScrollViewer>
             </GroupBox>

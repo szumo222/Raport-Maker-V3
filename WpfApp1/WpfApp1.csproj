@@ -98,6 +98,9 @@
     <Compile Include="Window_insert_name.xaml.cs">
       <DependentUpon>Window_insert_name.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Window_XSLT_chosing.xaml.cs">
+      <DependentUpon>Window_XSLT_chosing.xaml</DependentUpon>
+    </Compile>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -131,6 +134,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Window_insert_name.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Window_XSLT_chosing.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

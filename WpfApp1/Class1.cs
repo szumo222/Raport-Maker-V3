@@ -70,14 +70,8 @@ namespace WpfApp1
                     }
                 }
             }
-            //Czyszczenie listy z pustych wierwszy
-            for (int i = array6.Count - 1; i >= 0; i--)
-            {
-                if (array6[i] == "")
-                {
-                    array6.RemoveAt(i);
-                }
-            }
+
+            Clear_empty_line(array6);
         }
 
         //Przygotowanie listy do zapisu dla reklam
@@ -87,6 +81,7 @@ namespace WpfApp1
             int czas_reklaman_dzien = 0;
             List<string> suma_czas_dzien = new List<string>();
             suma_czas_dzien.Clear();
+
             for (int i = 0; i < array4.Count; i++)
             {
                 Match match = Regex.Match(Regex.Match(array4[i], @"\|\d+\|$").ToString(), @"\d+");
@@ -116,10 +111,12 @@ namespace WpfApp1
                     suma_czas_dzien.Add("Suma elementów z dnia|" + match_2.ToString() + "|" + Calculate_duration(czas_reklaman_dzien) + "|");
                 }
             }
+
             for (int i = 0; i < suma_czas_dzien.Count; i++)
             {
                 array5.Insert(i, suma_czas_dzien[i]);
             }
+
             array5.Insert(0, "Sumaryczny czas elementów w miesiacu|" + Calculate_duration(suma_czas_reklama) + "|");
         }
 
@@ -132,6 +129,17 @@ namespace WpfApp1
             int reszta_z_minut = reszta_z_godzin % 60000;
             int sekundy = reszta_z_minut / 1000;
             return godziny + ":" + minuty + ":" + sekundy;
+        }
+
+        public static void Clear_empty_line(List<string> array4)
+        {
+            for (int i = array4.Count - 1; i >= 0; i--)
+            {
+                if (array4[i] == "")
+                {
+                    array4.RemoveAt(i);
+                }
+            }
         }
     }
 }

@@ -6,7 +6,7 @@
 <xsl:variable name="audycja_data" select="substring(Time_Start,0,11)"/>
 <xsl:variable name="audycja_godzina_start" select="substring(Time_Start,12,5)"/>
 <xsl:variable name="audycja_tytul" select="Name"/>
-<xsl:for-each select="Track">
+<xsl:for-each select="Track[Number='1000']">
 <xsl:for-each select="PetlaForEachDlaElementu">
 <xsl:variable name="part_of_title" select="substring(Title,0,LengthOfTheTitleWrittenByUser)"/>
 WarunekIfPoczatek

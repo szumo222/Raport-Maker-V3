@@ -321,14 +321,12 @@ namespace WpfApp1
             {
                 
                 class1.Stoart_Array_Prepare(array4, array5, array6, iiii);
-                //Stoart_Array_Prepare(array4, array5, array6, iiii);
             }
 
             //Wywołanie funkcji do reklamy
             if ((radioButton_6.IsChecked == true) || (radioButton_7.IsChecked == true) || (radioButton_8.IsChecked == true) || (radioButton_9.IsChecked == true))
             {
                 class1.Reklama_Array_Prepare(array4, array5);
-                //Reklama_Array_Prepare(array4, array5);
             }
 
             array4.Insert(0, First_line);
@@ -360,7 +358,7 @@ namespace WpfApp1
                 file.Delete();
             });
 
-            if((radioButton_7.IsChecked == true) || (radioButton_8.IsChecked == true) || (radioButton_9.IsChecked == true))
+            if((radioButton_7.IsChecked == true) || (radioButton_8.IsChecked == true) || (radioButton_9.IsChecked == true) || (radioButton_10.IsChecked == true))
             {
                 if (File.Exists(F_xslt)) File.Delete(F_xslt);
             }
@@ -376,6 +374,7 @@ namespace WpfApp1
             window1.Show();
         }
 
+        //Przypisanie nazwy pierwszej częsci nazwy pliku wyjściowego dla raportów zaiks, stoart, materiały
         public void Radiocheck_zaiks_stoart_materialy_reklama(string middle_part_of_f_name, string f1_line, string file_xslt, string dest_folder, string dest_folder_ekstra, string get_folder)
         {
 
@@ -399,6 +398,7 @@ namespace WpfApp1
             });
         }
 
+        //Przypisanie nazwy pierwszej częsci nazwy pliku wyjściowego dla customowych raportów (wg klasy, nazwy, klasy i/lub nazwy, wybrany plik xslt)
         private void Radiocheck_custom_raports(bool correct, string middle_part_of_f_name, string window_middle_part_of_file_name,  string f1_line, string file_xslt, string dest_folder, string dest_folder_ekstra, string get_folder)
         {
             if (!correct)
@@ -525,6 +525,24 @@ namespace WpfApp1
                                               window_Custom_Raport.Part_of_File_Name,
                                               "Data|Godz.aud.|Tytul audycji|Tytul elementu|Kompozytor|Autor|Czas|",
                                               @"raport_custom_raport.xslt",
+                                              Destination_folder_stoart,
+                                              Destination_folder_ekstra_stoart,
+                                              Get_folder_stoart);
+                }
+
+                //Wg wybranego raportu XSLT
+                else if (radioButton_10.IsChecked == true)
+                {
+                    Error = false;
+
+                    Window_XSLT_chosing window_xslt_chosing = new Window_XSLT_chosing();
+                    window_xslt_chosing.ShowDialog();
+
+                    Radiocheck_custom_raports(window_xslt_chosing.Correct,
+                                              @"raport_z_wybranego_wzoru_",
+                                              window_xslt_chosing.Part_of_File_Name,
+                                              "Data|Godz.aud.|Tytul audycji|Tytul elementu|Kompozytor|Autor|Czas|",
+                                              @"raport_XSLT_chosing.xslt",
                                               Destination_folder_stoart,
                                               Destination_folder_ekstra_stoart,
                                               Get_folder_stoart);

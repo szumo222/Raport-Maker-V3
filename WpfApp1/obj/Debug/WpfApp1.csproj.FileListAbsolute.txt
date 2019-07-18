@@ -53,3 +53,5 @@ C:\Users\szumielewicz\source\repos\WpfApp1\WpfApp1\obj\Debug\Window_insert_name.
 C:\Users\szumielewicz\source\repos\WpfApp1\WpfApp1\obj\Debug\Window_insert_name.g.cs
 C:\Users\szumielewicz\source\repos\WpfApp1\WpfApp1\obj\Debug\Window_custom_raport.baml
 C:\Users\szumielewicz\source\repos\WpfApp1\WpfApp1\obj\Debug\Window_custom_raport.g.cs
+C:\Users\szumielewicz\source\repos\WpfApp1\WpfApp1\obj\Debug\Window_XSLT_chosing.baml
+C:\Users\szumielewicz\source\repos\WpfApp1\WpfApp1\obj\Debug\Window_XSLT_chosing.g.cs

@@ -1,4 +1,6 @@
-﻿using System;
+﻿using MaterialDesignThemes.Wpf;
+using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics;
@@ -9,6 +11,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Documents;
 using System.Windows.Input;
 using System.Xml;
 using System.Xml.Xsl;
@@ -16,10 +19,9 @@ using Path = System.IO.Path;
 
 namespace WpfApp1
 {
+
     public partial class MainWindow : Window
     {
-        public string Miesiac { get; set; }
-        public string Rok { get; set; }
         public bool Czynadpisac { get; set; }
         public string F_xslt { get; set; }
         public string[] Day { get; set; }
@@ -40,17 +42,20 @@ namespace WpfApp1
         public int Szn_or_szn_ekstra { get; set; } = 0;
         public bool Error { get; set; }
         public bool Text_box_text_change { get; set; } = false;
+        public bool Text_box_2_text_change { get; set; } = false;
         public List<string> Array2 { get; set; } = new List<string>();
         public string First_line { get; set; }
-
+        public List<List_date> Tab_list_date_before_distinct { get; set; } = new List<List_date>();
+        public List<List_date> Tab_list_date { get; set; } = new List<List_date>();
         public MainWindow()
         {
+            
             InitializeComponent();
             radioButton_1.IsChecked = false;
             grid_main.Visibility = Visibility.Hidden;
             grid_start.Visibility = Visibility.Visible;
             radioButton_2.IsChecked = radioButton_3.IsChecked = radioButton_4.IsChecked = radioButton_5.IsChecked = radioButton_6.IsChecked = radioButton_7.IsChecked = radioButton_8.IsChecked = false;
-            TextBlock_1.Text = "Aplikacja tworzy raporty z programu DigAIRange.\n\nW następnym oknie należy wybrać:\n\n\tdatę (dzień miesiąca jest bez znaczenia)\n\trodzaj raportu\n\taudycję\n\nDziękuję.";
+            TextBlock_1.Text = "Aplikacja tworzy raporty z programu DigAIRange.\n\nW następnym oknie należy wybrać:\n\n\tdatę początkową\n\tdatę końcową\n\trodzaj raportu\n\taudycję\n\nDziękuję.";
             WindowStartupLocation = WindowStartupLocation.CenterScreen;
             DirectoryInfo di = new DirectoryInfo(Dsa);
             Parallel.ForEach(di.GetFiles(), file =>
@@ -62,9 +67,50 @@ namespace WpfApp1
         //Selektor kalendarza
         private void MonthlyCalendar_SelectedDatesChanged(object sender, SelectionChangedEventArgs e)
         {
-            TextBox_1.Text = DataPicker_1.SelectedDate.Value.ToString("MMMM");
-            TextBox_2.Text = DataPicker_1.SelectedDate.Value.ToString("yyyy");
+            TextBox_1.Text = DataPicker_1.SelectedDate.Value.ToString("d MMMM yyyy");
             Text_box_text_change = true;
+        }
+
+        //Selektor kalendarza
+        private void MonthlyCalendar_2_SelectedDatesChanged(object sender, SelectionChangedEventArgs e)
+        {
+            TextBox_2.Text = DataPicker_2.SelectedDate.Value.ToString("d MMMM yyyy");
+            Text_box_2_text_change = true;
+        }
+
+        private List<DateTime> GetDateRange(DateTime StartingDate, DateTime EndingDate)
+        {
+            if (StartingDate > EndingDate)
+            {
+                return null;
+            }
+            List<DateTime> rv = new List<DateTime>();
+            DateTime tmpDate = StartingDate;
+            do
+            {
+                rv.Add(tmpDate);
+                tmpDate = tmpDate.AddDays(1);
+            } while (tmpDate <= EndingDate);
+            return rv;
+        }
+
+        private void Month_range(DatePicker d1, DatePicker d2)
+        {
+            DateTime StartingDate = d1.SelectedDate.Value;
+            DateTime EndingDate = d2.SelectedDate.Value;
+            foreach (DateTime date in GetDateRange(StartingDate, EndingDate))
+            {
+                List_date ld = new List_date();
+                ld.List_date_month = date.Month.ToString();
+                ld.List_date_year = date.Year.ToString();
+                ld.List_date_day = date.Day.ToString();
+                Tab_list_date_before_distinct.Add(ld);
+            }
+            Tab_list_date = Tab_list_date_before_distinct.Distinct().ToList();
+            foreach(List_date xxx in Tab_list_date)
+            {
+                Console.WriteLine("Dzień: " + xxx.List_date_day + "\tMiesiac: " + xxx.List_date_month + "\tRok: " + xxx.List_date_year);
+            }
         }
 
         //Główny przycisk
@@ -73,7 +119,7 @@ namespace WpfApp1
             try
             {
                 Error = false;
-                if (Text_box_text_change == false)
+                if ((Text_box_text_change == false) || (Text_box_2_text_change == false))
                 {
                     Window1 window1 = new Window1("Ustaw datę!");
                     window1.ShowDialog();
@@ -87,8 +133,9 @@ namespace WpfApp1
                     Error_set_components();
                 }
 
-                Miesiac = DataPicker_1.SelectedDate.Value.Month.ToString();
-                Rok = DataPicker_1.SelectedDate.Value.Year.ToString();
+                Month_range(DataPicker_1, DataPicker_2);
+
+
 
                 Radiocheck_ktory_folder();
 
@@ -141,6 +188,12 @@ namespace WpfApp1
                                 path.Add(Path.GetFileNameWithoutExtension(file));
                             }
 
+                            DirectoryInfo di = new DirectoryInfo(Dsa);
+                            Parallel.ForEach(di.GetFiles(), file =>
+                            {
+                                file.Delete();
+                            });
+
                             //Osbługa transformaty XSLT na osobnym wątku w celu nie zastygania UI
                             BackgroundWorker bw = new BackgroundWorker();
                             bw.DoWork += new DoWorkEventHandler((sender1, args) => Main_Function_XSLT_Transform(Array2, path, F_xslt, z, sw));
@@ -148,7 +201,7 @@ namespace WpfApp1
                             bw.RunWorkerAsync();
                             ProgressBar_1.IsIndeterminate = true;
                             ProgressBar_1.Opacity = 100;
-                            Button_1.IsEnabled = groupBox_1.IsEnabled = groupBox_2.IsEnabled = DataPicker_1.IsEnabled = false;
+                            Button_1.IsEnabled = groupBox_1.IsEnabled = groupBox_2.IsEnabled = DataPicker_1.IsEnabled = DataPicker_2.IsEnabled = false;
                         }
                         else
                         {
@@ -176,6 +229,7 @@ namespace WpfApp1
             }
         }
 
+        //Resetowanie elementów okna do stanu początkowego po błędzie
         private void Error_set_components()
         {
             Button_1.IsEnabled = groupBox_1.IsEnabled = groupBox_2.IsEnabled = DataPicker_1.IsEnabled = true;
@@ -319,7 +373,6 @@ namespace WpfApp1
             //Wywołanie funkcji dla stoart
             if (radioButton_2.IsChecked == true)
             {
-                
                 class1.Stoart_Array_Prepare(array4, array5, array6, iiii);
             }
 
@@ -368,14 +421,27 @@ namespace WpfApp1
             Window1 window1 = new Window1(textblock_content);
             sw.Stop();
             Console.WriteLine("Czas wykonania programu: " + Math.Round(TimeSpan.FromMilliseconds(sw.ElapsedMilliseconds).TotalSeconds));
-            Button_1.IsEnabled = groupBox_1.IsEnabled = groupBox_2.IsEnabled = DataPicker_1.IsEnabled = true;
+            Button_1.IsEnabled = groupBox_1.IsEnabled = groupBox_2.IsEnabled = DataPicker_1.IsEnabled = DataPicker_2.IsEnabled = true;
             ProgressBar_1.IsIndeterminate = false;
             ProgressBar_1.Opacity = 0.1;
             window1.Show();
         }
 
+        private void Get_months_folders(string get_folder)
+        {
+            List<string> folder_days_dir = new List<string>();
+            Parallel.ForEach(Tab_list_date, date =>
+            {
+                folder_days_dir.Add(get_folder + date.List_date_year + @"\" + date.List_date_month + @"\" + date.List_date_day + @"\");
+            });
+            Parallel.ForEach(folder_days_dir, dir =>
+            {
+                RadioCheck_Parrel_ForEach(dir);
+            });
+        }
+
         //Przypisanie nazwy pierwszej częsci nazwy pliku wyjściowego dla raportów zaiks, stoart, materiały
-        public void Radiocheck_zaiks_stoart_materialy_reklama(string middle_part_of_f_name, string f1_line, string file_xslt, string dest_folder, string dest_folder_ekstra, string get_folder)
+        private void Radiocheck_zaiks_stoart_materialy_reklama(string middle_part_of_f_name, string f1_line, string file_xslt, string dest_folder, string dest_folder_ekstra, string get_folder)
         {
 
             Error = false;
@@ -390,12 +456,7 @@ namespace WpfApp1
 
             First_line = f1_line;
             F_xslt = file_xslt;
-            string[] folder_days_dir = Directory.GetDirectories(get_folder + Rok + @"\" + Miesiac + @"\");
-
-            Parallel.ForEach(folder_days_dir, dir =>
-            {
-                RadioCheck_Parrel_ForEach(dir);
-            });
+            Get_months_folders(get_folder);
         }
 
         //Przypisanie nazwy pierwszej częsci nazwy pliku wyjściowego dla customowych raportów (wg klasy, nazwy, klasy i/lub nazwy, wybrany plik xslt)
@@ -419,12 +480,7 @@ namespace WpfApp1
 
                 First_line = f1_line;
                 F_xslt = file_xslt;
-                string[] folder_days_dir = Directory.GetDirectories(get_folder + Rok + @"\" + Miesiac + @"\");
-
-                Parallel.ForEach(folder_days_dir, dir =>
-                {
-                    RadioCheck_Parrel_ForEach(dir);
-                });
+                Get_months_folders(get_folder);
             }
         }
         //Sprawdzanie który rodzaj raportu został wybrany i przypisanie nazwy pierwszej częsci nazwy pliku wyjściowego

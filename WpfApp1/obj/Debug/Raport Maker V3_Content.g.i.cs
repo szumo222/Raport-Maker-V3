@@ -8,6 +8,6 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-[assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("background2.jpg")]
+[assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("raport_example.xslt")]
 
 

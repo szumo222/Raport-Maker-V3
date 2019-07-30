@@ -15,7 +15,7 @@
         TextOptions.TextRenderingMode="Auto"
         Background="White"
         FontFamily="{DynamicResource MaterialDesignFont}"
-        Title="Raport Maker V3" Height="500" Width="800"
+        Title="Raport Maker V3" Height="550" Width="800"
         HorizontalAlignment="Left" VerticalAlignment="Top"
         MouseDown="Window_MouseDown"
         ResizeMode="NoResize" Icon="contract.ico" WindowStyle="None">
@@ -28,27 +28,32 @@
             SelectedDateChanged="MonthlyCalendar_SelectedDatesChanged"
             materialDesign:HintAssist.Hint="Data"
                     materialDesign:HintAssist.IsFloating="True"
-            Style="{StaticResource MaterialDesignFloatingHintDatePicker}" Margin="16,56,0,0" 
-            x:Name="DataPicker_1" Height="60" Width="160"  FontSize="24"  HorizontalAlignment="Left" VerticalAlignment="Top" FontWeight="Bold" Background="{x:Null}" />
+            Style="{StaticResource MaterialDesignFloatingHintDatePicker}" Margin="16,85,0,0" 
+            x:Name="DataPicker_1" Height="60" Width="160"  FontSize="24"  HorizontalAlignment="Left" VerticalAlignment="Top" FontWeight="Bold" Background="{x:Null}" SelectedDateFormat="Short" />
+            <TextBox x:Name="TextBox_1" Height="60" TextWrapping="Wrap" IsReadOnly="True" FontSize="20" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" 
+                 Margin="181,85,411.6,0" VerticalAlignment="Top" FontWeight="Bold" materialDesign:HintAssist.Hint="Data startowa">
+                <TextBox.Background>
+                    <SolidColorBrush Color="#FFF0F8FF" Opacity="0.7"/>
+                </TextBox.Background>
+            </TextBox>
+            <DatePicker Language="pl-PL"
+            SelectedDateChanged="MonthlyCalendar_2_SelectedDatesChanged"
+            materialDesign:HintAssist.Hint="Data"
+                    materialDesign:HintAssist.IsFloating="True"
+            Style="{StaticResource MaterialDesignFloatingHintDatePicker}" Margin="0,85,225.6,0" 
+            x:Name="DataPicker_2" Height="60" Width="160"  FontSize="24"  HorizontalAlignment="Right" VerticalAlignment="Top" FontWeight="Bold" Background="{x:Null}" Visibility="Visible"/>
+            <TextBox x:Name="TextBox_2" Height="60" TextWrapping="Wrap" IsReadOnly="True" FontSize="20" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" 
+                Margin="577,85,15.6,0" VerticalAlignment="Top" FontWeight="Bold" materialDesign:HintAssist.Hint="Data końcowa">
+                <TextBox.Background>
+                    <SolidColorBrush Color="#FFF0F8FF" Opacity="0.7"/>
+                </TextBox.Background>
+            </TextBox>
             <Button
             Style="{StaticResource MaterialDesignRaisedAccentButton}" materialDesign:ShadowAssist.ShadowDepth="Depth3"
             Width="160" Height="40" Content="Stwórz" x:Name="Button_1"
             materialDesign:RippleAssist.Feedback="#DD000000" FontSize="24" Margin="16,0,0,100" VerticalAlignment="Bottom" HorizontalAlignment="Left" Click="Button_1_Click">
             </Button>
-            <TextBox x:Name="TextBox_1" Height="60" TextWrapping="Wrap" IsReadOnly="True" FontSize="24" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" 
-                 Margin="0,56,0,0" VerticalAlignment="Top" FontWeight="Bold" Width="350" materialDesign:HintAssist.Hint="Wybrany miesiąc">
-                <TextBox.Background>
-                    <SolidColorBrush Color="#FFF0F8FF" Opacity="0.7"/>
-                </TextBox.Background>
-            </TextBox>
-            <TextBox x:Name="TextBox_2" Height="60" Margin="0,56,16,0" TextWrapping="Wrap" materialDesign:HintAssist.Hint="Wybrany rok"
-            VerticalAlignment="Top" Width="193" FontSize="24" HorizontalContentAlignment="Center" IsReadOnly="True"
-                 VerticalContentAlignment="Center" HorizontalAlignment="Right" FontWeight="Bold">
-                <TextBox.Background>
-                    <SolidColorBrush Color="#FFF0F8FF" Opacity="0.7"/>
-                </TextBox.Background>
-            </TextBox>
-            <GroupBox x:Name="groupBox_1" Header="Wybór raportu" Height="191" Margin="16,0,0,32" VerticalAlignment="Center" Width="370" 
+            <GroupBox x:Name="groupBox_1" Header="Wybór raportu" Height="191" Margin="16,0,0,16" VerticalAlignment="Center" Width="370" 
                   FontSize="24" HorizontalAlignment="Left" materialDesign:ShadowAssist.ShadowDepth="Depth3" BorderThickness="1">
                 <ScrollViewer>
                     <Grid>
@@ -66,7 +71,7 @@
                     </Grid>
                 </ScrollViewer>
             </GroupBox>
-            <GroupBox x:Name="groupBox_2" Header="Wybór audycji" Height="191" Margin="0,0,16,32" VerticalAlignment="Center" Width="370" 
+            <GroupBox x:Name="groupBox_2" Header="Wybór audycji" Height="191" Margin="0,0,16,16" VerticalAlignment="Center" Width="370" 
                   FontSize="24" HorizontalAlignment="Right" materialDesign:ShadowAssist.ShadowDepth="Depth3" BorderThickness="1">
                 <ScrollViewer>
                     <Grid>
@@ -80,6 +85,8 @@
             </GroupBox>
             <ProgressBar
             x:Name="ProgressBar_1" Margin="0,0,16,100" Width="556" Height="40" VerticalAlignment="Bottom" HorizontalAlignment="Right" Opacity="0.1" />
+            <TextBlock x:Name="textBlock" HorizontalAlignment="Left" Margin="16,56,0,0" TextWrapping="Wrap" Text="Data startowa" FontSize="20" FontWeight="Bold" VerticalAlignment="Top"/>
+            <TextBlock x:Name="textBlock1" HorizontalAlignment="Left" Margin="412,56,0,0" TextWrapping="Wrap" Text="Data końcowa" FontSize="20" FontWeight="Bold" VerticalAlignment="Top"/>
         </Grid>
         <Grid Name="grid_start" Visibility="Hidden" >
             <Grid Margin="16,46,15.8,154.8">

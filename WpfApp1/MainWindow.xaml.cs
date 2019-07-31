@@ -432,7 +432,7 @@ namespace WpfApp1
             List<string> folder_days_dir = new List<string>();
             Parallel.ForEach(Tab_list_date, date =>
             {
-                folder_days_dir.Add(get_folder + date.List_date_year + @"\" + date.List_date_month + @"\" + date.List_date_day + @"\");
+                folder_days_dir.Add(get_folder + date.List_date_year + @"\" + date.List_date_month + @"\" + date.List_date_day);
             });
             Parallel.ForEach(folder_days_dir, dir =>
             {

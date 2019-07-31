@@ -28,10 +28,14 @@
                 <SolidColorBrush Color="#FFF0F8FF" Opacity="0.7"/>
             </Grid.Background>
             <TextBlock x:Name="TextBlock_1" FontSize="20" Text="Wybierz plik ze wzorem raportu (.XSLT)" Margin="16,16,0,0" FontWeight="Bold" HorizontalAlignment="Left" VerticalAlignment="Top" />
-            <TextBox x:Name="TextBox_1" FontSize="16" Margin="0,109,220.2,0" TextChanged="TextBox_1_TextChanged" MinWidth="180" FontWeight="Bold" HorizontalAlignment="Right" VerticalAlignment="Top" HorizontalContentAlignment="Center" materialDesign:HintAssist.Hint="nazwa elementu"></TextBox>
+            <TextBox x:Name="TextBox_1" FontSize="16" Margin="0,153,10.2,0" TextChanged="TextBox_1_TextChanged" MinWidth="180" FontWeight="Bold" HorizontalAlignment="Right" VerticalAlignment="Top" HorizontalContentAlignment="Center" materialDesign:HintAssist.Hint="ścieżka" Width="390">
+                <TextBox.Background>
+                    <SolidColorBrush Color="#FFF0F8FF" Opacity="0.7"/>
+                </TextBox.Background>
+            </TextBox>
             <Button x:Name="button" Content="Szukaj" materialDesign:RippleAssist.Feedback="#DD000000" FontSize="20" Style="{StaticResource MaterialDesignRaisedAccentButton}" materialDesign:ShadowAssist.ShadowDepth="Depth3" Click="Button_3_Click" HorizontalAlignment="Left" Margin="16,52,0,0" VerticalAlignment="Top" Width="100" Height="40"/>
-            <RadioButton x:Name="radioButton" Content="Ze zliczaniem czasów" HorizontalAlignment="Left" Margin="16,142,0,0" FontSize="16" FontWeight="Bold" VerticalAlignment="Top"/>
-            <RadioButton x:Name="radioButton_Copy" Content="Bez liczenia czasów" HorizontalAlignment="Left" Margin="239,142,0,0" FontSize="16" FontWeight="Bold" VerticalAlignment="Top"/>
+            <RadioButton x:Name="radioButton" Content="Ze zliczaniem czasów" HorizontalAlignment="Left" Margin="185,52,0,0" FontSize="20" FontWeight="Bold" VerticalAlignment="Top"/>
+            <RadioButton x:Name="radioButton_Copy" Content="Bez liczenia czasów" HorizontalAlignment="Left" Margin="185,83,0,0" FontSize="20" FontWeight="Bold" VerticalAlignment="Top"/>
         </Grid>
         <Button
             Style="{StaticResource MaterialDesignRaisedAccentButton}" materialDesign:ShadowAssist.ShadowDepth="Depth3"

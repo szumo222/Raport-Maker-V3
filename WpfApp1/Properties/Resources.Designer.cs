@@ -59,23 +59,5 @@ namespace WpfApp1.Properties {
                 resourceCulture = value;
             }
         }
-        
-        /// <summary>
-        /// Wyszukuje zlokalizowany ciąg podobny do ciągu &lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;
-        ///&lt;xsl:stylesheet version=&quot;1.0&quot; xmlns:xsl=&quot;http://www.w3.org/1999/XSL/Transform&quot;&gt;
-        ///&lt;xsl:output method=&quot;text&quot; /&gt;
-        ///&lt;xsl:template match=&quot;/&quot;&gt;
-        ///&lt;xsl:for-each select=&quot;Show&quot;&gt;
-        ///&lt;xsl:variable name=&quot;audycja_data&quot; select=&quot;substring(Time_Start,0,11)&quot;/&gt;
-        ///&lt;xsl:variable name=&quot;audycja_godzina_start&quot; select=&quot;substring(Time_Start,12,5)&quot;/&gt;
-        ///&lt;xsl:variable name=&quot;audycja_tytul&quot; select=&quot;Name&quot;/&gt;
-        ///&lt;xsl:for-each select=&quot;Track[Number=&apos;1000&apos;]&quot;&gt;
-        ///&lt;xsl:for-each select=&quot;Element[Class=&apos;Commercial&apos;]&quot;&gt;        /// [obcięto pozostałą część ciągu]&quot;;.
-        /// </summary>
-        internal static string przyklad_raportu_wg_wzoru {
-            get {
-                return ResourceManager.GetString("przyklad_raportu_wg_wzoru", resourceCulture);
-            }
-        }
     }
 }

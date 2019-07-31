@@ -40,6 +40,7 @@ namespace WpfApp1
         public string Fname_part { get; set; }
         public string Dsa { get; set; } = @"raport_maker_help\";
         public int Szn_or_szn_ekstra { get; set; } = 0;
+        public int Ze_zliczaniem_czy_bez { get; set; } = 0;
         public bool Error { get; set; }
         public bool Text_box_text_change { get; set; } = false;
         public bool Text_box_2_text_change { get; set; } = false;
@@ -375,9 +376,8 @@ namespace WpfApp1
             {
                 class1.Stoart_Array_Prepare(array4, array5, array6, iiii);
             }
-
             //Wywołanie funkcji do reklamy
-            if ((radioButton_6.IsChecked == true) || (radioButton_7.IsChecked == true) || (radioButton_8.IsChecked == true) || (radioButton_9.IsChecked == true))
+            if ((radioButton_6.IsChecked == true) || (radioButton_7.IsChecked == true) || (radioButton_8.IsChecked == true) || (radioButton_9.IsChecked == true) || ((radioButton_10.IsChecked == true) && (Ze_zliczaniem_czy_bez == 1)))
             {
                 class1.Reklama_Array_Prepare(array4, array5);
             }
@@ -392,7 +392,7 @@ namespace WpfApp1
                 File.WriteAllLines(Fname, array4, Encoding.UTF8);
             }
             //Zapisanie pliku dla reklamy, własnej klasy, własnej nazwy
-            else if ((radioButton_6.IsChecked == true) || (radioButton_7.IsChecked == true) || (radioButton_8.IsChecked == true) || (radioButton_9.IsChecked == true))
+            else if ((radioButton_6.IsChecked == true) || (radioButton_7.IsChecked == true) || (radioButton_8.IsChecked == true) || (radioButton_9.IsChecked == true) || ((radioButton_10.IsChecked == true) && (Ze_zliczaniem_czy_bez == 1)))
             {
                 array5.Insert(0, First_line);
                 File.WriteAllLines(Fname, array5, Encoding.UTF8);
@@ -593,6 +593,7 @@ namespace WpfApp1
 
                     Window_XSLT_chosing window_xslt_chosing = new Window_XSLT_chosing();
                     window_xslt_chosing.ShowDialog();
+                    Ze_zliczaniem_czy_bez = window_xslt_chosing.radio_int;
 
                     Radiocheck_custom_raports(window_xslt_chosing.Correct,
                                               @"raport_z_wybranego_wzoru_",

@@ -50,7 +50,7 @@ namespace WpfApp1
         {
             Xstl_content = File.ReadAllText(Path1);
 
-            //SPrawdzanie czy jest wybrana opcja Klasy
+            //Sprawdzanie czy jest wybrana opcja Klasy
             if (checkBox_1.IsChecked == true)
             {
                 if (radioButton_1.IsChecked == true) { NameOfTheClassWrittenByUser = "News"; Part_1_of_File_Name1 = radioButton_1.Content.ToString(); }

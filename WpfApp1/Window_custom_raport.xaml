@@ -12,20 +12,20 @@
         TextOptions.TextRenderingMode="Auto"
         Background="#FFFFFFFF"
         BorderThickness="1"
-        BorderBrush="Indigo"
+        BorderBrush="#FFF0F8FF"
         FontFamily="{DynamicResource MaterialDesignFont}"
         Title="Raport Maker V3" Height="375" Width="600"
         HorizontalAlignment="Left" VerticalAlignment="Top"
         MouseDown="Window_MouseDown"
         ResizeMode="NoResize" Icon="contract.ico" WindowStyle="None">
     <Grid Margin="0,0,0.2,0.2">
-        <materialDesign:Card Padding="5" Margin="4">
+        <materialDesign:Card Padding="8" Margin="0,0,-0.2,0">
             <TextBlock Style="{DynamicResource MaterialDesignTitleTextBlock}" Text="Raport Maker V3"/>
         </materialDesign:Card>
-        <Button HorizontalAlignment="Right" Margin="0,5,16,0" VerticalAlignment="Top" Width="40" Click="Close_Window">
+        <Button HorizontalAlignment="Right" Margin="0,8,16,0" VerticalAlignment="Top" Width="40" Height="25" Click="Close_Window">
             <materialDesign:PackIcon Kind="Close" HorizontalAlignment="Center" VerticalAlignment="Center" Height="32" Width="34" />
         </Button>
-        <Button HorizontalAlignment="Right" Margin="0,5,66,0" VerticalAlignment="Top" Width="40" Click="Minimalize_Window">
+        <Button HorizontalAlignment="Right" Margin="0,8,66,0" VerticalAlignment="Top" Width="40" Height="25" Click="Minimalize_Window">
             <materialDesign:PackIcon Kind="Minus" VerticalAlignment="Center" HorizontalAlignment="Center" Height="32" Width="36" />
         </Button>
         <CheckBox x:Name="checkBox_2" Content="Raport z nazwy" HorizontalAlignment="Left" Margin="321,54,0,0" VerticalAlignment="Top" FontSize="20" FontWeight="Bold" Checked="CheckBox_2_Changed" Unchecked="CheckBox_2_Changed"/>

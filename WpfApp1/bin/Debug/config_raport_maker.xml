@@ -1,27 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <root>
-<!--Pusty Folder raport_maker_help jest wymagany do poprawnego działania programu-->
 <!--Ścieżki wymagają znaku \ na końcu-->
-<zaiks>
-    <name>Zaiks</name>
+<main>
 	<!--Ścieżka do folderu z drzewem Szczecin 00000066-->
-    <get_folder_szczecin>\\192.168.0.130\SeplServTree\00000066\</get_folder_szczecin>
+    <get_folder_szczecin>E:\Radio Laptop moje\Nowy folder (2)\00000066\</get_folder_szczecin>
 	<!--Ścieżka do folderu z dzrzewem Szczecin Ekstra 00000069 -->
-	<get_folder_x>\\192.168.0.130\SeplServTree\00000069\</get_folder_x>
-	<!--Ścieżka do zapisu pliku wyjściowego Szczecin-->
-    <destination_folder>C:\Users\admin-szumielewicz\Desktop\RaportMaker\</destination_folder>
-	<!--Ścieżka do zapisu pliku wyjściowego Szczecin Ekstra-->
-    <destination_folder_ekstra>C:\Users\admin-szumielewicz\Desktop\RaportMaker\</destination_folder_ekstra>
-</zaiks>
-<stoart>
-    <name>Stoart</name>
-	<!--Ścieżka do folderu z drzewem Szczecin-->
-    <get_folder_szczecin>\\192.168.0.130\SeplServTree\00000066\</get_folder_szczecin>
-	<!--Ścieżka do folderu z dzrzewem Szczecin Ekstra 00000069 -->
-	<get_folder_x>\\192.168.0.130\SeplServTree\00000069\</get_folder_x>
+	<get_folder_szczecin_extra>E:\Radio Laptop moje\Nowy folder (2)\00000066\</get_folder_szczecin_extra>
 	<!--Ścieżka do zapisu pliku wyjściowego-->
-    <destination_folder>C:\Users\admin-szumielewicz\Desktop\RaportMaker\</destination_folder>
-	<!--Ścieżka do zapisu pliku wyjściowego Szczecin Ekstra-->
-    <destination_folder_ekstra>C:\Users\admin-szumielewicz\Desktop\RaportMaker\</destination_folder_ekstra>
-</stoart>
+    <destination_folder>C:\Users\szumo\Desktop\Nowy folder\</destination_folder>
+</main>
 </root>

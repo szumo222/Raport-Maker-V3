@@ -94,3 +94,5 @@ StyleCopReport.xml
 
 # Visual Studio 6 workspace options file
 *.opt
+*.ide-shm
+*.ide-wal

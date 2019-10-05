@@ -1,4 +1,5 @@
 ﻿using System;
+using System.IO;
 using System.Windows;
 using System.Windows.Input;
 using System.Windows.Threading;
@@ -21,8 +22,12 @@ namespace WpfApp1
         //Przełączenie okna po czasie
         private void dispatcherTimer_Tick(object sender, EventArgs e)
         {
+            Configuration_Window configurationWindow = new Configuration_Window();
             MainWindow mainWindow = new MainWindow();
-            mainWindow.Show();
+            if (File.Exists("config_raport_maker.xml"))
+                mainWindow.Show();
+            else
+                configurationWindow.Show();
             this.Close();
             DispatcherTimer.Stop();
         }

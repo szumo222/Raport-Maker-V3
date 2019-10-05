@@ -86,7 +86,8 @@ C:\Users\szumo\Source\Repos\szumo222\Raport-Maker-V3\WpfApp1\obj\Debug\Raport Ma
 C:\Users\szumo\Source\Repos\szumo222\Raport-Maker-V3\WpfApp1\obj\Debug\Raport Maker V3.g.resources
 C:\Users\szumo\Source\Repos\szumo222\Raport-Maker-V3\WpfApp1\obj\Debug\WpfApp1.Properties.Resources.resources
 C:\Users\szumo\Source\Repos\szumo222\Raport-Maker-V3\WpfApp1\obj\Debug\WpfApp1.csproj.GenerateResource.cache
-C:\Users\szumo\Source\Repos\szumo222\Raport-Maker-V3\WpfApp1\obj\Debug\WpfApp1.csproj.CoreCompileInputs.cache
 C:\Users\szumo\Source\Repos\szumo222\Raport-Maker-V3\WpfApp1\obj\Debug\WpfApp1.csproj.CopyComplete
 C:\Users\szumo\Source\Repos\szumo222\Raport-Maker-V3\WpfApp1\obj\Debug\Raport Maker V3.exe
 C:\Users\szumo\Source\Repos\szumo222\Raport-Maker-V3\WpfApp1\obj\Debug\Raport Maker V3.pdb
+C:\Users\szumo\source\repos\szumo222\Raport-Maker-V3\WpfApp1\obj\Debug\Configuration_window.baml
+C:\Users\szumo\source\repos\szumo222\Raport-Maker-V3\WpfApp1\obj\Debug\Configuration_window.g.cs

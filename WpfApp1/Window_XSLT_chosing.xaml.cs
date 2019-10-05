@@ -21,7 +21,7 @@ namespace WpfApp1
         public string Part_2_of_File_Name1 { get; set; }
         public string Path1 { get; set; }
         public string Path2 { get; set; } = @"raport_XSLT_chosing.xslt";
-        public int radio_int { get; set; } = 0;
+        public int Radio_int { get; set; } = 0;
         public OpenFileDialog openFileDialog = new OpenFileDialog();
 
         public Window_XSLT_chosing()
@@ -47,8 +47,8 @@ namespace WpfApp1
         //Tworzenie raportu
         private void Button_1_Click(object sender, RoutedEventArgs e)
         {
-            if (radioButton.IsChecked == true) radio_int = 1;
-            else if (radioButton_Copy.IsChecked == true) radio_int = 2;
+            if (radioButton.IsChecked == true) Radio_int = 1;
+            else if (radioButton_Copy.IsChecked == true) Radio_int = 2;
             //Brak wybranego raportu raportu
             if (Text_changed == false)
             {
@@ -58,7 +58,7 @@ namespace WpfApp1
             }
 
             //Brak wybranego raportu raportu
-            if (radio_int == 0)
+            if (Radio_int == 0)
             {
                 Window1 window1 = new Window1("Wybierz ze zliczaniem czy bez!");
                 window1.ShowDialog();

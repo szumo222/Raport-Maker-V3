@@ -96,10 +96,12 @@ namespace WpfApp1
             DateTime EndingDate = d2.SelectedDate.Value;
             foreach (DateTime date in GetDateRange(StartingDate, EndingDate))
             {
-                List_date list_date = new List_date();
-                list_date.List_date_month = date.Month.ToString();
-                list_date.List_date_year = date.Year.ToString();
-                list_date.List_date_day = date.Day.ToString();
+                List_date list_date = new List_date
+                {
+                    List_date_month = date.Month.ToString(),
+                    List_date_year = date.Year.ToString(),
+                    List_date_day = date.Day.ToString()
+                };
                 Array_of_list_date_before_distinct.Add(list_date);
             }
             Array_of_list_date = Array_of_list_date_before_distinct.Distinct().ToList();
@@ -301,7 +303,6 @@ namespace WpfApp1
         //Metoda wywoływana po przeprowadzeniu transfomarty XSLT / operowanie na plikach w folderze pomocniczym raport_maker_help
         private void Main_Function_After_XSLT(List<string> array_of_all_files_lines, List<string> array_of_elements, Stopwatch sw)
         {
-            Class1 class1 = new Class1();
             IEnumerable<string> array = Directory.EnumerateFiles(@"raport_maker_help\", "*.txt", SearchOption.AllDirectories);
             foreach (string file in array)
             {
@@ -350,7 +351,8 @@ namespace WpfApp1
             //Zapisanie pliku dla stoart
             if (radioButton_2.IsChecked == true)
             {
-                output_array = class1.Stoart_Array_Prepare(array_of_elements, iiii);
+                PrepareStoart stroartPrepare = new PrepareStoart();
+                output_array = stroartPrepare.Stoart_Array_Prepare(array_of_elements, iiii);
                 output_array.Insert(0, First_line_of_the_output_file);
                 File.WriteAllLines(File_name + "_ze_zliczaniem.txt", output_array, Encoding.UTF8);
                 array_of_elements.Insert(0, First_line_of_the_output_file);
@@ -359,7 +361,8 @@ namespace WpfApp1
             //Zapisanie pliku dla reklamy, własnej klasy, własnej nazwy
             else if ((radioButton_6.IsChecked == true) || (radioButton_7.IsChecked == true) || (radioButton_8.IsChecked == true) || (radioButton_9.IsChecked == true) || ((radioButton_10.IsChecked == true) && (Custom_raport_with_calculating_or_no == 1)))
             {
-                output_array = class1.Reklama_Array_Prepare(array_of_elements);
+                PrepareWithElemntsSummary withSummaryElementsPrepare = new PrepareWithElemntsSummary();
+                output_array = withSummaryElementsPrepare.Summary_Elements_Array_Prepare(array_of_elements);
                 output_array.Insert(0, First_line_of_the_output_file);
                 File.WriteAllLines(File_name, output_array, Encoding.UTF8);
             }
@@ -541,7 +544,7 @@ namespace WpfApp1
 
                     Window_XSLT_chosing window_xslt_chosing = new Window_XSLT_chosing();
                     window_xslt_chosing.ShowDialog();
-                    Custom_raport_with_calculating_or_no = window_xslt_chosing.radio_int;
+                    Custom_raport_with_calculating_or_no = window_xslt_chosing.Radio_int;
 
                     Radiocheck_custom_raports(window_xslt_chosing.Correct,
                                               @"raport_z_wybranego_wzoru_",

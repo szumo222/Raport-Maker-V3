@@ -96,3 +96,9 @@ StyleCopReport.xml
 *.opt
 *.ide-shm
 *.ide-wal
+.vs/WpfApp1/v16/.suo
+WpfApp1/obj/Debug/Raport Maker V3_MarkupCompile.cache
+*.cache
+*.cache
+*.pdb
+*.pdb

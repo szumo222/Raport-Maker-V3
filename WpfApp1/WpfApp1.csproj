@@ -86,6 +86,7 @@
     <Compile Include="Configuration_window.xaml.cs">
       <DependentUpon>Configuration_window.xaml</DependentUpon>
     </Compile>
+    <Compile Include="DateRange.cs" />
     <Compile Include="List_date.cs" />
     <Compile Include="PrepareStoart.cs" />
     <Compile Include="PrepareWithElemntsSummary.cs" />

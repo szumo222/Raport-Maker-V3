@@ -37,7 +37,6 @@ namespace WpfApp1
         public bool Text_box_2_text_change_flag { get; set; } = false;
         public List<string> Array_of_all_xml_files { get; set; } = new List<string>();
         public string First_line_of_the_output_file { get; set; }
-        public List<List_date> Array_of_list_date_before_distinct { get; set; } = new List<List_date>();
         public List<List_date> Array_of_list_date { get; set; } = new List<List_date>();
         public MainWindow()
         {
@@ -74,43 +73,6 @@ namespace WpfApp1
             Text_box_2_text_change_flag = true;
         }
 
-        private List<DateTime> GetDateRange(DateTime StartingDate, DateTime EndingDate)
-        {
-            if (StartingDate > EndingDate)
-            {
-                return null;
-            }
-            List<DateTime> rv = new List<DateTime>();
-            DateTime tmpDate = StartingDate;
-            do
-            {
-                rv.Add(tmpDate);
-                tmpDate = tmpDate.AddDays(1);
-            } while (tmpDate <= EndingDate);
-            return rv;
-        }
-
-        private void Month_range(DatePicker d1, DatePicker d2)
-        {
-            DateTime StartingDate = d1.SelectedDate.Value;
-            DateTime EndingDate = d2.SelectedDate.Value;
-            foreach (DateTime date in GetDateRange(StartingDate, EndingDate))
-            {
-                List_date list_date = new List_date
-                {
-                    List_date_month = date.Month.ToString(),
-                    List_date_year = date.Year.ToString(),
-                    List_date_day = date.Day.ToString()
-                };
-                Array_of_list_date_before_distinct.Add(list_date);
-            }
-            Array_of_list_date = Array_of_list_date_before_distinct.Distinct().ToList();
-            foreach(List_date list_date_from_array in Array_of_list_date)
-            {
-                Console.WriteLine("Dzień: " + list_date_from_array.List_date_day + "\tMiesiac: " + list_date_from_array.List_date_month + "\tRok: " + list_date_from_array.List_date_year);
-            }
-        }
-
         //Główny przycisk
         private void Button_1_Click(object sender, RoutedEventArgs e)
         {
@@ -131,7 +93,9 @@ namespace WpfApp1
                     Error_set_components();
                 }
 
-                Month_range(DataPicker_1, DataPicker_2);
+                DateRange dateRange = new DateRange();
+
+                Array_of_list_date = dateRange.MonthRange(DataPicker_1, DataPicker_2);
 
                 Radiocheck_ktory_folder();
 

@@ -1,6 +1,6 @@
 ﻿namespace WpfApp1
 {
-    public class AuditonFolder
+    class AuditonFolder
     {
         public string Get_source_folder { get; }
         public string Part_of_file_name { get; }

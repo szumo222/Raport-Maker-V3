@@ -50,7 +50,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup>
-    <ApplicationIcon>contract.ico</ApplicationIcon>
+    <ApplicationIcon>Assets\contract.ico</ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="MaterialDesignColors, Version=1.1.3.0, Culture=neutral, processorArchitecture=MSIL">
@@ -83,16 +83,16 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="AuditonFolder.cs" />
+    <Compile Include="Class\Types\AuditonFolder.cs" />
     <Compile Include="Configuration_window.xaml.cs">
       <DependentUpon>Configuration_window.xaml</DependentUpon>
     </Compile>
-    <Compile Include="DateRange.cs" />
-    <Compile Include="FoldersNameFromConfigXmlFile.cs" />
-    <Compile Include="List_date.cs" />
-    <Compile Include="OutputFileInfo.cs" />
-    <Compile Include="PrepareStoart.cs" />
-    <Compile Include="PrepareWithElemntsSummary.cs" />
+    <Compile Include="Class\DateRange.cs" />
+    <Compile Include="Class\FoldersNameFromConfigXmlFile.cs" />
+    <Compile Include="Class\Types\List_date.cs" />
+    <Compile Include="Class\Types\OutputFileInfo.cs" />
+    <Compile Include="Class\PrepareStoart.cs" />
+    <Compile Include="Class\PrepareWithElemntsSummary.cs" />
     <Compile Include="StartWindow.xaml.cs">
       <DependentUpon>StartWindow.xaml</DependentUpon>
     </Compile>
@@ -114,8 +114,8 @@
     <Compile Include="Window_XSLT_chosing.xaml.cs">
       <DependentUpon>Window_XSLT_chosing.xaml</DependentUpon>
     </Compile>
-    <Compile Include="XsltTranfromGetResult.cs" />
-    <Compile Include="XsltTransform.cs" />
+    <Compile Include="Class\XsltTranfromGetResult.cs" />
+    <Compile Include="Class\XsltTransform.cs" />
     <Page Include="Configuration_window.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -201,10 +201,10 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="background.jpg" />
+    <Resource Include="Assets\background.jpg" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="contract.ico" />
+    <Resource Include="Assets\contract.ico" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

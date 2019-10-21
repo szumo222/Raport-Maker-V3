@@ -17,21 +17,17 @@
         FontFamily="{DynamicResource MaterialDesignFont}"
         Title="Raport Maker V3" Height="550" Width="800"
         HorizontalAlignment="Left" VerticalAlignment="Top"
-        MouseDown="Window_MouseDown"
-        ResizeMode="NoResize" Icon="contract.ico" WindowStyle="None">
+        ResizeMode="CanMinimize" Icon="Assets/contract.ico" WindowStyle="SingleBorderWindow">
     <Grid Margin="0,0,0.2,0.2">
-        <materialDesign:Card Padding="8" Margin="0,0,-0.2,0">
-            <TextBlock Style="{DynamicResource MaterialDesignTitleTextBlock}" Text="Raport Maker V3"/>
-        </materialDesign:Card>
         <Grid Name="grid_main" Visibility="Visible">
             <DatePicker Language="pl-PL"
             SelectedDateChanged="MonthlyCalendar_SelectedDatesChanged"
             materialDesign:HintAssist.Hint="Data"
                     materialDesign:HintAssist.IsFloating="True"
-            Style="{StaticResource MaterialDesignFloatingHintDatePicker}" Margin="16,85,0,0" 
+            Style="{StaticResource MaterialDesignFloatingHintDatePicker}" Margin="16,60,0,0" 
             x:Name="DataPicker_1" Height="60" Width="160"  FontSize="24"  HorizontalAlignment="Left" VerticalAlignment="Top" FontWeight="Bold" Background="{x:Null}" SelectedDateFormat="Short" />
             <TextBox x:Name="TextBox_1" Height="60" TextWrapping="Wrap" IsReadOnly="True" FontSize="20" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" 
-                 Margin="181,85,411.6,0" VerticalAlignment="Top" FontWeight="Bold" materialDesign:HintAssist.Hint="Data startowa">
+                 Margin="181,60,411,0" VerticalAlignment="Top" FontWeight="Bold" materialDesign:HintAssist.Hint="Data startowa">
                 <TextBox.Background>
                     <SolidColorBrush Color="#FFF0F8FF" Opacity="0.7"/>
                 </TextBox.Background>
@@ -40,10 +36,10 @@
             SelectedDateChanged="MonthlyCalendar_2_SelectedDatesChanged"
             materialDesign:HintAssist.Hint="Data"
                     materialDesign:HintAssist.IsFloating="True"
-            Style="{StaticResource MaterialDesignFloatingHintDatePicker}" Margin="0,85,225.6,0" 
+            Style="{StaticResource MaterialDesignFloatingHintDatePicker}" Margin="0,60,225,0" 
             x:Name="DataPicker_2" Height="60" Width="160"  FontSize="24"  HorizontalAlignment="Right" VerticalAlignment="Top" FontWeight="Bold" Background="{x:Null}" Visibility="Visible"/>
             <TextBox x:Name="TextBox_2" Height="60" TextWrapping="Wrap" IsReadOnly="True" FontSize="20" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" 
-                Margin="577,85,15.6,0" VerticalAlignment="Top" FontWeight="Bold" materialDesign:HintAssist.Hint="Data końcowa">
+                Margin="577,60,16,0" VerticalAlignment="Top" FontWeight="Bold" materialDesign:HintAssist.Hint="Data końcowa">
                 <TextBox.Background>
                     <SolidColorBrush Color="#FFF0F8FF" Opacity="0.7"/>
                 </TextBox.Background>
@@ -53,7 +49,7 @@
             Width="160" Height="40" Content="Stwórz" x:Name="Button_1"
             materialDesign:RippleAssist.Feedback="#DD000000" FontSize="24" Margin="16,0,0,100" VerticalAlignment="Bottom" HorizontalAlignment="Left" Click="Button_1_Click">
             </Button>
-            <GroupBox x:Name="groupBox_1" Header="Wybór raportu" Height="191" Margin="16,0,0,16" VerticalAlignment="Center" Width="370" 
+            <GroupBox x:Name="groupBox_1" Header="Wybór raportu" Height="200" Margin="16,-15,0,16" VerticalAlignment="Center" Width="370" 
                   FontSize="24" HorizontalAlignment="Left" materialDesign:ShadowAssist.ShadowDepth="Depth3" BorderThickness="1">
                 <ScrollViewer>
                     <Grid>
@@ -71,7 +67,7 @@
                     </Grid>
                 </ScrollViewer>
             </GroupBox>
-            <GroupBox x:Name="groupBox_2" Header="Wybór audycji" Height="191" Margin="0,0,16,16" VerticalAlignment="Center" Width="370" 
+            <GroupBox x:Name="groupBox_2" Header="Wybór audycji" Height="200" Margin="0,-15,16,16" VerticalAlignment="Center" Width="370" 
                   FontSize="24" HorizontalAlignment="Right" materialDesign:ShadowAssist.ShadowDepth="Depth3" BorderThickness="1">
                 <ScrollViewer>
                     <Grid>
@@ -85,8 +81,8 @@
             </GroupBox>
             <ProgressBar
             x:Name="ProgressBar_1" Margin="0,0,16,100" Width="556" Height="40" VerticalAlignment="Bottom" HorizontalAlignment="Right" Opacity="0.1" />
-            <TextBlock x:Name="textBlock" HorizontalAlignment="Left" Margin="16,56,0,0" TextWrapping="Wrap" Text="Data startowa" FontSize="20" FontWeight="Bold" VerticalAlignment="Top"/>
-            <TextBlock x:Name="textBlock1" HorizontalAlignment="Left" Margin="412,56,0,0" TextWrapping="Wrap" Text="Data końcowa" FontSize="20" FontWeight="Bold" VerticalAlignment="Top"/>
+            <TextBlock x:Name="textBlock" HorizontalAlignment="Left" Margin="16,24,0,0" TextWrapping="Wrap" Text="Data startowa" FontSize="20" FontWeight="Bold" VerticalAlignment="Top"/>
+            <TextBlock x:Name="textBlock1" HorizontalAlignment="Left" Margin="412,24,0,0" TextWrapping="Wrap" Text="Data końcowa" FontSize="20" FontWeight="Bold" VerticalAlignment="Top"/>
         </Grid>
         <Grid Name="grid_start" Visibility="Hidden" >
             <Grid Margin="16,46,15.8,154.8">
@@ -101,15 +97,7 @@
             materialDesign:RippleAssist.Feedback="#DD000000" FontSize="24" Margin="16,0,0,100" VerticalAlignment="Bottom" HorizontalAlignment="Left" Click="Button_2_Click">
             </Button>
         </Grid>
-        <Button materialDesign:ShadowAssist.ShadowDepth="Depth3"
-            HorizontalAlignment="Right" Margin="0,8,16,0" VerticalAlignment="Top" Width="40" Height="25" Click="Close_Window">
-            <materialDesign:PackIcon Kind="Close" HorizontalAlignment="Center" VerticalAlignment="Center" Height="32" Width="36" />
-        </Button>
-        <Button materialDesign:ShadowAssist.ShadowDepth="Depth3"
-            HorizontalAlignment="Right" Margin="0,8,66,0" VerticalAlignment="Top" Width="40" Height="25" Click="Minimalize_Window">
-            <materialDesign:PackIcon Kind="Minus" VerticalAlignment="Center" HorizontalAlignment="Center" Height="32" Width="36" />
-        </Button>
-        <Image x:Name="image" Margin="0,0,16,16" Source="background.jpg" HorizontalAlignment="Right" VerticalAlignment="Bottom" Stretch="Fill" Width="178" Height="80"/>
+        <Image x:Name="image" Margin="0,0,16,16" Source="Assets/background.jpg" HorizontalAlignment="Right" VerticalAlignment="Bottom" Stretch="Fill" Width="178" Height="80"/>
         <Button materialDesign:ShadowAssist.ShadowDepth="Depth3"
             x:Name="button" HorizontalAlignment="Left" Margin="17,0,0,16" VerticalAlignment="Bottom" Width="40" Click="Button_Click">
             <materialDesign:PackIcon Kind="InformationVariant" HorizontalAlignment="Center" VerticalAlignment="Center" Height="32" Width="36" />

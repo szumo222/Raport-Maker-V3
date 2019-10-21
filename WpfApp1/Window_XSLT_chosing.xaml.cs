@@ -71,28 +71,6 @@ namespace WpfApp1
             }
         }
 
-        //Możliwość ruszania oknem
-        private void Window_MouseDown(object sender, MouseButtonEventArgs e)
-        {
-            if (e.LeftButton == MouseButtonState.Pressed)
-            {
-                DragMove();
-            }
-        }
-
-        //Zamykanie okna
-        private void Close_Window(object sender, RoutedEventArgs e)
-        {
-            Correct = false;
-            this.Close();
-        }
-
-        //Minimalizowanie okna
-        private void Minimalize_Window(object sender, RoutedEventArgs e)
-        {
-            WindowState = WindowState.Minimized;
-        }
-
         //Informacjie
         private void Button_i_Click(object sender, RoutedEventArgs e)
         {

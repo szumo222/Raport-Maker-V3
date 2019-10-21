@@ -20,13 +20,12 @@ namespace WpfApp1
         private readonly string folder_for_xslt_files = @"raport_maker_help\";
         public int custom_raport_with_calculating_or_no = 0;
         private AuditonFolder auditonFolder = new AuditonFolder();
-        private OutputFileInfo outputFileInfo = new OutputFileInfo();
+        private OutputFileInfo OutputFileInfo { get; set; } = new OutputFileInfo();
         private readonly FoldersNameFromConfigXmlFile foldersNameFromConfigXmlFile = new FoldersNameFromConfigXmlFile();
 
         List<List_date> Array_of_list_date { get; set; } = new List<List_date>();
         public bool Overwrite_the_file_flag { get; set; }
-        public string[] Day { get; set; }
-        public IEnumerable<string> Dayy { get; set; }
+        public string[] Days { get; set; }
         public bool Error { get; set; }
         public List<string> Array_of_all_xml_files { get; set; } = new List<string>();
         
@@ -112,7 +111,7 @@ namespace WpfApp1
                         Overwrite_the_file_flag = false;
                         int z = 0;
                         //Sprawdzanie czy dany plik wyjściowy już istnieje
-                        if (File.Exists(outputFileInfo.FileName))
+                        if (File.Exists(OutputFileInfo.FileName))
                         {
                             Window2 window2 = new Window2();
                             window2.ShowDialog();
@@ -123,7 +122,7 @@ namespace WpfApp1
                             }
                             else
                             {
-                                FileInfo fff = new FileInfo(outputFileInfo.FileName);
+                                FileInfo fff = new FileInfo(OutputFileInfo.FileName);
                                 fff.Delete();
                                 Overwrite_the_file_flag = true;
                             }
@@ -147,7 +146,7 @@ namespace WpfApp1
                             BackgroundWorker bw = new BackgroundWorker();
                             bw.DoWork += new DoWorkEventHandler((sender1, args) => XsltTransform.Main_Function_XSLT_Transform(Array_of_all_xml_files,
                                                                                                                               path,
-                                                                                                                              outputFileInfo.MainFileXslt,
+                                                                                                                              OutputFileInfo.MainFileXslt,
                                                                                                                               z));
 
                             byte wichRadioButtonIsChecked = 0;
@@ -170,9 +169,9 @@ namespace WpfApp1
                             {
                                 XsltTranfromGetResult.Main_Function_After_XSLT(wichRadioButtonIsChecked,
                                                                                deleteAdditionalXsltFile,
-                                                                               outputFileInfo.MainFileXslt,
-                                                                               outputFileInfo.FileName,
-                                                                               outputFileInfo.FirstLineOfTheOutputFile,
+                                                                               OutputFileInfo.MainFileXslt,
+                                                                               OutputFileInfo.FileName,
+                                                                               OutputFileInfo.FirstLineOfTheOutputFile,
                                                                                folder_for_xslt_files,
                                                                                Array_of_all_xml_files);
                                 ResetGUIElementsAfterXSLT();
@@ -193,7 +192,7 @@ namespace WpfApp1
             catch (Exception ex)
             {
                 MessageBox.Show("Błąd:\t" + ex, "Raport Maker V3");
-                FileInfo ffff = new FileInfo(outputFileInfo.FileName);
+                FileInfo ffff = new FileInfo(OutputFileInfo.FileName);
                 ffff.Delete();
                 Array_of_all_xml_files.Clear();
                 return;
@@ -208,15 +207,6 @@ namespace WpfApp1
             ProgressBar_1.Opacity = 0.1;
         }
 
-        //Możliwość ruszania oknem
-        private void Window_MouseDown(object sender, MouseButtonEventArgs e)
-        {
-            if (e.LeftButton == MouseButtonState.Pressed)
-            {
-                DragMove();
-            }
-        }
-
         //Resetowanie elementów okna do stanu początkowego po błędzie
         private void ErrorSetGUIElements()
         {
@@ -224,18 +214,6 @@ namespace WpfApp1
             ProgressBar_1.IsIndeterminate = false;
             ProgressBar_1.Opacity = 0.1;
             return;
-        }
-
-        //Zamykanie okna
-        private void Close_Window(object sender, RoutedEventArgs e)
-        {
-            this.Close();
-        }
-
-        //Minimalizowanie okna
-        private void Minimalize_Window(object sender, RoutedEventArgs e)
-        {
-            WindowState = WindowState.Minimized;
         }
 
         private void Get_months_folders(string get_folder)
@@ -248,7 +226,12 @@ namespace WpfApp1
             }
             foreach(string dir in folder_days_dir)
             {
-                RadioCheck_Parrel_ForEach(dir);
+                string dirTmp = dir + @"\Shows";
+                Days = Directory.EnumerateFiles(dirTmp, "*.xml", SearchOption.AllDirectories).ToArray();
+                foreach (string day in Days)
+                {
+                    Array_of_all_xml_files.Add(day);
+                }
             }
         }
 
@@ -257,7 +240,7 @@ namespace WpfApp1
         {
 
             Error = false;
-            outputFileInfo = new OutputFileInfo(fileName: dest_folder + middle_part_of_f_name + auditonFolder.Part_of_file_name,
+            OutputFileInfo = new OutputFileInfo(fileName: dest_folder + middle_part_of_f_name + auditonFolder.Part_of_file_name,
                                                 firstLineOfTheOutputFile: f1_line,
                                                 mainFileXslt: file_xslt);
             Get_months_folders(get_folder);
@@ -273,12 +256,13 @@ namespace WpfApp1
             }
             else
             {
-                outputFileInfo = new OutputFileInfo(fileName: dest_folder + middle_part_of_f_name + window_middle_part_of_file_name + "_" + auditonFolder.Part_of_file_name,
+                OutputFileInfo = new OutputFileInfo(fileName: dest_folder + middle_part_of_f_name + window_middle_part_of_file_name + "_" + auditonFolder.Part_of_file_name,
                                                     firstLineOfTheOutputFile: f1_line,
                                                     mainFileXslt: file_xslt);
                 Get_months_folders(get_folder);
             }
         }
+
         //Sprawdzanie który rodzaj raportu został wybrany i przypisanie nazwy pierwszej częsci nazwy pliku wyjściowego
         private void Radiocheck()
         {
@@ -288,10 +272,10 @@ namespace WpfApp1
                 if (radioButton_1.IsChecked == true)
                 {
                     Radiocheck_zaiks_stoart_materialy_reklama(@"raport_zaiks_",
-                                                      "Data|Godz.aud.|Tytul audycji|Tytul utworu|Kompozytor|Autor tekstu|Tlumacz|Czas|Wykonawca|Producent|Wydawca|",
-                                                      @"raportdlazaikkopias.xslt",
-                                                      foldersNameFromConfigXmlFile.DestinationFolder,
-                                                      auditonFolder.Get_source_folder);
+                                                              "Data|Godz.aud.|Tytul audycji|Tytul utworu|Kompozytor|Autor tekstu|Tlumacz|Czas|Wykonawca|Producent|Wydawca|",
+                                                              @"raportdlazaikkopias.xslt",
+                                                              foldersNameFromConfigXmlFile.DestinationFolder,
+                                                              auditonFolder.Get_source_folder);
                 }
                 //For Stoart
                 else if (radioButton_2.IsChecked == true)
@@ -392,22 +376,10 @@ namespace WpfApp1
             catch (Exception ex)
             {
                 MessageBox.Show("Błąd:\t" + ex, "Raport Maker V3");
-                FileInfo ffff = new FileInfo(outputFileInfo.FileName);
+                FileInfo ffff = new FileInfo(OutputFileInfo.FileName);
                 ffff.Delete();
                 Array_of_all_xml_files.Clear();
                 return;
-            }
-        }
-
-        //Look for files .XML and add them to the list
-        private void RadioCheck_Parrel_ForEach(string dir)
-        {
-            string dirrr = dir + @"\Shows";
-            Dayy = Directory.EnumerateFiles(dirrr, "*.xml", SearchOption.AllDirectories);
-            Day = Dayy.ToArray();
-            foreach (string d in Day)
-            {
-                Array_of_all_xml_files.Add(d);
             }
         }
 

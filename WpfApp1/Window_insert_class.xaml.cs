@@ -21,28 +21,6 @@ namespace WpfApp1
             radioButton_1.IsChecked = radioButton_2.IsChecked = radioButton_3.IsChecked = radioButton_4.IsChecked = radioButton_5.IsChecked = radioButton_6.IsChecked = radioButton_7.IsChecked = false;
         }
 
-        //Możliwość ruszania oknem
-        private void Window_MouseDown(object sender, MouseButtonEventArgs e)
-        {
-            if (e.LeftButton == MouseButtonState.Pressed)
-            {
-                DragMove();
-            }
-        }
-
-        //Zamykanie okna
-        private void Close_Window(object sender, RoutedEventArgs e)
-        {
-            Correct = false;
-            this.Close();
-        }
-
-        //Minimalizowanie okna
-        private void Minimalize_Window(object sender, RoutedEventArgs e)
-        {
-            WindowState = WindowState.Minimized;
-        }
-
         private void Button_1_Click(object sender, RoutedEventArgs e)
         {
             Xstl_content = File.ReadAllText(Path1);

@@ -17,13 +17,9 @@
         FontFamily="{DynamicResource MaterialDesignFont}"
         Title="Raport Maker V3" Height="300" Width="400"
         HorizontalAlignment="Left" VerticalAlignment="Top"
-        MouseDown="Window_MouseDown"
-        ResizeMode="NoResize" Icon="contract.ico" WindowStyle="None">
+        ResizeMode="CanMinimize" Icon="Assets/contract.ico" WindowStyle="SingleBorderWindow">
     <Grid Margin="0,0,0.2,0.2">
-        <materialDesign:Card Padding="8" Margin="0,0,-0.2,0">
-            <TextBlock Style="{DynamicResource MaterialDesignTitleTextBlock}" Text="Raport Maker V3"/>
-        </materialDesign:Card>
-        <Grid Margin="16,46,15.8,100.8">
+        <Grid Margin="16,24,16,110">
             <Grid.Background>
                 <SolidColorBrush Color="#FFF0F8FF" Opacity="0.7"/>
             </Grid.Background>
@@ -35,12 +31,6 @@
             Width="160" Height="40" Content="Ok" x:Name="Button_1"
             materialDesign:RippleAssist.Feedback="#DD000000" FontSize="24" Margin="16,0,0,48" VerticalAlignment="Bottom" HorizontalAlignment="Left" Click="Button_1_Click">
         </Button>
-        <Button HorizontalAlignment="Right" Margin="0,8,16,0" VerticalAlignment="Top" Width="40" Height="25" Click="Close_Window">
-            <materialDesign:PackIcon Kind="Close" HorizontalAlignment="Center" VerticalAlignment="Center" Height="32" Width="34" />
-        </Button>
-        <Button HorizontalAlignment="Right" Margin="0,8,66,0" VerticalAlignment="Top" Width="40" Height="25" Click="Minimalize_Window">
-            <materialDesign:PackIcon Kind="Minus" VerticalAlignment="Center" HorizontalAlignment="Center" Height="32" Width="36" />
-        </Button>
-        <Image x:Name="image" Margin="0,0,16,16" Source="background.jpg" HorizontalAlignment="Right" VerticalAlignment="Bottom" Stretch="Fill" Width="178" Height="80"/>
+        <Image x:Name="image" Margin="0,0,16,16" Source="Assets/background.jpg" HorizontalAlignment="Right" VerticalAlignment="Bottom" Stretch="Fill" Width="178" Height="80"/>
     </Grid>
 </Window>

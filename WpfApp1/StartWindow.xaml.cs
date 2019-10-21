@@ -12,7 +12,7 @@ namespace WpfApp1
         {
             InitializeComponent();
             WindowStartupLocation = WindowStartupLocation.CenterScreen;
-            DispatcherTimer.Tick += new EventHandler(dispatcherTimer_Tick);
+            DispatcherTimer.Tick += new EventHandler(DispatcherTimer_Tick);
             DispatcherTimer.Interval = new TimeSpan(0, 0, 2);
             DispatcherTimer.Start();
         }
@@ -20,7 +20,7 @@ namespace WpfApp1
         public DispatcherTimer DispatcherTimer { get; set; } = new DispatcherTimer();
 
         //Przełączenie okna po czasie
-        private void dispatcherTimer_Tick(object sender, EventArgs e)
+        private void DispatcherTimer_Tick(object sender, EventArgs e)
         {
             Configuration_Window configurationWindow = new Configuration_Window();
             MainWindow mainWindow = new MainWindow();
@@ -30,15 +30,6 @@ namespace WpfApp1
                 configurationWindow.Show();
             this.Close();
             DispatcherTimer.Stop();
-        }
-
-        //Możliwość ruszania oknem
-        private void Window_MouseDown(object sender, MouseButtonEventArgs e)
-        {
-            if (e.LeftButton == MouseButtonState.Pressed)
-            {
-                DragMove();
-            }
         }
     }
 }

@@ -12,27 +12,6 @@ namespace WpfApp1
             WindowStartupLocation = WindowStartupLocation.CenterScreen;
         }
 
-        //Możliwość ruszania oknem
-        private void Window_MouseDown(object sender, MouseButtonEventArgs e)
-        {
-            if (e.LeftButton == MouseButtonState.Pressed)
-            {
-                DragMove();
-            }
-        }
-
-        //Zamykanie okna
-        private void Close_Window(object sender, RoutedEventArgs e)
-        {
-            this.Close();
-        }
-
-        //Minimalizowanie okna
-        private void Minimalize_Window(object sender, RoutedEventArgs e)
-        {
-            WindowState = WindowState.Minimized;
-        }
-
         private void Button_1_Click(object sender, RoutedEventArgs e)
         {
             this.Close();

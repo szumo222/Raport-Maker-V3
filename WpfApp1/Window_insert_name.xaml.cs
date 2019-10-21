@@ -22,28 +22,6 @@ namespace WpfApp1
             Text_changed = false;
         }
 
-        //Możliwość ruszania oknem
-        private void Window_MouseDown(object sender, MouseButtonEventArgs e)
-        {
-            if (e.LeftButton == MouseButtonState.Pressed)
-            {
-                DragMove();
-            }
-        }
-
-        //Zamykanie okna
-        private void Close_Window(object sender, RoutedEventArgs e)
-        {
-            Correct = false;
-            this.Close();
-        }
-
-        //Minimalizowanie okna
-        private void Minimalize_Window(object sender, RoutedEventArgs e)
-        {
-            WindowState = WindowState.Minimized;
-        }
-
         private void TextBox_1_TextChanged(object sender, TextChangedEventArgs args)
         {
             Text_changed = true;

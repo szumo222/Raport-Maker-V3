@@ -17,9 +17,8 @@
         FontFamily="{DynamicResource MaterialDesignFont}"
         Title="Raport Maker V3" Height="500" Width="800"
         HorizontalAlignment="Left" VerticalAlignment="Top"
-        MouseDown="Window_MouseDown"
-        ResizeMode="NoResize" Icon="contract.ico" WindowStyle="None">
+        ResizeMode="NoResize" Icon="Assets/contract.ico" WindowStyle="None">
     <Grid Margin="0,0,0.2,0.2">
-        <Image Visibility="Visible" x:Name="image2" Source="background.jpg" HorizontalAlignment="Center" VerticalAlignment="Center" Stretch="Fill" Height="364" Width="800" />
+        <Image Visibility="Visible" x:Name="image2" Source="Assets/background.jpg" HorizontalAlignment="Center" VerticalAlignment="Center" Stretch="Fill" Height="364" Width="800" />
     </Grid>
 </Window>

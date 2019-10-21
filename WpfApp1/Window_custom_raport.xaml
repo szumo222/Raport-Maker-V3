@@ -16,21 +16,11 @@
         FontFamily="{DynamicResource MaterialDesignFont}"
         Title="Raport Maker V3" Height="375" Width="600"
         HorizontalAlignment="Left" VerticalAlignment="Top"
-        MouseDown="Window_MouseDown"
-        ResizeMode="NoResize" Icon="contract.ico" WindowStyle="None">
+        ResizeMode="CanMinimize" Icon="Assets/contract.ico" WindowStyle="SingleBorderWindow">
     <Grid Margin="0,0,0.2,0.2">
-        <materialDesign:Card Padding="8" Margin="0,0,-0.2,0">
-            <TextBlock Style="{DynamicResource MaterialDesignTitleTextBlock}" Text="Raport Maker V3"/>
-        </materialDesign:Card>
-        <Button HorizontalAlignment="Right" Margin="0,8,16,0" VerticalAlignment="Top" Width="40" Height="25" Click="Close_Window">
-            <materialDesign:PackIcon Kind="Close" HorizontalAlignment="Center" VerticalAlignment="Center" Height="32" Width="34" />
-        </Button>
-        <Button HorizontalAlignment="Right" Margin="0,8,66,0" VerticalAlignment="Top" Width="40" Height="25" Click="Minimalize_Window">
-            <materialDesign:PackIcon Kind="Minus" VerticalAlignment="Center" HorizontalAlignment="Center" Height="32" Width="36" />
-        </Button>
-        <CheckBox x:Name="checkBox_2" Content="Raport z nazwy" HorizontalAlignment="Left" Margin="321,54,0,0" VerticalAlignment="Top" FontSize="20" FontWeight="Bold" Checked="CheckBox_2_Changed" Unchecked="CheckBox_2_Changed"/>
-        <CheckBox x:Name="checkBox_1" Content="Raport z klasy" HorizontalAlignment="Left" Margin="16,54,0,0" VerticalAlignment="Top" FontSize="20" FontWeight="Bold" Checked="CheckBox_1_Changed" Unchecked="CheckBox_1_Changed"/>
-        <Grid Margin="16,85,321,101" x:Name="grid_class" IsEnabled="False">
+        <CheckBox x:Name="checkBox_2" Content="Raport z nazwy" HorizontalAlignment="Left" Margin="321,24,0,0" VerticalAlignment="Top" FontSize="20" FontWeight="Bold" Checked="CheckBox_2_Changed" Unchecked="CheckBox_2_Changed"/>
+        <CheckBox x:Name="checkBox_1" Content="Raport z klasy" HorizontalAlignment="Left" Margin="16,24,0,0" VerticalAlignment="Top" FontSize="20" FontWeight="Bold" Checked="CheckBox_1_Changed" Unchecked="CheckBox_1_Changed"/>
+        <Grid Margin="16,60,321,110" x:Name="grid_class" IsEnabled="False">
             <Grid.Background>
                 <SolidColorBrush Color="#FFF0F8FF" Opacity="0.7"/>
             </Grid.Background>
@@ -46,7 +36,7 @@
                 </Grid>
             </ScrollViewer>
         </Grid>
-        <Grid Margin="321,85,16,101" x:Name="grid_title_name" IsEnabled="False">
+        <Grid Margin="321,60,16,110" x:Name="grid_title_name" IsEnabled="False">
             <Grid.Background>
                 <SolidColorBrush Color="#FFF0F8FF" Opacity="0.7"/>
             </Grid.Background>
@@ -57,6 +47,6 @@
             Width="160" Height="40" Content="Ok" x:Name="Button_1"
             materialDesign:RippleAssist.Feedback="#DD000000" FontSize="24" Margin="16,0,0,48" VerticalAlignment="Bottom" HorizontalAlignment="Left" Click="Button_1_Click">
         </Button>
-        <Image x:Name="image" Margin="0,0,16,16" Source="background.jpg" HorizontalAlignment="Right" VerticalAlignment="Bottom" Stretch="Fill" Width="178" Height="80"/>
+        <Image x:Name="image" Margin="0,0,16,16" Source="Assets/background.jpg" HorizontalAlignment="Right" VerticalAlignment="Bottom" Stretch="Fill" Width="178" Height="80"/>
     </Grid>
 </Window>

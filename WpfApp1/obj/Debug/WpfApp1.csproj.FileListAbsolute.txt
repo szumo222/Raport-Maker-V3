@@ -60,8 +60,6 @@ C:\Users\szumo\Source\Repos\szumo222\Raport-Maker-V3\WpfApp1\bin\Debug\Raport Ma
 C:\Users\szumo\Source\Repos\szumo222\Raport-Maker-V3\WpfApp1\bin\Debug\Raport Maker V3.pdb
 C:\Users\szumo\Source\Repos\szumo222\Raport-Maker-V3\WpfApp1\bin\Debug\MaterialDesignColors.dll
 C:\Users\szumo\Source\Repos\szumo222\Raport-Maker-V3\WpfApp1\bin\Debug\MaterialDesignThemes.Wpf.dll
-C:\Users\szumo\Source\Repos\szumo222\Raport-Maker-V3\WpfApp1\bin\Debug\MaterialDesignColors.pdb
-C:\Users\szumo\Source\Repos\szumo222\Raport-Maker-V3\WpfApp1\bin\Debug\MaterialDesignThemes.Wpf.pdb
 C:\Users\szumo\Source\Repos\szumo222\Raport-Maker-V3\WpfApp1\bin\Debug\MaterialDesignThemes.Wpf.xml
 C:\Users\szumo\Source\Repos\szumo222\Raport-Maker-V3\WpfApp1\obj\Debug\WpfApp1.csprojAssemblyReference.cache
 C:\Users\szumo\Source\Repos\szumo222\Raport-Maker-V3\WpfApp1\obj\Debug\MainWindow.baml

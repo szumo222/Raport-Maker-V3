@@ -1,15 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Controls;
 
 namespace WpfApp1
 {
     class DateRange
     {
-        public List<List_date> ArrayBeforeDistinct { get; set; } = new List<List_date>();
+        List<List_date> ArrayBeforeDistinct = new List<List_date>();
         private List<DateTime> GetDateRange(DateTime StartingDate, DateTime EndingDate)
         {
             if (StartingDate > EndingDate)

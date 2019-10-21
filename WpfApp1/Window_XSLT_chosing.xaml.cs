@@ -11,18 +11,14 @@ namespace WpfApp1
     /// </summary>
     public partial class Window_XSLT_chosing : Window
     {
-        public string NameOfTheClassWrittenByUser { get; set; }
-        public string Part_of_File_Name { get; set; }
-        public string NameOfTheTitleWrittenByUser { get; set; }
-        public bool Correct { get; set; }
-        public bool Text_changed { get; set; }
-        public string Xstl_content { get; set; }
-        public string Part_1_of_File_Name1 { get; set; }
-        public string Part_2_of_File_Name1 { get; set; }
-        public string Path1 { get; set; }
-        public string Path2 { get; set; } = @"raport_XSLT_chosing.xslt";
-        public int Radio_int { get; set; } = 0;
-        public OpenFileDialog openFileDialog = new OpenFileDialog();
+        private bool Text_changed;
+        private string Xstl_content;
+        private readonly string Path2 = @"raport_XSLT_chosing.xslt";
+        public int Radio_int { get; private set; } = 0;
+        public bool Correct { get; private set; }
+        public string Part_of_File_Name { get; private set; }
+
+        private OpenFileDialog openFileDialog = new OpenFileDialog();
 
         public Window_XSLT_chosing()
         {
@@ -68,8 +64,7 @@ namespace WpfApp1
             //Wybrany raport
             else
             {
-                Path1 = Path.GetFullPath(openFileDialog.FileName);
-                Xstl_content = File.ReadAllText(Path1);
+                Xstl_content = File.ReadAllText(Path.GetFullPath(openFileDialog.FileName));
                 File.WriteAllText(Path2, Xstl_content);
                 Correct = true;
                 this.Close();
@@ -101,7 +96,13 @@ namespace WpfApp1
         //Informacjie
         private void Button_i_Click(object sender, RoutedEventArgs e)
         {
-            string context_menu = "Wybierając opcję ze zliczaniem należy pamiętać,\niż wzorzez do stworzenia raportu, musi być podobny do pliku \nprzyklad_raportu_wg_wzoru.xslt\ntj. końcową wartością każdego wyodrębnionego elementu,\npowinna być liczba z czasem np.\nFade_MarkOut\nWybierając opcję bez liczenia wzór nie ma znaczenia.";
+            string context_menu = "Wybierając opcję ze zliczaniem należy pamiętać," +
+                "\niż wzorzez do stworzenia raportu, musi być podobny do pliku " +
+                "\nprzyklad_raportu_wg_wzoru.xslt" +
+                "\ntj. końcową wartością każdego wyodrębnionego elementu," +
+                "\npowinna być liczba z czasem np." +
+                "\nFade_MarkOut" +
+                "\nWybierając opcję bez liczenia wzór nie ma znaczenia.";
             Window1 window11 = new Window1(context_menu);
             window11.Show();
         }

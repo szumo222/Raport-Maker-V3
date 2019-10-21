@@ -7,12 +7,12 @@ namespace WpfApp1
 {
     public partial class Window_insert_class : Window
     {
-        public string Xstl_content { get; set; }
-        public string NameOfTheClassWrittenByUser { get; set; }
-        public string Part_of_File_Name { get; set; }
-        public bool Correct { get; set; }
-        public string Path1 { get; set; } = @"raport_custom_class_backup.xslt";
-        public string Path2 { get; set; } = @"raport_custom_class.xslt";
+        private string Xstl_content;
+        private string NameOfTheClassWrittenByUser;
+        private readonly string Path1 = @"raport_custom_class_backup.xslt";
+        private readonly string Path2 = @"raport_custom_class.xslt";
+        public string Part_of_File_Name { get; private set; }
+        public bool Correct { get; private set; }
 
         public Window_insert_class()
         {

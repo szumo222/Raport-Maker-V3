@@ -5,10 +5,10 @@ namespace WpfApp1
 {
     class PrepareWithElemntsSummary
     {
-        private List<string> Array_returned { get; set; } = new List<string>();
-        private List<string> Suma_czas_dzien { get; set; } = new List<string>();
-        private int Suma_czas_reklama { get; set; } = 0;
-        private int Czas_reklaman_dzien { get; set; } = 0;
+        private List<string> Array_returned = new List<string>();
+        private List<string> Suma_czas_dzien = new List<string>();
+        private int Suma_czas_reklama = 0;
+        private int Czas_reklaman_dzien = 0;
 
         //Przygotowanie listy do zapisu dla reklam
         public List<string> Summary_Elements_Array_Prepare(List<string> array4)
@@ -22,7 +22,7 @@ namespace WpfApp1
 
                 Array_returned.Add(string_out);
 
-                Suma_czas_reklama = Suma_czas_reklama + int.Parse(match.ToString());
+                Suma_czas_reklama += int.Parse(match.ToString());
 
                 if (i == 0) Czas_reklaman_dzien = int.Parse(match.ToString());
                 else if ((i > 0) && (i < array4.Count - 1))
@@ -31,7 +31,7 @@ namespace WpfApp1
                     Match match_3 = Regex.Match(array4[i - 1], @"^\d{1,4}-\d{1,2}-\d{1,2}");
                     if (match_2.ToString() == match_3.ToString())
                     {
-                        Czas_reklaman_dzien = Czas_reklaman_dzien + int.Parse(match.ToString());
+                        Czas_reklaman_dzien += int.Parse(match.ToString());
                     }
                     else
                     {
@@ -42,7 +42,7 @@ namespace WpfApp1
                 else if (i == array4.Count - 1)
                 {
                     Match match_2 = Regex.Match(array4[i], @"^\d{1,4}-\d{1,2}-\d{1,2}");
-                    Czas_reklaman_dzien = Czas_reklaman_dzien + int.Parse(match.ToString());
+                    Czas_reklaman_dzien += int.Parse(match.ToString());
                     Suma_czas_dzien.Add("Suma elementów z dnia|" + match_2.ToString() + "|" + Calculate_duration(Czas_reklaman_dzien) + "|");
                 }
             }
@@ -57,7 +57,7 @@ namespace WpfApp1
         }
 
         //Przeliczanie czasu z milisekund na format H:M:S
-        public static string Calculate_duration(int suma_czas_reklama)
+        private string Calculate_duration(int suma_czas_reklama)
         {
             int godziny = suma_czas_reklama / 3600000;
             int reszta_z_godzin = suma_czas_reklama % 3600000;

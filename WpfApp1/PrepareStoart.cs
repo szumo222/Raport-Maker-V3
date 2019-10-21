@@ -6,11 +6,11 @@ namespace WpfApp1
 {
     class PrepareStoart
     {
-        private List<string> Array_help { get; set; } = new List<string>();
-        private List<string> Array_returned { get; set; } = new List<string>();
-        private string Linia_liczba_odt_1 { get; set; }
-        private string Linia_liczba_odt_2 { get; set; }
-        private int Odt { get; set; } = 1;
+        private List<string> Array_help = new List<string>();
+        private List<string> Array_returned = new List<string>();
+        private string Linia_liczba_odt_1;
+        private string Linia_liczba_odt_2;
+        private int Odt = 1;
 
         //Przygotowanie listy do zapisu dla Stoart
         public List<string> Stoart_Array_Prepare(List<string> array, int iiii)
@@ -77,7 +77,7 @@ namespace WpfApp1
             return Array_returned;
         }
 
-        public static void Clear_empty_line(List<string> array4)
+        private void Clear_empty_line(List<string> array4)
         {
             for (int i = array4.Count - 1; i >= 0; i--)
             {

@@ -12,16 +12,17 @@ namespace WpfApp1
     /// </summary>
     public partial class Window_custom_raport : Window
     {
-        public string NameOfTheClassWrittenByUser { get; set; }
-        public string Part_of_File_Name { get; set; }
-        public string NameOfTheTitleWrittenByUser { get; set; }
-        public bool Correct { get; set; }
-        public bool Text_changed { get; set; }
-        public string Xstl_content { get; set; }
-        public string Part_1_of_File_Name1 { get; set; }
-        public string Part_2_of_File_Name1 { get; set; }
-        public string Path1 { get; set; } = @"raport_custom_raport_backup.xslt";
-        public string Path2 { get; set; } = @"raport_custom_raport.xslt";
+        private string NameOfTheClassWrittenByUser;
+        private string NameOfTheTitleWrittenByUser;
+        private bool Text_changed;
+        private string Xstl_content;
+        private string Part_1_of_File_Name1;
+        private string Part_2_of_File_Name1;
+        private readonly string Path1 = @"raport_custom_raport_backup.xslt";
+        private readonly string Path2 = @"raport_custom_raport.xslt";
+
+        public string Part_of_File_Name { get; private set; }
+        public bool Correct { get; private set; }
 
         public Window_custom_raport()
         {

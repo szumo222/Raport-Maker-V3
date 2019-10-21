@@ -8,12 +8,12 @@ namespace WpfApp1
 {
     public partial class Window_insert_name : Window
     {
-        public string Xstl_content { get; set; }
-        public string NameOfTheTitleWrittenByUser { get; set; }
-        public bool Text_changed { get; set; }
-        public bool Correct { get; set; }
-        public string Path1 { get; set; } = @"raport_custom_title_name_backup.xslt";
-        public string Path2 { get; set; } = @"raport_custom_title_name.xslt";
+        public string Xstl_content;
+        public bool Text_changed;
+        public readonly string Path1 = @"raport_custom_title_name_backup.xslt";
+        public readonly string Path2 = @"raport_custom_title_name.xslt";
+        public string NameOfTheTitleWrittenByUser { get; private set; }
+        public bool Correct { get; private set; }
 
         public Window_insert_name()
         {

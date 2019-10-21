@@ -88,7 +88,9 @@
       <DependentUpon>Configuration_window.xaml</DependentUpon>
     </Compile>
     <Compile Include="DateRange.cs" />
+    <Compile Include="FoldersNameFromConfigXmlFile.cs" />
     <Compile Include="List_date.cs" />
+    <Compile Include="OutputFileInfo.cs" />
     <Compile Include="PrepareStoart.cs" />
     <Compile Include="PrepareWithElemntsSummary.cs" />
     <Compile Include="StartWindow.xaml.cs">

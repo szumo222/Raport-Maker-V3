@@ -33,18 +33,6 @@
 *.svclog
 *.scc
 
-# NuGet Packages
-*.nupkg
-# The packages folder can be ignored because of Package Restore
-**/[Pp]ackages/*
-# except build/, which is used as an MSBuild target.
-!**/[Pp]ackages/build/
-# Uncomment if necessary however generally it will be regenerated when needed
-#!**/[Pp]ackages/repositories.config
-# NuGet v3's project.json files produces more ignorable files
-*.nuget.props
-*.nuget.targets
-
 # Visual Studio 6 workspace options file
 *.opt
 *.ide-shm
@@ -53,6 +41,7 @@
 WpfApp1/obj/Debug/Raport Maker V3_MarkupCompile.cache
 *.cache
 *.pdb
+*.ide
 .vs/WpfApp1/v16/.suo
 WpfApp1/bin/Debug/Raport Maker V3.pdb
 WpfApp1/obj/Debug/DesignTimeResolveAssemblyReferences.cache
@@ -63,14 +52,7 @@ WpfApp1/obj/Debug/WpfApp1.csprojAssemblyReference.cache
 WpfApp1/obj/Debug/WpfApp1.csprojAssemblyReference.cache
 WpfApp1/obj/Debug/Raport Maker V3_MarkupCompile.i.cache
 WpfApp1/obj/Debug/Raport Maker V3_MarkupCompile.cache
-*.cache
-*.cache
-*.cache
 WpfApp1/obj/Debug/Raport Maker V3.pdb
-*.pdb
 WpfApp1/obj/Debug/DesignTimeResolveAssemblyReferences.cache
-*.cache
-*.pdb
 .vs/WpfApp1/v16/Server/sqlite3/storage.ide
-*.ide
 .vs/WpfApp1/v16/.suo

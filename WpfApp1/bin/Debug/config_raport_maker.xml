@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<root>
+<!--Ścieżki wymagają znaku \ na końcu-->
+<main>
+	<!--Ścieżka do folderu z drzewem Szczecin 00000066-->
+    <get_folder_szczecin>E:\Radio Laptop moje\Nowy folder (2)\00000066\</get_folder_szczecin>
+	<!--Ścieżka do folderu z dzrzewem Szczecin Ekstra 00000069 -->
+	<get_folder_szczecin_extra>E:\Radio Laptop moje\Nowy folder (2)\00000066\</get_folder_szczecin_extra>
+	<!--Ścieżka do zapisu pliku wyjściowego-->
+    <destination_folder>C:\Users\szumo\Desktop\Nowy folder\</destination_folder>
+</main>
+</root>

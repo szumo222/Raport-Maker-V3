@@ -1,0 +1,93 @@
+C:\Users\szumo\source\repos\WpfApp1\WpfApp1\bin\Debug\WpfApp1.exe.config
+C:\Users\szumo\source\repos\WpfApp1\WpfApp1\bin\Debug\WpfApp1.exe
+C:\Users\szumo\source\repos\WpfApp1\WpfApp1\bin\Debug\WpfApp1.pdb
+C:\Users\szumo\source\repos\WpfApp1\WpfApp1\bin\Debug\MaterialDesignColors.dll
+C:\Users\szumo\source\repos\WpfApp1\WpfApp1\bin\Debug\MaterialDesignThemes.Wpf.dll
+C:\Users\szumo\source\repos\WpfApp1\WpfApp1\bin\Debug\MaterialDesignColors.pdb
+C:\Users\szumo\source\repos\WpfApp1\WpfApp1\bin\Debug\MaterialDesignThemes.Wpf.pdb
+C:\Users\szumo\source\repos\WpfApp1\WpfApp1\bin\Debug\MaterialDesignThemes.Wpf.xml
+C:\Users\szumo\source\repos\WpfApp1\WpfApp1\obj\Debug\WpfApp1.csprojAssemblyReference.cache
+C:\Users\szumo\source\repos\WpfApp1\WpfApp1\obj\Debug\MainWindow.g.cs
+C:\Users\szumo\source\repos\WpfApp1\WpfApp1\obj\Debug\App.g.cs
+C:\Users\szumo\source\repos\WpfApp1\WpfApp1\obj\Debug\WpfApp1_MarkupCompile.cache
+C:\Users\szumo\source\repos\WpfApp1\WpfApp1\obj\Debug\WpfApp1_MarkupCompile.lref
+C:\Users\szumo\source\repos\WpfApp1\WpfApp1\obj\Debug\App.baml
+C:\Users\szumo\source\repos\WpfApp1\WpfApp1\obj\Debug\MainWindow.baml
+C:\Users\szumo\source\repos\WpfApp1\WpfApp1\obj\Debug\WpfApp1.g.resources
+C:\Users\szumo\source\repos\WpfApp1\WpfApp1\obj\Debug\WpfApp1.Properties.Resources.resources
+C:\Users\szumo\source\repos\WpfApp1\WpfApp1\obj\Debug\WpfApp1.csproj.GenerateResource.cache
+C:\Users\szumo\source\repos\WpfApp1\WpfApp1\obj\Debug\WpfApp1.csproj.CoreCompileInputs.cache
+C:\Users\szumo\source\repos\WpfApp1\WpfApp1\obj\Debug\WpfApp1.csproj.CopyComplete
+C:\Users\szumo\source\repos\WpfApp1\WpfApp1\obj\Debug\WpfApp1.exe
+C:\Users\szumo\source\repos\WpfApp1\WpfApp1\obj\Debug\WpfApp1.pdb
+C:\Users\szumielewicz\source\repos\WpfApp1\WpfApp1\bin\Debug\MaterialDesignColors.dll
+C:\Users\szumielewicz\source\repos\WpfApp1\WpfApp1\bin\Debug\MaterialDesignThemes.Wpf.dll
+C:\Users\szumielewicz\source\repos\WpfApp1\WpfApp1\bin\Debug\MaterialDesignColors.pdb
+C:\Users\szumielewicz\source\repos\WpfApp1\WpfApp1\bin\Debug\MaterialDesignThemes.Wpf.pdb
+C:\Users\szumielewicz\source\repos\WpfApp1\WpfApp1\bin\Debug\MaterialDesignThemes.Wpf.xml
+C:\Users\szumielewicz\source\repos\WpfApp1\WpfApp1\obj\Debug\MainWindow.g.cs
+C:\Users\szumielewicz\source\repos\WpfApp1\WpfApp1\obj\Debug\App.g.cs
+C:\Users\szumielewicz\source\repos\WpfApp1\WpfApp1\obj\Debug\App.baml
+C:\Users\szumielewicz\source\repos\WpfApp1\WpfApp1\obj\Debug\MainWindow.baml
+C:\Users\szumielewicz\source\repos\WpfApp1\WpfApp1\obj\Debug\WpfApp1.Properties.Resources.resources
+C:\Users\szumielewicz\source\repos\WpfApp1\WpfApp1\obj\Debug\WpfApp1.csproj.GenerateResource.cache
+C:\Users\szumielewicz\source\repos\WpfApp1\WpfApp1\obj\Debug\WpfApp1.csproj.CoreCompileInputs.cache
+C:\Users\szumielewicz\source\repos\WpfApp1\WpfApp1\obj\Debug\WpfApp1.csproj.CopyComplete
+C:\Users\szumielewicz\source\repos\WpfApp1\WpfApp1\bin\Debug\Raport Maker V3.exe.config
+C:\Users\szumielewicz\source\repos\WpfApp1\WpfApp1\bin\Debug\Raport Maker V3.exe
+C:\Users\szumielewicz\source\repos\WpfApp1\WpfApp1\bin\Debug\Raport Maker V3.pdb
+C:\Users\szumielewicz\source\repos\WpfApp1\WpfApp1\obj\Debug\Raport Maker V3_MarkupCompile.cache
+C:\Users\szumielewicz\source\repos\WpfApp1\WpfApp1\obj\Debug\Raport Maker V3.g.resources
+C:\Users\szumielewicz\source\repos\WpfApp1\WpfApp1\obj\Debug\Raport Maker V3.exe
+C:\Users\szumielewicz\source\repos\WpfApp1\WpfApp1\obj\Debug\Raport Maker V3.pdb
+C:\Users\szumielewicz\source\repos\WpfApp1\WpfApp1\obj\Debug\Window1.baml
+C:\Users\szumielewicz\source\repos\WpfApp1\WpfApp1\obj\Debug\Window1.g.cs
+C:\Users\szumielewicz\source\repos\WpfApp1\WpfApp1\obj\Debug\Window2.baml
+C:\Users\szumielewicz\source\repos\WpfApp1\WpfApp1\obj\Debug\Window2.g.cs
+C:\Users\szumielewicz\source\repos\WpfApp1\WpfApp1\obj\Debug\WpfApp1.csprojAssemblyReference.cache
+C:\Users\szumielewicz\source\repos\WpfApp1\WpfApp1\obj\Debug\Window_insert_class.baml
+C:\Users\szumielewicz\source\repos\WpfApp1\WpfApp1\obj\Debug\Window_insert_class.g.cs
+C:\Users\szumielewicz\source\repos\WpfApp1\WpfApp1\obj\Debug\StartWindow.baml
+C:\Users\szumielewicz\source\repos\WpfApp1\WpfApp1\obj\Debug\StartWindow.g.cs
+C:\Users\szumielewicz\source\repos\WpfApp1\WpfApp1\obj\Debug\Window_insert_name.baml
+C:\Users\szumielewicz\source\repos\WpfApp1\WpfApp1\obj\Debug\Window_insert_name.g.cs
+C:\Users\szumielewicz\source\repos\WpfApp1\WpfApp1\obj\Debug\Window_custom_raport.baml
+C:\Users\szumielewicz\source\repos\WpfApp1\WpfApp1\obj\Debug\Window_custom_raport.g.cs
+C:\Users\szumielewicz\source\repos\WpfApp1\WpfApp1\obj\Debug\Window_XSLT_chosing.baml
+C:\Users\szumielewicz\source\repos\WpfApp1\WpfApp1\obj\Debug\Window_XSLT_chosing.g.cs
+C:\Users\szumo\Source\Repos\szumo222\Raport-Maker-V3\WpfApp1\bin\Debug\Raport Maker V3.exe.config
+C:\Users\szumo\Source\Repos\szumo222\Raport-Maker-V3\WpfApp1\bin\Debug\Raport Maker V3.exe
+C:\Users\szumo\Source\Repos\szumo222\Raport-Maker-V3\WpfApp1\bin\Debug\Raport Maker V3.pdb
+C:\Users\szumo\Source\Repos\szumo222\Raport-Maker-V3\WpfApp1\bin\Debug\MaterialDesignColors.dll
+C:\Users\szumo\Source\Repos\szumo222\Raport-Maker-V3\WpfApp1\bin\Debug\MaterialDesignThemes.Wpf.dll
+C:\Users\szumo\Source\Repos\szumo222\Raport-Maker-V3\WpfApp1\bin\Debug\MaterialDesignColors.pdb
+C:\Users\szumo\Source\Repos\szumo222\Raport-Maker-V3\WpfApp1\bin\Debug\MaterialDesignThemes.Wpf.pdb
+C:\Users\szumo\Source\Repos\szumo222\Raport-Maker-V3\WpfApp1\bin\Debug\MaterialDesignThemes.Wpf.xml
+C:\Users\szumo\Source\Repos\szumo222\Raport-Maker-V3\WpfApp1\obj\Debug\WpfApp1.csprojAssemblyReference.cache
+C:\Users\szumo\Source\Repos\szumo222\Raport-Maker-V3\WpfApp1\obj\Debug\MainWindow.baml
+C:\Users\szumo\Source\Repos\szumo222\Raport-Maker-V3\WpfApp1\obj\Debug\StartWindow.baml
+C:\Users\szumo\Source\Repos\szumo222\Raport-Maker-V3\WpfApp1\obj\Debug\Window1.baml
+C:\Users\szumo\Source\Repos\szumo222\Raport-Maker-V3\WpfApp1\obj\Debug\Window2.baml
+C:\Users\szumo\Source\Repos\szumo222\Raport-Maker-V3\WpfApp1\obj\Debug\Window_custom_raport.baml
+C:\Users\szumo\Source\Repos\szumo222\Raport-Maker-V3\WpfApp1\obj\Debug\Window_insert_class.baml
+C:\Users\szumo\Source\Repos\szumo222\Raport-Maker-V3\WpfApp1\obj\Debug\Window_insert_name.baml
+C:\Users\szumo\Source\Repos\szumo222\Raport-Maker-V3\WpfApp1\obj\Debug\Window_XSLT_chosing.baml
+C:\Users\szumo\Source\Repos\szumo222\Raport-Maker-V3\WpfApp1\obj\Debug\App.baml
+C:\Users\szumo\Source\Repos\szumo222\Raport-Maker-V3\WpfApp1\obj\Debug\MainWindow.g.cs
+C:\Users\szumo\Source\Repos\szumo222\Raport-Maker-V3\WpfApp1\obj\Debug\StartWindow.g.cs
+C:\Users\szumo\Source\Repos\szumo222\Raport-Maker-V3\WpfApp1\obj\Debug\Window1.g.cs
+C:\Users\szumo\Source\Repos\szumo222\Raport-Maker-V3\WpfApp1\obj\Debug\Window2.g.cs
+C:\Users\szumo\Source\Repos\szumo222\Raport-Maker-V3\WpfApp1\obj\Debug\Window_custom_raport.g.cs
+C:\Users\szumo\Source\Repos\szumo222\Raport-Maker-V3\WpfApp1\obj\Debug\Window_insert_class.g.cs
+C:\Users\szumo\Source\Repos\szumo222\Raport-Maker-V3\WpfApp1\obj\Debug\Window_insert_name.g.cs
+C:\Users\szumo\Source\Repos\szumo222\Raport-Maker-V3\WpfApp1\obj\Debug\Window_XSLT_chosing.g.cs
+C:\Users\szumo\Source\Repos\szumo222\Raport-Maker-V3\WpfApp1\obj\Debug\App.g.cs
+C:\Users\szumo\Source\Repos\szumo222\Raport-Maker-V3\WpfApp1\obj\Debug\Raport Maker V3_MarkupCompile.cache
+C:\Users\szumo\Source\Repos\szumo222\Raport-Maker-V3\WpfApp1\obj\Debug\Raport Maker V3.g.resources
+C:\Users\szumo\Source\Repos\szumo222\Raport-Maker-V3\WpfApp1\obj\Debug\WpfApp1.Properties.Resources.resources
+C:\Users\szumo\Source\Repos\szumo222\Raport-Maker-V3\WpfApp1\obj\Debug\WpfApp1.csproj.GenerateResource.cache
+C:\Users\szumo\Source\Repos\szumo222\Raport-Maker-V3\WpfApp1\obj\Debug\WpfApp1.csproj.CopyComplete
+C:\Users\szumo\Source\Repos\szumo222\Raport-Maker-V3\WpfApp1\obj\Debug\Raport Maker V3.exe
+C:\Users\szumo\Source\Repos\szumo222\Raport-Maker-V3\WpfApp1\obj\Debug\Raport Maker V3.pdb
+C:\Users\szumo\source\repos\szumo222\Raport-Maker-V3\WpfApp1\obj\Debug\Configuration_window.baml
+C:\Users\szumo\source\repos\szumo222\Raport-Maker-V3\WpfApp1\obj\Debug\Configuration_window.g.cs

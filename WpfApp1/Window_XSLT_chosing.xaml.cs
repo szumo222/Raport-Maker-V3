@@ -14,17 +14,19 @@ namespace WpfApp1
         private bool Text_changed;
         private string Xstl_content;
         private readonly string Path2 = @"raport_XSLT_chosing.xslt";
-        public int Radio_int { get; private set; } = 0;
+        public bool RadioButtonWithSummary { get; private set; } = false;
+        private bool IfAnyRadioButtonSelected { get; set; }
         public bool Correct { get; private set; }
         public string Part_of_File_Name { get; private set; }
 
-        private OpenFileDialog openFileDialog = new OpenFileDialog();
+        private OpenFileDialog OpenFileDialog { get; set; } = new OpenFileDialog();
 
         public Window_XSLT_chosing()
         {
             InitializeComponent();
             WindowStartupLocation = WindowStartupLocation.CenterScreen;
             Text_changed = false;
+            IfAnyRadioButtonSelected = false;
         }
 
         private void TextBox_1_TextChanged(object sender, TextChangedEventArgs args)
@@ -36,15 +38,13 @@ namespace WpfApp1
         private void Button_3_Click(object sender, RoutedEventArgs e)
         {
             //OpenFileDialog openFileDialog = new OpenFileDialog();
-            if (openFileDialog.ShowDialog() == true)
-                TextBox_1.Text = openFileDialog.FileName;
+            if (OpenFileDialog.ShowDialog() == true)
+                TextBox_1.Text = OpenFileDialog.FileName;
         }
 
         //Tworzenie raportu
         private void Button_1_Click(object sender, RoutedEventArgs e)
         {
-            if (radioButton.IsChecked == true) Radio_int = 1;
-            else if (radioButton_Copy.IsChecked == true) Radio_int = 2;
             //Brak wybranego raportu raportu
             if (Text_changed == false)
             {
@@ -53,22 +53,25 @@ namespace WpfApp1
                 return;
             }
 
+            if (radioButton.IsChecked == true || radioButton_Copy.IsChecked == true)
+                IfAnyRadioButtonSelected = true;
+
             //Brak wybranego raportu raportu
-            if (Radio_int == 0)
+            if (!IfAnyRadioButtonSelected)
             {
                 Window1 window1 = new Window1("Wybierz ze zliczaniem czy bez!");
                 window1.ShowDialog();
                 return;
             }
 
-            //Wybrany raport
-            else
-            {
-                Xstl_content = File.ReadAllText(Path.GetFullPath(openFileDialog.FileName));
-                File.WriteAllText(Path2, Xstl_content);
-                Correct = true;
-                this.Close();
-            }
+            //Brak wybranego raportu raportu
+            if (radioButton.IsChecked == true) RadioButtonWithSummary = true;
+            else RadioButtonWithSummary = false;
+
+            Xstl_content = File.ReadAllText(Path.GetFullPath(OpenFileDialog.FileName));
+            File.WriteAllText(Path2, Xstl_content);
+            Correct = true;
+            this.Close();
         }
 
         //Informacjie

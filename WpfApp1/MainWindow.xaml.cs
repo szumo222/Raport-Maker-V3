@@ -17,14 +17,12 @@ namespace WpfApp1
         private bool text_box_text_change_flag = false;
         private bool text_box_2_text_change_flag = false;
         private readonly string folder_for_xslt_files = @"raport_maker_help\";
-        public int custom_raport_with_calculating_or_no = 0;
-        private AuditonFolder auditonFolder = new AuditonFolder();
+        public bool CustomRaportWithCalculating {get; set;} = false;
+        private AuditonFolder AuditonFolder { get; set; } = new AuditonFolder();
         private OutputFileInfo OutputFileInfo { get; set; } = new OutputFileInfo();
         private readonly FoldersNameFromConfigXmlFile foldersNameFromConfigXmlFile = new FoldersNameFromConfigXmlFile();
-        private FirstPartOfFileNameForCustomRaports firstPartOfFileNameForCustomRaports = new FirstPartOfFileNameForCustomRaports();
-        private FirstPartOfFileName firstPartOfFileName = new FirstPartOfFileName();
-        private PartOfFileNameToReturn PartOfFileNameFromReturn { get; set; }
         private SelectedAuditionFolderToReturn SelectedAuditionFolderFromReturn { get; set; }
+        private SelectedRaportToReturn SelectedRaportFromReturn { get; set; }
         List<List_date> ArrayOfListDates { get; set; } = new List<List_date>();
         public bool OverwrtieFileFlag { get; set; }
         public bool Error { get; set; }
@@ -98,14 +96,20 @@ namespace WpfApp1
                     ResetGUIElementsAfterXSLT();
                     return;
                 }
-                auditonFolder = SelectedAuditionFolderFromReturn.auditonFolder;
+                AuditonFolder = SelectedAuditionFolderFromReturn.auditonFolder;
                 Error = SelectedAuditionFolderFromReturn.Error;
-                WhichRaportHasBeenSelected();
-                if (Error)
+                SelectedRaport selectedRaport = new SelectedRaport(ArrayOfListDates, foldersNameFromConfigXmlFile.DestinationFolder, AuditonFolder);
+                SelectedRaportFromReturn = selectedRaport.WhichRaportHasBeenSelected(radioButton_1, radioButton_2, radioButton_5, radioButton_9, radioButton_10);
+                if(SelectedRaportFromReturn.Error == true || SelectedRaportFromReturn.ArrayOfAllXmlFiles == null || SelectedRaportFromReturn.OutputFileInfo == null)
                 {
                     ResetGUIElementsAfterXSLT();
                     return;
                 }
+                OutputFileInfo = SelectedRaportFromReturn.OutputFileInfo;
+                ArrayOfAllXmlFiles = SelectedRaportFromReturn.ArrayOfAllXmlFiles;
+                Error = SelectedRaportFromReturn.Error;
+                CustomRaportWithCalculating = SelectedRaportFromReturn.CustomRaportWithCalculatingOrNo;
+
                 List<string> array3 = new List<string>();
                 List<string> array4 = new List<string>();
                 OverwrtieFileFlag = true;
@@ -147,7 +151,7 @@ namespace WpfApp1
                     if (radioButton_2.IsChecked == true)
                         wichRadioButtonIsChecked = 1;
                     else if (radioButton_9.IsChecked == true
-                        || (radioButton_10.IsChecked == true) && (custom_raport_with_calculating_or_no == 1))
+                        || (radioButton_10.IsChecked == true) && (CustomRaportWithCalculating == true))
                         wichRadioButtonIsChecked = 2;
 
                     bool deleteAdditionalXsltFile = false;
@@ -188,90 +192,6 @@ namespace WpfApp1
             Button_1.IsEnabled = groupBox_1.IsEnabled = groupBox_2.IsEnabled = DataPicker_1.IsEnabled = DataPicker_2.IsEnabled = true;
             ProgressBar_1.IsIndeterminate = false;
             ProgressBar_1.Opacity = 0.1;
-        }
-
-        //Sprawdzanie który rodzaj raportu został wybrany i przypisanie nazwy pierwszej częsci nazwy pliku wyjściowego
-        private void WhichRaportHasBeenSelected()
-        {
-            try
-            {
-                //For Zaiks
-                if (radioButton_1.IsChecked == true)
-                {
-                    firstPartOfFileName = new FirstPartOfFileName(ArrayOfListDates, foldersNameFromConfigXmlFile.DestinationFolder, auditonFolder);
-                    PartOfFileNameFromReturn = firstPartOfFileName.SetPartOfFileName(@"raport_zaiks_",
-                                                                                     "Data|Godz.aud.|Tytul audycji|Tytul utworu|Kompozytor|Autor tekstu|Tlumacz|Czas|Wykonawca|Producent|Wydawca|",
-                                                                                     @"raportdlazaikkopias.xslt");
-                    OutputFileInfo = PartOfFileNameFromReturn.OutputFileInfoToReturn;
-                    ArrayOfAllXmlFiles = PartOfFileNameFromReturn.ArrayToReturn;
-                }
-                //For Stoart
-                else if (radioButton_2.IsChecked == true)
-                {
-                    firstPartOfFileName = new FirstPartOfFileName(ArrayOfListDates, foldersNameFromConfigXmlFile.DestinationFolder, auditonFolder);
-                    PartOfFileNameFromReturn = firstPartOfFileName.SetPartOfFileName(@"raport_stoart_",
-                                                                                     "Lp|WYKONAWCA|TUTYŁ UTWORU|CZAS UTWORU|ILOŚĆ NADAŃ|TYTUŁ PŁYTY|NUMER KATALOGOWY PŁYTY|WYDAWCA|ROK WYDANIA|POLSKA/ZAGRANICA(PL/Z)|KOD ISRC|",
-                                                                                     @"raportdlastoartkapias.xslt");
-                    OutputFileInfo = PartOfFileNameFromReturn.OutputFileInfoToReturn;
-                    ArrayOfAllXmlFiles = PartOfFileNameFromReturn.ArrayToReturn;
-                }
-                //For Materiały
-                else if (radioButton_5.IsChecked == true)
-                {
-                    firstPartOfFileName = new FirstPartOfFileName(ArrayOfListDates, foldersNameFromConfigXmlFile.DestinationFolder, auditonFolder);
-                    PartOfFileNameFromReturn = firstPartOfFileName.SetPartOfFileName(@"raport_materialy_",
-                                                                                     "Data;Godz.aud.;Tytul audycji;Godz. emisji;Długość;Tytuł;Autor;",
-                                                                                     @"raportmaterialykopia.xslt");
-                    OutputFileInfo = PartOfFileNameFromReturn.OutputFileInfoToReturn;
-                    ArrayOfAllXmlFiles = PartOfFileNameFromReturn.ArrayToReturn;
-                }
-                //By class name or/and name
-                else if (radioButton_9.IsChecked == true)
-                {
-                    Error = false;
-                    Window_custom_raport window_Custom_Raport = new Window_custom_raport();
-                    window_Custom_Raport.ShowDialog();
-
-                    firstPartOfFileNameForCustomRaports = new FirstPartOfFileNameForCustomRaports(ArrayOfListDates, foldersNameFromConfigXmlFile.DestinationFolder, auditonFolder);
-                    PartOfFileNameFromReturn = firstPartOfFileNameForCustomRaports.SetPartOfFileName(@"raport_z_",
-                                                                                                     window_Custom_Raport.Part_of_File_Name,
-                                                                                                     "Data|Godz.aud.|Tytul audycji|Tytul elementu|Kompozytor|Autor|Czas|",
-                                                                                                     @"raport_custom_raport.xslt");
-                    OutputFileInfo = PartOfFileNameFromReturn.OutputFileInfoToReturn;
-                    ArrayOfAllXmlFiles = PartOfFileNameFromReturn.ArrayToReturn;
-                }
-                //By selected raport XSLT
-                else if (radioButton_10.IsChecked == true)
-                {
-                    Error = false;
-                    Window_XSLT_chosing window_xslt_chosing = new Window_XSLT_chosing();
-                    window_xslt_chosing.ShowDialog();
-                    custom_raport_with_calculating_or_no = window_xslt_chosing.Radio_int;
-
-                    firstPartOfFileNameForCustomRaports = new FirstPartOfFileNameForCustomRaports(ArrayOfListDates, foldersNameFromConfigXmlFile.DestinationFolder, auditonFolder);
-                    PartOfFileNameFromReturn = firstPartOfFileNameForCustomRaports.SetPartOfFileName(@"raport_z_wybranego_wzoru_",
-                                                                                                     window_xslt_chosing.Part_of_File_Name,
-                                                                                                     "Data|Godz.aud.|Tytul audycji|Tytul elementu|Kompozytor|Autor|Czas|",
-                                                                                                     @"raport_XSLT_chosing.xslt");
-                    OutputFileInfo = PartOfFileNameFromReturn.OutputFileInfoToReturn;
-                    ArrayOfAllXmlFiles = PartOfFileNameFromReturn.ArrayToReturn;
-                }
-                else
-                {
-                    Window1 window1 = new Window1("Wybierz rodzaj raportu!");
-                    window1.Show();
-                    Error = true;
-                    return;
-                }
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show("Błąd:\t" + ex, "Raport Maker V3");
-                FileInfo ffff = new FileInfo(OutputFileInfo.FileName);
-                ffff.Delete();
-                ArrayOfAllXmlFiles.Clear();
-                return;
-            }
         }
 
         //Change view to main

@@ -85,8 +85,10 @@
     </ApplicationDefinition>
     <Compile Include="Class\FirstPartOfFileName.cs" />
     <Compile Include="Class\FirstPartOfFileNameForCustomRaports.cs" />
+    <Compile Include="Class\SelectedAuditionFolder.cs" />
     <Compile Include="Class\Types\AuditonFolder.cs" />
     <Compile Include="Class\Types\PartOfFileNameToReturn.cs" />
+    <Compile Include="Class\Types\SelectedAuditionFolderToReturn.cs" />
     <Compile Include="Configuration_window.xaml.cs">
       <DependentUpon>Configuration_window.xaml</DependentUpon>
     </Compile>
@@ -107,12 +109,6 @@
     </Compile>
     <Compile Include="Window_custom_raport.xaml.cs">
       <DependentUpon>Window_custom_raport.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Window_insert_class.xaml.cs">
-      <DependentUpon>Window_insert_class.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Window_insert_name.xaml.cs">
-      <DependentUpon>Window_insert_name.xaml</DependentUpon>
     </Compile>
     <Compile Include="Window_XSLT_chosing.xaml.cs">
       <DependentUpon>Window_XSLT_chosing.xaml</DependentUpon>
@@ -148,14 +144,6 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Window_custom_raport.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Window_insert_class.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Window_insert_name.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -214,10 +202,7 @@
     <Resource Include="Assets\XsltTemplates\raportdlastoartkapias.xslt" />
     <Resource Include="Assets\XsltTemplates\raportdlazaikkopias.xslt" />
     <Resource Include="Assets\XsltTemplates\raportmaterialykopia.xslt" />
-    <Resource Include="Assets\XsltTemplates\raportreklamakapias.xslt" />
-    <Resource Include="Assets\XsltTemplates\raport_custom_class_backup.xslt" />
     <Resource Include="Assets\XsltTemplates\raport_custom_raport_backup.xslt" />
-    <Resource Include="Assets\XsltTemplates\raport_custom_title_name_backup.xslt" />
     <Resource Include="Assets\XsltTemplates\raport_XSLT_chosing.xslt" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

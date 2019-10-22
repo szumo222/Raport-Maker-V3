@@ -14,7 +14,7 @@ class XsltTranfromGetResult
         * if wichRadioButtonIsChecked = 1 - then it's raport Stoart
         * if wichRadioButtonIsChecked = 2 - then it's reklamy, własnej klasy, własnej nazwy
         * if wichRadioButtonIsChecked = else then it's zaiks, materiały */
-    public static void Main_Function_After_XSLT(byte wichRadioButtonIsChecked, bool deleteAdditionalXsltFile, string Main_file_xslt, string File_name, string First_line_of_the_output_file, string Folder_for_xslt_files, List<string> Array_of_all_xml_files)
+    public static void GetXsltResults(byte wichRadioButtonIsChecked, bool deleteAdditionalXsltFile, string Main_file_xslt, string File_name, string First_line_of_the_output_file, string Folder_for_xslt_files, List<string> Array_of_all_xml_files)
     {
         IEnumerable<string> array = Directory.EnumerateFiles(@"raport_maker_help\", "*.txt", SearchOption.AllDirectories);
         foreach (string file in array)

@@ -4,7 +4,7 @@ using System.Xml.Xsl;
 class XsltTransform
 {
     //Metoda odpowiadająca za transformatę XSLT
-    public static void Main_Function_XSLT_Transform(List<string> array2, List<string> path, string f_xslt, int z)
+    public static void DoXsltTransform(List<string> array2, List<string> path, string f_xslt, int z)
     {
         XslCompiledTransform xslt2 = new XslCompiledTransform();
         xslt2.Load(f_xslt);

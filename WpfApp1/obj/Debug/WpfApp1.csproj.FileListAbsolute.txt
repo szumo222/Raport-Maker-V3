@@ -67,8 +67,6 @@ C:\Users\szumo\Source\Repos\szumo222\Raport-Maker-V3\WpfApp1\obj\Debug\StartWind
 C:\Users\szumo\Source\Repos\szumo222\Raport-Maker-V3\WpfApp1\obj\Debug\Window1.baml
 C:\Users\szumo\Source\Repos\szumo222\Raport-Maker-V3\WpfApp1\obj\Debug\Window2.baml
 C:\Users\szumo\Source\Repos\szumo222\Raport-Maker-V3\WpfApp1\obj\Debug\Window_custom_raport.baml
-C:\Users\szumo\Source\Repos\szumo222\Raport-Maker-V3\WpfApp1\obj\Debug\Window_insert_class.baml
-C:\Users\szumo\Source\Repos\szumo222\Raport-Maker-V3\WpfApp1\obj\Debug\Window_insert_name.baml
 C:\Users\szumo\Source\Repos\szumo222\Raport-Maker-V3\WpfApp1\obj\Debug\Window_XSLT_chosing.baml
 C:\Users\szumo\Source\Repos\szumo222\Raport-Maker-V3\WpfApp1\obj\Debug\App.baml
 C:\Users\szumo\Source\Repos\szumo222\Raport-Maker-V3\WpfApp1\obj\Debug\MainWindow.g.cs
@@ -76,8 +74,6 @@ C:\Users\szumo\Source\Repos\szumo222\Raport-Maker-V3\WpfApp1\obj\Debug\StartWind
 C:\Users\szumo\Source\Repos\szumo222\Raport-Maker-V3\WpfApp1\obj\Debug\Window1.g.cs
 C:\Users\szumo\Source\Repos\szumo222\Raport-Maker-V3\WpfApp1\obj\Debug\Window2.g.cs
 C:\Users\szumo\Source\Repos\szumo222\Raport-Maker-V3\WpfApp1\obj\Debug\Window_custom_raport.g.cs
-C:\Users\szumo\Source\Repos\szumo222\Raport-Maker-V3\WpfApp1\obj\Debug\Window_insert_class.g.cs
-C:\Users\szumo\Source\Repos\szumo222\Raport-Maker-V3\WpfApp1\obj\Debug\Window_insert_name.g.cs
 C:\Users\szumo\Source\Repos\szumo222\Raport-Maker-V3\WpfApp1\obj\Debug\Window_XSLT_chosing.g.cs
 C:\Users\szumo\Source\Repos\szumo222\Raport-Maker-V3\WpfApp1\obj\Debug\App.g.cs
 C:\Users\szumo\Source\Repos\szumo222\Raport-Maker-V3\WpfApp1\obj\Debug\Raport Maker V3_MarkupCompile.cache

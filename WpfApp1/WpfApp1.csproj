@@ -86,6 +86,7 @@
     <Compile Include="Class\FirstPartOfFileName.cs" />
     <Compile Include="Class\FirstPartOfFileNameForCustomRaports.cs" />
     <Compile Include="Class\Types\AuditonFolder.cs" />
+    <Compile Include="Class\Types\PartOfFileNameToReturn.cs" />
     <Compile Include="Configuration_window.xaml.cs">
       <DependentUpon>Configuration_window.xaml</DependentUpon>
     </Compile>

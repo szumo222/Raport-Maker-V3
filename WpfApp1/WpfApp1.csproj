@@ -83,6 +83,8 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Class\FirstPartOfFileName.cs" />
+    <Compile Include="Class\FirstPartOfFileNameForCustomRaports.cs" />
     <Compile Include="Class\Types\AuditonFolder.cs" />
     <Compile Include="Configuration_window.xaml.cs">
       <DependentUpon>Configuration_window.xaml</DependentUpon>
@@ -205,6 +207,17 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Assets\contract.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Assets\XsltTemplates\przyklad_raportu_wg_wzoru.xslt" />
+    <Resource Include="Assets\XsltTemplates\raportdlastoartkapias.xslt" />
+    <Resource Include="Assets\XsltTemplates\raportdlazaikkopias.xslt" />
+    <Resource Include="Assets\XsltTemplates\raportmaterialykopia.xslt" />
+    <Resource Include="Assets\XsltTemplates\raportreklamakapias.xslt" />
+    <Resource Include="Assets\XsltTemplates\raport_custom_class_backup.xslt" />
+    <Resource Include="Assets\XsltTemplates\raport_custom_raport_backup.xslt" />
+    <Resource Include="Assets\XsltTemplates\raport_custom_title_name_backup.xslt" />
+    <Resource Include="Assets\XsltTemplates\raport_XSLT_chosing.xslt" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

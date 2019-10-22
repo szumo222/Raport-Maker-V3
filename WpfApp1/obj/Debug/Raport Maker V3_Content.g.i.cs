@@ -8,6 +8,14 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-[assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("raport_example.xslt")]
+[assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("assets/xslttemplates/przyklad_raportu_wg_wzoru.xslt")]
+[assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("assets/xslttemplates/raportdlastoartkapias.xslt")]
+[assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("assets/xslttemplates/raportdlazaikkopias.xslt")]
+[assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("assets/xslttemplates/raportmaterialykopia.xslt")]
+[assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("assets/xslttemplates/raportreklamakapias.xslt")]
+[assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("assets/xslttemplates/raport_custom_class_backup.xslt")]
+[assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("assets/xslttemplates/raport_custom_raport_backup.xslt")]
+[assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("assets/xslttemplates/raport_custom_title_name_backup.xslt")]
+[assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("assets/xslttemplates/raport_xslt_chosing.xslt")]
 
 
